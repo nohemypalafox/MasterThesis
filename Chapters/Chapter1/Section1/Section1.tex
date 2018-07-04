@@ -1,0 +1,59 @@
+\section{Preliminaries} \label{Chap1-Sect1} 
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+A two-strain TB Model:
+\begin{align*}
+	\dot{S}	&= 
+    	\Lambda -\beta_{1} cS \frac{I_1}{N} - \beta^{*}cS\frac{I_2}{N} - 
+        \mu S 
+        \\
+    \dot{L}_1 &= 
+    	\beta_{1} cS \frac{I_1}{N} - (\mu + k_1 + r_1)L_{1} + pr_2 I_1 + 
+        \beta_{2} cT \frac{I_1}{N} - \beta^{*}cL_{1}\frac{I_2}{N}  
+        \\
+    \dot{I}_1 &=  
+    	k_1 L_{1} - (\mu + d_1 + r_2)I_1  
+        \\
+    \dot{L}_2 &=  
+    	q r_2 I_1 - (\mu + k_2)L_2 + \beta^{*}c(S + L_1 + T)\frac{I_2}{N}  
+        \\
+    \dot{I}_2 &=  
+    	k_2 L_2 - (\mu + d_2)I_2  
+        \\
+    \dot{T} &=  
+    	r_1 L_{1} + (1-p-q)r_2 I_1 - \beta_{2} cT \frac{I_1}{N} - 
+        \beta^{*}cT\frac{I_2}{N}  
+\end{align*}
+
+A two-strain TB Model with two control terms:
+\begin{align*}
+	\dot{S}	&= 
+    	\Lambda -\beta_{1} S \frac{I_1}{N} - \beta^{*}cS\frac{I_2}{N} - 
+        \mu S 
+        \\
+    \dot{L}_1 &= 
+    	\beta_{1} cS \frac{I_1}{N} - (\mu + k_1 + u_1(t)r_1)L_{1} + 
+        (1 - u_2(t))pr_2 I_1 + \beta_{2} cT \frac{I_1}{N} -
+        \beta^{*}cL_{1}\frac{I_2}{N}  
+        \\
+    \dot{I}_1 &=  
+    	k_1 L_{1} - (\mu + d_1 + r_2)I_1  
+        \\
+    \dot{L}_2 &=  
+    	(1 - u_2(t))q r_2 I_1 - (\mu + k_2)L_2 + \beta^{*}c(S + L_1 + 
+        T)\frac{I_2}{N}  
+        \\
+    \dot{I}_2 &=  
+    	k_2 L_2 - (\mu + d_2)I_2  
+        \\
+    \dot{T} &=  
+    	u_1(t)r_1 L_{1} + (1-(1-u_2(t))(p+q))r_2 I_1 - \beta_{2} cT \frac{I_1}{N} - 
+        \beta^{*}cT\frac{I_2}{N}  
+\end{align*}
+
+\section{The Runge Kutta Method for ODEs}
+
+
+
+
