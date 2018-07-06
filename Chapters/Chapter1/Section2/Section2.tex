@@ -10,18 +10,21 @@
     number of t, and if u is equal to either its left or right limit at every
     $t \in I$.
 \end{definition}
-
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
 \begin{definition}
 	Let $x : I \rightarrow \mathbb{R}$ be continuous on I, differentiable at all
     but finitely points of I. Further, suppose that $x'$ is continuous
     wherever it is defined. Then, we say x is piecewise differentiable.
 \end{definition}
-
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
 \begin{definition}
 	Let $k : I \rightarrow \mathbb{R}$. We say k is continuously differentiable
     if $k' $ exists and is continuous on I.
 \end{definition}
-
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
 \begin{definition}
 	A function $k(t)$ is said to be concave on $[a,b]$ if 
     $$
@@ -46,6 +49,10 @@ the tangent line property as follows
         (y_1 - y_2)k_y(x_1,y_1)
 	$$
     for all points $(x_1,y_1),(x_2,y_2)$ in the domain of $k$.
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+
 \begin{definition}
 	A function k is called Lipchitz if there exists a constant c (particular
     to k) such that $|k(t_1) - k(t_2)| \leq c|t_1 - t_2|$ for all points $t_1,
@@ -53,34 +60,17 @@ the tangent line property as follows
     k.
 \end{definition}
 
-\begin{theorem}(Mean Value Theorem)
-	Let k be continuous on $[a,b]$ and differentiable on $(a,b)$. Then there is
-    some $x_0 \in (a,b)$ such that $k(b) - k(a) = k'(b - a)$.
-\end{theorem}
-Para la prueba se necesita el teorema de rolle, lo agrego? junto con el del maximo
-
 Note that a Lipschitz function is uniformly continuous
-
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
 \begin{theorem}
 	If a function $k : I \rightarrow \mathbb{R}$ is piecewise differentiable on
     a bounded interval I, then K is Lipschitz
 \end{theorem}
-
-
-Lebesgue Dominated convergence theorem
-(corolario)
-Taylor's Theorem
-(corolario)
-Fatou's Lemma
-Theorem 5.5
-
-Lagrange Theorem
-
-(corolario 1 y 2)
-
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
 
 existence optimal control theorem
-
 
 Pontryagins theorems
 
@@ -129,75 +119,3 @@ Pontryagins theorems
     finite.
 \end{theorem}
 \todo{Put here comments necessary to establish thm 3.1 [Lenhart's book] }
-
-
-\section{The Runge Kutta Method}
-
-\section{The Forward Backward Sweep Method}
-	\paragraph{Description}
-
-
-\begin{algorithm}
-	\caption{Forward Backward Sweep } \label{}
-    INPUT: $t_0, t_f, n_{max}, x_0,h, a, r, m, \epsilon, \lambda_{f}$ \\
-    OUTPUT: $x^*, u^*, \lambda$ \\
-	\begin{algorithmic}[1]
-		\Procedure{Forward backward sweep}{$g,\lambda_{\text{function}}, 
-        u, x_0, 
-        \lambda_f, h, n_{max}$} 
-			\While{$ \text{test} > \epsilon $}
-				\State $u_{\text{old}} \gets u$ 
-                \State $x_{\text{old}} \gets x$ 
-                \State $ x \gets \text{runge\_kutta\_forward}(g, u, x_0, h,
-                n_{max})$
-                \State $\lambda_{\text{old}} \gets \lambda $
-				\State $\lambda \gets \text{runge\_kutta\_backward}
-                (\lambda_{\text{function}}, x, \lambda_f, h, n_{max})$
-                \State $\displaystyle u_1 \gets \frac{x \lambda}{2}$
-                \Comment{Optimality condition}
-                \State $\displaystyle u \gets \frac{u_1 + u_{old}}{2}$
-                \State $test_1 \gets \displaystyle 
-                \frac{||u - u_{\text{old}}||}{||u||}$
-                \State $test_2 \gets \displaystyle 
-                \frac{||x - x_{\text{old}}||}{||x||}$
-                \State $test_3 \gets \displaystyle 
-                \frac{||\lambda - \lambda_{\text{old}}||}{||\lambda||}$
-                \State $\text{test} \gets \max{ \{ test_1, test_2, test_3 \}}$
-			\EndWhile\label{}
-			\State \textbf{return} $ x^*, u^*, \lambda$
-            \Comment{Optimal pair}
-		\EndProcedure
-	\end{algorithmic}
-\end{algorithm}
-
-%---------%---------%---------%---------%---------%---------%---------%---------
-%---------%---------%---------%---------%---------%---------%---------%---------
-
-\begin{description}
-	\item[Step 1.]
-    	Make an initial guess for $\vec{u}$ over the interval.
-    \item[Step 2.]
-    	Using the initial condition $x_1 = x(t_0) = a$ and the values for 
-        $\vec{u}$, solve $\vec{x}$ forward in time according to its differential
-        equation in the optimality system.
-	\item[Step 3.]
-    	Using the transversality condition $\lambda_{N+1} = \lambda(t_1) = 0$ 
-        and the values for $\vec{u}$ and $\vec{x}$, solve $\vec{\lambda}$ 
-        backward in time according to its differential equation in the optimality
-        system.
-    \item[Step 4.]
-    	Update $\vec{u}$ by entering the new $\vec{x}$ and $\vec{\lambda}$ values 
-        into the characterization of the optimal control. 
-	\item[Step 5.]
-    	Check convergence. If the values of the variables in this iteration and 
-        the last iteration and the last iteration are negligibly close, output the 
-        current values as solutions. If values are not close, return to Step 2.
-\end{description}
-
-\todo{Mention the repository for the python code}
-\todo{Put example example 4.1}
-
-
-
-
-
