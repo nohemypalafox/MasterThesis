@@ -24,10 +24,12 @@
 \newcommand{\diag}{\mathrm{diag}}
 \renewcommand{\qedsymbol}{\rule{0.5em}{0.5em}}
 
+%-------------------------------------------------------
 \newtheorem{definition}{Definition}[chapter]
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{lemma}{Lemma}[chapter]
 \newtheorem{corollary}{Corollary}[chapter]
+%-------------------------------------------------------
 
 \begin{document}
 	\frontmatter 
@@ -53,7 +55,8 @@
   \input{Chapters/Chapter1/Chapter1}
   \input{Chapters/Chapter2/Chapter2}
   \input{Chapters/Chapter3/Chapter3}
-
+  \input{Chapters/Chapter4/Chapter4}
+\newpage
 %---------%---------%---------%---------%---------%---------%---------%---------
 %	BIBLIOGRAPHY
 %---------%---------%---------%---------%---------%---------%---------%---------
@@ -62,5 +65,5 @@
 	\lhead{\emph{Bibliograf\'ia}}
 	\bibliographystyle{plainnat} 
 	% \bibliography{library,bibliographybooks}
-    \bibliography{bibliographybooks}  
+    \bibliography{bibliographybooks,bibliographyarticles}  
 \end{document}

@@ -1,52 +1,98 @@
-\section{Multi-resistant Tuberculosis}  %\label{Chap3-Sect2} 
-A two-strain TB Model:
+%---------%---------%---------%---------%---------%---------%---------%---------
+\section{HIV} % \label{Chap3-Sect2}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+Now, we consider a model for HIV reported in \citep{butler1997optimal}.
+The dynamics without control reads
 \begin{align*}
-	\dot{S}	&= 
-    	\Lambda -\beta_{1} cS \frac{I_1}{N} - \beta^{*}cS\frac{I_2}{N} - 
-        \mu S 
-        \\
-    \dot{L}_1 &= 
-    	\beta_{1} cS \frac{I_1}{N} - (\mu + k_1 + r_1)L_{1} + pr_2 I_1 + 
-        \beta_{2} cT \frac{I_1}{N} - \beta^{*}cL_{1}\frac{I_2}{N}  
-        \\
-    \dot{I}_1 &=  
-    	k_1 L_{1} - (\mu + d_1 + r_2)I_1  
-        \\
-    \dot{L}_2 &=  
-    	q r_2 I_1 - (\mu + k_2)L_2 + \beta^{*}c(S + L_1 + T)\frac{I_2}{N}  
-        \\
-    \dot{I}_2 &=  
-    	k_2 L_2 - (\mu + d_2)I_2  
-        \\
-    \dot{T} &=  
-    	r_1 L_{1} + (1-p-q)r_2 I_1 - \beta_{2} cT \frac{I_1}{N} - 
-        \beta^{*}cT\frac{I_2}{N}  
+    \dfrac{dT}{dt} &= \dfrac{s}{1 + V} - \mu_{1}T + rT \left( 1 - %
+                        \dfrac{T + T_{i}}{T_{max}} \right) - k_{1}VT \\
+    \dfrac{dT_{i}}{dt} &= k_{1}VT - \mu_{2}T_{i} \\
+    \dfrac{dV}{dt} &= N \mu_2 T_{i} - \mu_{3}V
 \end{align*}
 
-A two-strain TB Model with two control terms:
-\begin{align*}
-	\dot{S}	&= 
-    	\Lambda -\beta_{1} S \frac{I_1}{N} - \beta^{*}cS\frac{I_2}{N} - 
-        \mu S 
-        \\
-    \dot{L}_1 &= 
-    	\beta_{1} cS \frac{I_1}{N} - (\mu + k_1 + u_1(t)r_1)L_{1} + 
-        (1 - u_2(t))pr_2 I_1 + \beta_{2} cT \frac{I_1}{N} -
-        \beta^{*}cL_{1}\frac{I_2}{N}  
-        \\
-    \dot{I}_1 &=  
-    	k_1 L_{1} - (\mu + d_1 + r_2)I_1  
-        \\
-    \dot{L}_2 &=  
-    	(1 - u_2(t))q r_2 I_1 - (\mu + k_2)L_2 + \beta^{*}c(S + L_1 + 
-        T)\frac{I_2}{N}  
-        \\
-    \dot{I}_2 &=  
-    	k_2 L_2 - (\mu + d_2)I_2  
-        \\
-    \dot{T} &=  
-    	u_1(t)r_1 L_{1} + (1-(1-u_2(t))(p+q))r_2 I_1 - \beta_{2} cT \frac{I_1}{N} - 
-        \beta^{*}cT\frac{I_2}{N}  
-\end{align*}
+We want to maximize the functional
+$$
+    \max_{u} J(u) = \max_{u} \int_{t_i}^{t_f} {\left[ AT(t) - 
+                    (1 - u(t))^{2} \right]} dt, 
+$$
+subject to 
+\begin{equation}
+\label{eqn:ode_hiv}
+    \begin{aligned}
+        \dfrac{dT}{dt} &= \dfrac{s}{1 + V} - \mu_{1}T + rT \left( 1 - %
+            \dfrac{T + T_{i}}{T_{max}} \right) - u(t)kVT \\
+        \dfrac{dT_{i}}{dt} &= u(t)kVT - \mu_{2}T_{i} \\
+        \dfrac{dV}{dt} &= N \mu_2 T_{i} - \mu_{3}V
+    \end{aligned}
+\end{equation}
+where $ 0 \leq u(t) \leq 1 $. 
+Let $g =g(t,x,u)$, 
+%=  \left(
+%    \frac{dT}{dt}, \frac{dT_{i}}{dt}, \frac{dV}{dt} \right)$ and 
+    $x = (T,T_i,V)$ the right hand side of ODE \eqref{eqn:ode_hiv}. 
+The Hamiltonian for this problem is
+$$
+    H(t,x,u,\lambda) = AT - (1 - u)^{2} + \left<\lambda, g \right> 
+$$
+\begin{theorem}
+    There exists an optimal control $u^{*}$ and corresponding solution, 
+    $T^{*}, T_{i}^{*}, V^{*}$ that maximizes $J(u)$ over $[t_i, t_f]$. 
+    Also, there exists adjoint functions, $\lambda_{T}(t), %
+    \lambda_{T_i}(t),\lambda_{V}(t)$, such that
+    \begin{align*}
+        \dot{\lambda}_{T}   &=  - A + \lambda_{T} \left[\mu_1 - r\left(1 -         \dfrac{T_i}{T_{max}}\right) \right] - \lambda_{T_i} ukV      \\ 
+        \dot{\lambda}_{T_i} &=  \lambda_{T}\dfrac{rT}{T_{max}} + 
+            \lambda_{T_i}\mu_2 - \lambda_{V}N\mu_2                      \\
+        \dot{\lambda}_{V}   &=  \lambda_{T} \left(\dfrac{s}{(1+V)^2} + 
+            ukT\right) - \lambda_{T_i}ukT + \lambda_{V}\mu_{3}   
+    \end{align*}
+\end{theorem}
+
+From the Hamiltonian we obtain
+$$
+    \dfrac{\partial H}{\partial u} = 2(1 - u) + (\lambda_{T_i} - \lambda_{T})kVT
+$$
+
+Since the control is bounded, the pptimality conditions are
+$$  
+    \begin{cases}
+        u^{*} = 0  \quad &\text{if} \quad  
+           \frac{\partial H}{\partial u} < 0 \\
+        0 \leq u^{*} \leq 1 \quad  &\text{if} \quad
+            \frac{\partial H}{\partial u} = 0 \\
+        u^{*} = 1 \quad  &\text{if} \quad  
+            \frac{\partial H}{\partial u} > 0
+    \end{cases}
+$$
+%---------%---------%---------%---------
+\input{Chapters/Chapter3/Tables/hiv_param_values}
+\input{Chapters/Chapter3/Tables/hiv_initial_cond.tex}
+%---------%---------%---------%---------
+
+\begin{figure}[htb] 
+	\begin{center}
+    	\includegraphics[width=.65\textwidth,keepaspectratio]%
+        {Chapters/Chapter3/Figures/figure_1_hiv_chemo}
+		\caption{%
+        	The horizontal axis represents time $t$. The vertical axis
+            represents, in each case, the state $x$, the control $u$ and the
+            solution of the adjoint equation $\lambda$. The parameters are
+      		$r = \num{0.3}$, 
+      		$M = \num{10}$, 
+      		$A = \num{1}$, 
+      		$x_0 = \num{1}$, 
+      		$T =\num{5}$.
+    	}\label{Figure_HIV_1}
+	\end{center}
+\end{figure}
+
+%---------%---------%---------%---------%---------%---------%---------%---------
 
 
+
+\todo{Escribir, modelo ecuaciones 4-7 y referencia
+                Optimal control of chermotherapy affectin the infectivity of HIV.}
+                
+\todo{a modo de teorema escribir las ecuaciones adjuntas}

@@ -1,0 +1,31 @@
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------                       Chapter 4, Section 1                ----------%
+%---------%---------%---------%---------%---------%---------%---------%---------
+\section{MDR-TB without control}  \label{Chap4-Sect1} 
+
+A two-strain TB Model \cite{Castillo-Chavez1997}:
+\begin{align*}
+	\dot{S}	&= 
+    	\Lambda -\beta_{1} cS \frac{I_1}{N} - \beta^{*}cS\frac{I_2}{N} - 
+        \mu S 
+        \\
+    \dot{L}_1 &= 
+    	\beta_{1} cS \frac{I_1}{N} - (\mu + k_1 + r_1)L_{1} + pr_2 I_1 + 
+        \beta_{2} cT \frac{I_1}{N} - \beta^{*}cL_{1}\frac{I_2}{N}  
+        \\
+    \dot{I}_1 &=  
+    	k_1 L_{1} - (\mu + d_1 + r_2)I_1  
+        \\
+    \dot{L}_2 &=  
+    	q r_2 I_1 - (\mu + k_2)L_2 + \beta^{*}c(S + L_1 + T)\frac{I_2}{N}  
+        \\
+    \dot{I}_2 &=  
+    	k_2 L_2 - (\mu + d_2)I_2  
+        \\
+    \dot{T} &=  
+    	r_1 L_{1} + (1-p-q)r_2 I_1 - \beta_{2} cT \frac{I_1}{N} - 
+        \beta^{*}cT\frac{I_2}{N}  
+\end{align*}
+\input{Chapters/Chapter4/Tables/mdr_tb_param_descrip}
+
+

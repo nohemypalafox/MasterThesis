@@ -1,0 +1,111 @@
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------                       Chapter 4, Section 2                ----------%
+%---------%---------%---------%---------%---------%---------%---------%---------
+\section{MDR-TB with control}  \label{Chap4-Sect2} 
+
+The model for the two-strain tuberculosis 
+\begin{align*}
+	\dot{S}	&= 
+    	\Lambda -\beta_{1} S \frac{I_1}{N} - \beta^{*}cS\frac{I_2}{N} - 
+        \mu S 
+        \\
+    \dot{L}_1 &= 
+    	\beta_{1} cS \frac{I_1}{N} - (\mu + k_1 + u_1(t)r_1)L_{1} + 
+        (1 - u_2(t))pr_2 I_1 + \beta_{2} cT \frac{I_1}{N} -
+        \beta^{*}cL_{1}\frac{I_2}{N}  
+        \\
+    \dot{I}_1 &=  
+    	k_1 L_{1} - (\mu + d_1 + r_2)I_1  
+        \\
+    \dot{L}_2 &=  
+    	(1 - u_2(t))q r_2 I_1 - (\mu + k_2)L_2 + \beta^{*}c(S + L_1 + 
+        T)\frac{I_2}{N}  
+        \\
+    \dot{I}_2 &=  
+    	k_2 L_2 - (\mu + d_2)I_2  
+        \\
+    \dot{T} &=  
+    	u_1(t)r_1 L_{1} + (1-(1-u_2(t))(p+q))r_2 I_1 - \beta_{2} cT \frac{I_1}{N} - 
+        \beta^{*}cT\frac{I_2}{N}  
+\end{align*}
+
+The objective functional to be minimized is 
+$$
+    J(u_1(t),u_2(t)) = \int_{0}^{t_f} %
+        \left[% 
+            L_2(t) + I_2(t) + \dfrac{B_1}{2} u_{1}^{2}(t) + \dfrac{B_2}{2} u_{2}^{2}(t)%
+        \right] dt
+$$
+Our goal is to find an optimal control pair $u_{1}^{*}$ and $u_{2}^{*}$ such that
+$$
+    J(u_{1}^{*},u_{2}^{*}) = min_{\Omega}J(u_1,u_2)
+$$
+where $\Omega = \{(u_1,u_2) \in L^{1}(0, t_{f}) | a_i \leq u_i \leq b_i, \}$ and
+$a_i , b_i$ are fixed positive constants. 
+
+The Hamiltonian is
+$$
+    H = L_2 + I_2 + \dfrac{B_1}{2} u_{1}^{2} + \dfrac{B_2}{2} u_{2}^{2} +
+        \sum_{i=1}^{6} \lambda_i g_i
+$$
+where $g_i$ is the right hand side of the differential equation of the $i$th
+state variable.
+
+\begin{theorem}
+    There exists an optimal control pair $u_{1}^{*}$ and $u_{2}^{*}$ and 
+    corresponding solution, $S^{*}, L_{1}^{*}, I_{1}^{*}, L_{2}^{*}, I_{2}^{*}$
+    and $T^{*}$, that minimizes $J(u_1,u_2)$ over $\Omega$. Moreover, the exists
+    adjoint functions, $\lambda_{1}(t), \ldots, \lambda_{6}(t)$ such that
+    \begin{align*}
+	    \dot{\lambda}_1	&= 
+	        \lambda_{1} \left(\beta_{1}\frac{I_1}{N} + \beta_{3}\frac{I_2}{N} 
+	            + \mu \right)
+	       -\lambda_{2} \beta_{1}\frac{I_1}{N}
+	       -\lambda_{4} \beta_{3}\frac{I_2}{N}
+        \\
+        \dot{\lambda}_2	&= 
+	        \lambda_{2} \left( \mu + k_1 + u_1 r_1 + \beta_{3}\frac{I_2}{N}         \right)
+	       -\lambda_{3} k_1
+	       -\lambda_{4} \beta_{3}\frac{I_2}{N}
+	       -\lambda_{6} \left( u_1 r_1 \right)
+        \\
+        \dot{\lambda}_3	&= 
+	        \lambda_{1} \beta_{1}\frac{S}{N}
+	       -\lambda_{2} \left( \beta_{1}\frac{S}{N} + (1 - u_2)pr_2 +
+	            \beta_{2}\frac{T}{N} \right)
+	       +\lambda_{3} \left( \mu + d_1 + r_2 \right)
+	       -\lambda_{4} \left(1 - u_2\right)qr_2  \\
+	       &\quad -\lambda_{6} \left((1 - ( 1- u_2)(p+q))r_2 - \beta_{2}\frac{T}{N}
+	            \right)
+	   \\
+	   \dot{\lambda}_4	&= -1
+	       +\lambda_{4} \left( \mu + k_2 \right)
+	       -\lambda_{5} k_2
+        \\
+        \dot{\lambda}_5	&= -1
+	       +\lambda_{1} \beta_{3}\frac{S}{N} 
+	       +\lambda_{2} \beta_{3}\frac{L_1}{N}
+	       -\lambda_{4} \beta_{3}\frac{S + L_1 + T}{N}
+	       +\lambda_{5} \left( \mu + d_2 \right)
+	       +\lambda_{6} \beta_{3}\frac{T}{N}
+        \\
+        \dot{\lambda}_6	&= 
+	       -\lambda_{2} \beta_{2}\frac{I_1}{N}
+	       -\lambda_{4} \beta_{3}\frac{I_2}{N}
+	       -\lambda_{6} \left( \beta_{2}\frac{I_1}{N} + \beta_{3}\frac{I_2}{N}
+	            + \mu \right).
+    \end{align*}
+\end{theorem}
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+\input{Chapters/Chapter4/Tables/mdr_tb_param_values}
+\input{Chapters/Chapter4/Tables/mdr_tb_intialcond}
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+
+
+
+
+
+
+%---------%---------%---------%---------%---------%---------%---------%---------
