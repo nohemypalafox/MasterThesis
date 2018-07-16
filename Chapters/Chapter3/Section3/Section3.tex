@@ -20,5 +20,38 @@ $$
     \min_{u_p,u_f} \int_{0}^{T} O(t) + c_p u^{2}_p(t) + c_f u^{2}_f(t) dt
 $$
 where, $0 \leq u_p (t) \leq 1$ and $0 \leq u_f (t) \leq 1$.
+
+\begin{theorem}
+    There exists an optimal control pair $u_{P}^{*}$ and $u_{F}^{*}$ and 
+    corresponding solution, $P^{*}, F^{*}, O^{*}$ that minimizes $J(u_P,u_F)$. Moreover, there exists adjoint functions,
+    $\lambda_{P}(t), \lambda_{F}(t)$ and $\lambda_{O}(t)$ such that
+    \begin{align*}
+	    \dot{\lambda}_P	&=
+	        \lambda_{P}
+	       +\lambda_{F} 
+	       +\lambda_{O} 
+        \\
+        \dot{\lambda}_F	&= 
+	        \lambda_{P}
+	       +\lambda_{F} 
+	       +\lambda_{O} 
+        \\
+        \dot{\lambda}_O	&= -1
+    \end{align*}
+\end{theorem}
+
 \input{Chapters/Chapter3/Tables/bear_param_values}
 \input{Chapters/Chapter3/Tables/bear_initial_cond}
+
+\begin{figure}[htb] 
+	\begin{center}
+    	\includegraphics[width=.65\textwidth,keepaspectratio]%
+        {Chapters/Chapter3/Figures/figure_1_bear_population}
+		\caption{%
+        	Green line represents the uncontrolled states and the orange dashed line
+        	represents the controlled states. The orange line represents the two
+        	controls
+    	}\label{Figure_bear_1}
+	\end{center}
+\end{figure}
+
