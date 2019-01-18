@@ -1,22 +1,18 @@
-\section{Preliminaries} %\label{Chap1-Sect1} 
-
-
+\section{Preliminaries}
 
 %---------%---------%---------%---------%---------%---------%---------%---------
 %---------%---------%---------%---------%---------%---------%---------%---------
-
-
-
-
-
-\begin{theorem}[Interior Maximum, {\citep[Thm. 19.4, p.~209]{bartle1982elements} Theorem} ]
+\begin{theorem}[Interior Maximum Theorem, %
+{\citep[Thm. 19.4, p.~209]{bartle1982elements}}]
     Let $c$ be an interior point of the domain of f, at which $f$ has a relative 
     maximum. If the derivative of $f$ at $c$ exists, then it must be equal to zero.
-    
 \end{theorem}
 %---------%---------%---------%---------%---------%---------%---------%---------
 %---------%---------%---------%---------%---------%---------%---------%---------
-\begin{theorem}{\cite[Thm. 19.5, p.~209]{bartle1982elements}}
+
+
+\begin{theorem}[Rolle's Theorem,%
+{\citep[Thm. 19.5, p.~209]{bartle1982elements}}]
     Suppose that $f$ is continuous on a closed interval $J = [a,b]$, that the 
     derivative $f'$ exists in the open interval $(a,b)$, and that 
     $f(a) = f(b) = 0$. Then there exists a point $c \in (a,b)$ such that 
@@ -27,28 +23,29 @@
 \end{proof}
 %---------%---------%---------%---------%---------%---------%---------%---------
 %---------%---------%---------%---------%---------%---------%---------%---------
-\begin{theorem}\cite[Thm. 19.6, p.~210]{bartle1982elements}[Mean Value Theorem] \\
+\begin{theorem}[Mean Value Theorem, %
+{\cite[Thm. 19.6, p.~210]{bartle1982elements}}]
 	Suppose that $f$ is continuous on a closed interval $J = [a,b]$ and 
-	differentiable on the open interval $(a,b)$. Then there exists $c \in (a,b)$ 
+	differentiable on the open interval $(a,b)$. Then there exists $c \in (a,b)$
 	such that 
 	$$
 	    f(b) - f(a) = f'(c)(b - a).
 	$$
 \end{theorem}
 \begin{proof}
-
+    Supose that f is continuous on a closed interval $J=[a,b]$
 \end{proof}
 
 
 %---------%---------%---------%---------%---------%---------%---------%---------
-\begin{lemma}\citep[Thm. 4.8, p.~33]{bartle2014elements}[Fatou's Lemma]
+\begin{lemma}[Fatou's Lemma, {\citep[Thm. 4.8, p.~33]{bartle2014elements}}]
     If $(f_n)$ belongs to $M^{+}(X,X)$, then
     $$
         \int \liminf f_n d\mu \leq \liminf \int f_n d\mu
     $$
 \end{lemma}
 %---------%---------%---------%---------%---------%---------%---------%---------
-\begin{corollary}\citep[Thm. 5.4, p.~43]{bartle2014elements}
+\begin{corollary}[{\citep[Thm. 5.4, p.~43]{bartle2014elements}}]
     If f is measurable, g is integrable and $|f| \leq |g|$, then f is integrable
     and
     $$
@@ -56,7 +53,7 @@
     $$
 \end{corollary}
 %---------%---------%---------%---------%---------%---------%---------%---------
-\begin{theorem}\citep[Thm. 5.5, p.~43]{bartle2014elements}
+\begin{theorem}[{\citep[Thm. 5.5, p.~43]{bartle2014elements}}]
     A constant multiply $\alpha f$ and a sum $f + g$ of functions in $L$ belongs
     to $L$ and
     \begin{align*}
@@ -65,7 +62,8 @@
     \end{align*}
 \end{theorem}
 %---------%---------%---------%---------%---------%---------%---------%---------
-\begin{theorem}\citep[Thm. 5.6, p.~44]{bartle2014elements}[Lebesgue Dominated Convergence Theorem]
+\begin{theorem}[Lebesgue Dominated Convergence Theorem, %
+{\citep[Thm. 5.6, p.~44]{bartle2014elements}}]
     Let $(f_n)$ be a sequence of integrable functions which converges almost
     everywhere to a real-valued measurable function $f$. If the exists an 
     integrable function $g$ such that $|f_n| < g$ for all n, then f is integrable
@@ -78,9 +76,9 @@
 
 \end{proof}
 %---------%---------%---------%---------%---------%---------%---------%---------
-\begin{corollary}\citep[Thm. 5.9, p.~46]{bartle2014elements} \\
-    Suppose that for some $t_0 \in [a,b]$,  the function $x \rightarrow f(x, t_0)$
-    is integrable on $X$, that $\partial f / \partial t$ exists on 
+\begin{corollary}[{\citep[Thm. 5.9, p.~46]{bartle2014elements}}]
+    Suppose that for some $t_0 \in [a,b]$,  the function $x \rightarrow %
+    f(x, t_0)$ is integrable on $X$, that $\partial f / \partial t$ exists on 
     $X \times [a,b]$, and that there exists an integrable function g on $X$ such 
     that
     $$
@@ -95,7 +93,7 @@
 \end{corollary}
 %---------%---------%---------%---------%---------%---------%---------%---------
 %---------%---------%---------%---------%---------%---------%---------%---------
-\begin{theorem}\citep[Thm.4, p.~391]{}[Taylor's Theorem]
+\begin{theorem}[Taylor's Theorem, {\citep[Thm.4, p.~391]{SpivakCalculus}}]
     Suppose that $f', \ldots f^{(n+1)}$, are defined on $[a,x]$ and 
     that $R_{n,a}(x)$ is defined by
     $$
@@ -118,8 +116,31 @@
     \end{enumerate}
 \end{theorem}
 %---------%---------%---------%---------%---------%---------%---------%---------
-\begin{theorem}[Lagrange]
-    
+The lagrange problem: \\
+A general optimization problem with equality constraints if of the form
+
+\begin{equation}
+    \max \ (\min) \quad f(x_1, \ldots, x_n) \quad \text{subject to} \ %
+    \left\lbrace 
+        \begin{matrix}
+            g_1(x_1, \ldots, x_n) = b_1 & \\
+            \vdots & (m < n) \\
+            g_m(x_1, \ldots, x_n) = b_m & \\
+        \end{matrix}
+    \right..
+\end{equation}
+We assume that $m<n$ because otherwise there are usually no degrees of freedom. 
+In vector formulation, the problem is
+$$
+    \max \ (\min) \quad f(x) \quad \text{subject to} \ g_j(x) = b_j 
+$$
+
+
+%[theorem name, {\citep[Thm. #, page]{reference}}]
+\begin{theorem}[Lagrange Theorem, {\citep[Thm. 3.3.1, p. 118]{LeonardLong}}]
+    Suppose tha the function f and $g_1, \ldots, g_m$ are defined on a set S in 
+    $\mathbf{R}^n$, and that $x^* = (x_{1}^{*}, \ldots, x_{n}^{*})$ that solves 
+    problem
 \end{theorem}
 %---------%---------%---------%---------%---------%---------%---------%---------
 %---------%---------%---------%---------%---------%---------%---------%---------

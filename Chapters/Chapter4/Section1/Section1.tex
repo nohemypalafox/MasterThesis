@@ -3,29 +3,243 @@
 %---------%---------%---------%---------%---------%---------%---------%---------
 \section{MDR-TB without control}  \label{Chap4-Sect1} 
 
-A two-strain TB Model \cite{Castillo-Chavez1997}:
+A two-strain TB Model based on \cite{Castillo-Chavez1997}:
+
+The population is divided into six compartments
 \begin{align*}
 	\dot{S}	&= 
-    	\Lambda -\beta_{1} cS \frac{I_1}{N} - \beta^{*}cS\frac{I_2}{N} - 
+    	\Lambda -\beta_{1} S \frac{I_1}{N} - \beta_{3}S\frac{I_2}{N} - 
         \mu S 
         \\
     \dot{L}_1 &= 
-    	\beta_{1} cS \frac{I_1}{N} - (\mu + k_1 + r_1)L_{1} + pr_2 I_1 + 
-        \beta_{2} cT \frac{I_1}{N} - \beta^{*}cL_{1}\frac{I_2}{N}  
+    	\beta_{1}S \frac{I_1}{N} - (\mu + k_1 + r_1)L_{1} + 
+        pr_2 I_1 + \beta_{2} T \frac{I_1}{N} -
+        \beta_{3} L_{1}\frac{I_2}{N}  
         \\
     \dot{I}_1 &=  
     	k_1 L_{1} - (\mu + d_1 + r_2)I_1  
         \\
     \dot{L}_2 &=  
-    	q r_2 I_1 - (\mu + k_2)L_2 + \beta^{*}c(S + L_1 + T)\frac{I_2}{N}  
+    	q r_2 I_1 - (\mu + k_2)L_2 + \beta_{3}(S + L_1 + 
+        T)\frac{I_2}{N}  
         \\
     \dot{I}_2 &=  
     	k_2 L_2 - (\mu + d_2)I_2  
         \\
     \dot{T} &=  
-    	r_1 L_{1} + (1-p-q)r_2 I_1 - \beta_{2} cT \frac{I_1}{N} - 
-        \beta^{*}cT\frac{I_2}{N}  
+    	r_1 L_{1} + (1-(p+q))r_2 I_1 - \beta_{2} T \frac{I_1}{N} - 
+        \beta_{3}T\frac{I_2}{N}  
 \end{align*}
+
 \input{Chapters/Chapter4/Tables/mdr_tb_param_descrip}
 
+We can find the disease-free equilibrium 
+$x_0 = (S^*, L_{1}^{*}, I_{1}^{*}, L_{2}^{*}, I_{2}^{*}, T^{*})$.
+The disease-free equilibrium is 
+$$
+    x_0 = \left(\frac{\lambda}{\mu}, 0 , 0 ,0, 0, 0\right)
+$$
+In the next part we calculate the basic reproduction number $\mathscr{R}_{0}$. 
+First we have to reorder the equations in such a way that the first equations
+are the infectious ones.
+\begin{align*}
+    \dot{L}_1 &= 
+    	\beta_{1}S \frac{I_1}{N} - (\mu + k_1 + r_1)L_{1} + 
+        pr_2 I_1 + \beta_{2} T \frac{I_1}{N} -
+        \beta_{3} L_{1}\frac{I_2}{N}  
+        \\
+    \dot{I}_1 &=  
+    	k_1 L_{1} - (\mu + d_1 + r_2)I_1  
+        \\
+    \dot{L}_2 &=  
+    	q r_2 I_1 - (\mu + k_2)L_2 + \beta_{3}(S + L_1 + 
+        T)\frac{I_2}{N}  
+        \\
+    \dot{I}_2 &=  
+    	k_2 L_2 - (\mu + d_2)I_2  
+        \\
+    \dot{S}	&= 
+    	\Lambda -\beta_{1} S \frac{I_1}{N} - \beta_{3}S\frac{I_2}{N} - 
+        \mu S 
+        \\
+    \dot{T} &=  
+    	r_1 L_{1} + (1-(p+q))r_2 I_1 - \beta_{2} T \frac{I_1}{N} - 
+        \beta_{3}T\frac{I_2}{N}  
+\end{align*}
 
+For this model, the progression from $L_1$ to $I_1$, and $L_2$ to $I_2$ are 
+not considered to be new infections, the only terms that represent new infections
+are $ \beta_{1} S \frac{I_1}{N}$, $\beta_{2} T \frac{I_1}{N}$,  $(p + q )r_2 I_1$, and
+$\beta_{3} (S + L_{1} + T)\frac{I_2}{N} $. Hence, the functions $\mathscr{F}$ and 
+$\mathscr{V}$ are
+\begin{equation*}
+    \mathscr{F} = 
+        \begin{pmatrix}
+            \beta_{1} S \frac{I_1}{N} + \beta_{2} T \frac{I_1}{N} + p r_2 I_1 \\
+            \beta_{3} (S + L_{1} + T)\frac{I_2}{N} + q r_2 I_1 \\
+            0 \\
+            0 \\
+            0 \\
+            0
+        \end{pmatrix},
+\end{equation*}
+
+\begin{equation*}
+    \mathscr{V} = 
+        \begin{pmatrix}
+            (\mu + k_1 + r_1)L_{1} +  \beta_{3} L_{1}\frac{I_2}{N} \\
+            (\mu + k_2)L_2 \\
+            - k_1 L_{1} + (\mu + d_1 + r_2)I_1 \\
+            - k_2 L_2 + (\mu + d_2)I_2 \\
+            - \Lambda + \beta_{1} S \frac{I_1}{N} + \beta_{3}S\frac{I_2}{N} + \mu S \\
+            - r_1 L_{1} + (p+q - 1)r_2 I_1 + \beta_{2} T \frac{I_1}{N} + \beta_{3}T\frac{I_2}{N}  
+        \end{pmatrix}.
+\end{equation*}
+
+\begin{equation*}
+    F(x) = 
+        \begin{pmatrix}
+            0 & 0 & \beta_{1} S \frac{1}{N} + \beta_{2} T \frac{1}{N} + p r_2 & 0 \\
+            \beta_{3}\frac{I_2}{N} & 0 &   q r_2  &   \beta_{3} (S + L_{1} + T)\frac{1}{N} \\
+    		0 & 0 & 0 & 0 \\
+		    0 & 0 & 0 & 0
+        \end{pmatrix},
+\end{equation*}
+\begin{equation*}
+    V(x) =
+        \begin{pmatrix}
+            \mu + k_1 + r_1 +  \beta_{3} \frac{I_2}{N} & 0 & 0 & \beta_{3} \frac{L_1}{N} \\
+            0 & \mu + k_2 & 0 & 0 \\
+            -k_1 & 0 & \mu + d_1 + r_2 & 0 \\
+            0 & 0 & -k_2 & \mu + d_2 
+        \end{pmatrix}
+\end{equation*}
+
+Evaluate the disease-free equilibrium $x_0 = \left(0, 0, 0, 0, N, 0 \right)$ 
+\begin{equation*}
+    F(x) = 
+        \begin{pmatrix}
+            0 & 0 & \beta_{1} + p r_2 & 0 \\
+            0 & 0 &   q r_2  &   \beta_{3} \\
+    		0 & 0 & 0 & 0 \\
+		    0 & 0 & 0 & 0
+        \end{pmatrix},
+\end{equation*}
+\begin{equation*}
+    V(x) =
+        \begin{pmatrix}
+            \mu + k_1 + r_1 & 0 & 0 & 0 \\
+            0 & \mu + k_2 & 0 & 0 \\
+            -k_1 & 0 & \mu + d_1 + r_2 & 0 \\
+            0 & 0 & -k_2 & \mu + d_2
+        \end{pmatrix}
+\end{equation*}
+Calculate the next generation matrix on $x_0$
+\begin{align*}	
+	FV^{-1}(x_0) 
+	&=  
+    \begin{pmatrix}
+        0 & 0 & \beta_{1} + p r_2 & 0 \\
+        0 & 0 &   q r_1  &   \beta_{3} \\
+		0 & 0 & 0 & 0 \\
+	    0 & 0 & 0 & 0
+    \end{pmatrix}
+	\begin{pmatrix}
+		\frac{1}{\mu + k_1 + r_1} & 0 & 0 & 0 \\
+		0 & \frac{1}{\mu + k_2} & 0 & 0 \\
+		\frac{k_1}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} & 0 & \frac{1}{\mu + d_1 +r_2} & 0 \\
+		0 & \frac{k_2}{(\mu + k_2)(\mu + d_2)} & 0 & \frac{1}{\mu + d_2} \\
+	\end{pmatrix}  \\
+	&= 
+	\begin{pmatrix}
+		\dfrac{k_1(\beta_1 + pr_2)}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} 
+        & 0 & \dfrac{\beta_1 + pr_2}{\mu + d_1 +r_2} & 0 
+    \\
+		\dfrac{k_1 q r_2}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} 
+			& \dfrac{k_2 \beta_3}{(\mu + k_2)(\mu + d_2)} 
+      & \dfrac{qr_2}{\mu + d_1 +r_2} & \dfrac{\beta_3}{\mu + d_2} 
+    \\
+		0 & 0 & 0 & 0 
+		\\
+		0 & 0 & 0 & 0 
+		\\
+	\end{pmatrix}.
+\end{align*}
+Define $K = FV^{-1}(x_0)$, then
+\begin{align*}	
+	\det(K-\lambda I_d)
+	&= 
+	\begin{vmatrix}
+		\dfrac{k_1(\beta_1 + pr_2)}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} 
+	    -\lambda 
+	    & 0 
+	    & \dfrac{\beta_1 + pr_2}{\mu + d_1 +r_2} 
+	    & 0 
+	  \\
+		\dfrac{k_1 qr_2}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} 
+		& \dfrac{k_2 \beta_3}{(\mu + k_2)(\mu + d_2)} -\lambda 
+		& \dfrac{qr_2}{\mu + d_1 +r_2} 
+		& \dfrac{\beta_3}{\mu + d_2} 
+		\\
+		0 & 0 & -\lambda & 0 
+		\\
+		0 & 0 & 0 & -\lambda 
+		\\
+	\end{vmatrix} \notag \\
+	&= -\lambda
+	\begin{vmatrix}
+		\dfrac{k_1(\beta_1 + pr_2)}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} 
+			-\lambda & 0 & 0 
+		\\
+		\dfrac{k_1 q r_2}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} 
+			& \dfrac{k_2 \beta_3}{(\mu + k_2)(\mu + d_2)}
+        -\lambda &\dfrac{\beta_3}{\mu + d_2} 
+    \\
+		0 & 0 & -\lambda 
+	\end{vmatrix}
+	\\
+	&= \lambda^2
+	\begin{vmatrix}
+		\dfrac{k_1(\beta_1 + pr_2)}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} -\lambda 
+			& 0 
+		\\
+		\dfrac{k_1 q r_2}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} 
+			& \dfrac{k_2 \beta_3}{(\mu + k_2)(\mu + d_2)} 
+       -\lambda 
+    \\
+	\end{vmatrix} 
+	\\
+		&= 
+		\lambda^2 
+	  \left( 
+		  \dfrac{k_1(\beta_1 + pr_2)}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} 
+		  -\lambda 
+		\right) 
+    \left(
+	    \dfrac{k_2 \beta_3}{(\mu + k_2)(\mu + d_2)}-\lambda 
+	  \right).
+\end{align*} 
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+By the above,
+$$
+	\mathscr{R}_{1} = 
+		\dfrac{k_1(\beta_{1} + pr_2)}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} ,
+		\qquad
+	\mathscr{R}_{2} = 
+		\dfrac{k_2 	\beta_{3}}{(\mu + k_2)(\mu + d_2)}.
+$$
+The basic reproduction number is 
+$
+	\mathscr{R}_{0} =  \max\lbrace \mathscr{R}_{1},\mathscr{R}_{2} 
+\rbrace
+$.
+ \newpage
+% un equilibrio libre de enfermedad, tres endemicos, donde uno de ellos es limite%
+ We have two cases, when $q=0$ and $q>0$
+ \begin{theorem}
+    (Estability theorem for $q=0$)
+ \end{theorem}
+  \begin{theorem}
+    (Estability theorem for $q>0$)
+ \end{theorem}

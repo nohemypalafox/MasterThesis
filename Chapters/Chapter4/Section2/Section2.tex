@@ -3,31 +3,34 @@
 %---------%---------%---------%---------%---------%---------%---------%---------
 \section{MDR-TB with control}  \label{Chap4-Sect2} 
 
-The model for the two-strain tuberculosis 
+The model for the two-strain tuberculosis with control $u_1$ and $u_2$
+from {\citep{articleLenhart}}
+
 \begin{align*}
 	\dot{S}	&= 
-    	\Lambda -\beta_{1} S \frac{I_1}{N} - \beta^{*}cS\frac{I_2}{N} - 
+    	\Lambda -\beta_{1} S \frac{I_1}{N} - \beta_{3}S\frac{I_2}{N} - 
         \mu S 
         \\
     \dot{L}_1 &= 
-    	\beta_{1} cS \frac{I_1}{N} - (\mu + k_1 + u_1(t)r_1)L_{1} + 
-        (1 - u_2(t))pr_2 I_1 + \beta_{2} cT \frac{I_1}{N} -
-        \beta^{*}cL_{1}\frac{I_2}{N}  
+    	\beta_{1}S \frac{I_1}{N} - (\mu + k_1 + u_1(t)r_1)L_{1} + 
+        (1 - u_2(t))pr_2 I_1 + \beta_{2} T \frac{I_1}{N} -
+        \beta_{3} L_{1}\frac{I_2}{N}  
         \\
     \dot{I}_1 &=  
     	k_1 L_{1} - (\mu + d_1 + r_2)I_1  
         \\
     \dot{L}_2 &=  
-    	(1 - u_2(t))q r_2 I_1 - (\mu + k_2)L_2 + \beta^{*}c(S + L_1 + 
+    	(1 - u_2(t))q r_2 I_1 - (\mu + k_2)L_2 + \beta_{3}(S + L_1 + 
         T)\frac{I_2}{N}  
         \\
     \dot{I}_2 &=  
     	k_2 L_2 - (\mu + d_2)I_2  
         \\
     \dot{T} &=  
-    	u_1(t)r_1 L_{1} + (1-(1-u_2(t))(p+q))r_2 I_1 - \beta_{2} cT \frac{I_1}{N} - 
-        \beta^{*}cT\frac{I_2}{N}  
+    	u_1(t)r_1 L_{1} + (1-(1-u_2(t))(p+q))r_2 I_1 - \beta_{2} T \frac{I_1}{N} - 
+        \beta_{3}T\frac{I_2}{N}  
 \end{align*}
+
 
 The objective functional to be minimized is 
 $$
@@ -54,7 +57,7 @@ state variable.
 \begin{theorem}
     There exists an optimal control pair $u_{1}^{*}$ and $u_{2}^{*}$ and 
     corresponding solution, $S^{*}, L_{1}^{*}, I_{1}^{*}, L_{2}^{*}, I_{2}^{*}$
-    and $T^{*}$, that minimizes $J(u_1,u_2)$ over $\Omega$. Moreover, the exists
+    and $T^{*}$, that minimizes $J(u_1,u_2)$ over $\Omega$. Moreover, there exists
     adjoint functions, $\lambda_{1}(t), \ldots, \lambda_{6}(t)$ such that
     \begin{align*}
 	    \dot{\lambda}_1	&= 
@@ -101,11 +104,48 @@ state variable.
 \input{Chapters/Chapter4/Tables/mdr_tb_param_values}
 \input{Chapters/Chapter4/Tables/mdr_tb_intialcond}
 %---------%---------%---------%---------%---------%---------%---------%---------
-
-
-
-
-
-
-
+\begin{figure}[htb] 
+	\begin{center}
+    	\includegraphics[width=\textwidth,keepaspectratio]%
+    	{Chapters/Chapter4/Figures/figure_1_two_strain_tbm}
+		\caption{%
+        	In the left side, the green line represents the uncotrolled state of
+        	MDR-TB infected population and the orange dashed line represents the 
+        	controlled state. In the right side, the two controls are plotted
+            The parameters that were used are:
+    	}\label{Figure_TBM_1}
+	\end{center}
+\end{figure}
 %---------%---------%---------%---------%---------%---------%---------%---------
+\begin{figure}[htb] 
+	\begin{center}
+    	\includegraphics[width=\textwidth,keepaspectratio]%
+    	{Chapters/Chapter4/Figures/figure_2_two_strain_tbm}
+		\caption{%
+        	In the left side, the green line represents the uncotrolled state of
+        	MDR-TB infected population and the orange dashed line represents the 
+        	controlled state. In the right side, the two controls are plotted
+            The parameters that were used are:
+    	}\label{Figure_TBM_2}
+	\end{center}
+\end{figure}
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{figure}[htb] 
+	\begin{center}
+    	\includegraphics[width=\textwidth,keepaspectratio]%
+    	{Chapters/Chapter4/Figures/figure_3_two_strain_tbm}
+		\caption{%
+        	The horizontal axis represents time $t$. The vertical axis
+            represents, in each case, the state $x$, the control $u$ and the
+            solution of the adjoint equation $\lambda$. The parameters are
+      		$r = \num{0.3}$, 
+      		$M = \num{10}$, 
+      		$A = \num{10}$, 
+      		$x_0 = \num{1}$, 
+      		$T =\num{5}$.
+    	}\label{Figure_TBM_3}
+	\end{center}
+\end{figure}
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+\newpage
