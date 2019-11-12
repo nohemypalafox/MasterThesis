@@ -1,0 +1,163 @@
+\section{SARS}
+\lhead{\emph{SARS}} 
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+    The Severe Acute Respiratory Syndrome SARS is a viral disease, highly 
+    contagious. This disease emerged in China in 2002 and has quickly spread
+    over the years. The main problem with this sickness is that there's no 
+    vaccine or  medicine to fight it. So the principal measure to fight the
+    disease, is to control the spread of it. The two measures to control it are
+    isolation of the population who presents symptoms, and quarantine for those
+    are asymptomatic but has been in contact with the disease. This measure 
+    reduce the contact with the infected population and so the SARS can be 
+    controlled. Here we present the dynamical model for SARS where, $S$ 
+    represents the susceptible individuals; $E$, the asymptomatic individuals 
+    who have been exposed to the virus but do not present clinical symptoms 
+    of SARS; the quarantine individuals are represented by Q; I, symptomatic 
+    individuals; J represents the isolated individuals; and R, the recovered
+    individuals. 
+    
+    \begin{equation}\label{eqn:sars_model}
+    	\begin{aligned}
+    		\dfrac{dS}{dt} &= \Lambda -\dfrac{S \left( \beta I + \mathcal{E}_E  \beta E
+    		                + \mathcal{E}_Q  \beta Q + \mathcal{E}_J  \beta J \right)}{N}
+    		                - \mu S, \\
+    		\dfrac{dE}{dt} &= p + \dfrac{ \beta S \left( \beta I + \mathcal{E}_E \beta E
+    						+ \mathcal{E}_Q \beta Q + \mathcal{E}_J \beta J\right)}{N}
+    			            -(u_1(t) + k_1 + \mu)E,\\
+    		\dfrac{dQ}{dt} &= u_1(t) E - (k_2 + \mu) Q, \\
+    		\dfrac{dI}{dt} &= k_1 E -(u_2(t) + d_1  + \sigma_1 + \mu) I, \\
+    		\dfrac{dJ}{dt} &= u_2(t) I + k_2 Q - (d_2 + \sigma_2 + \mu) J, \\
+    		\dfrac{dR}{dt} &= \sigma_1 I +\sigma_2 J - \mu R.
+    	\end{aligned}
+    \end{equation}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+    In the model we have the recruitment rate $\Lambda$, the natural death 
+    rate $\mu >0$. [A net inflow of asymptomatic individuals into the region 
+    at a rate p per unit of time. This parameter includes new births, immigration 
+    and emigration.] We set p to zero for simplicity. The transmission coefficients 
+    for these four classes of infected individuals (I, E, Q, J) are $\beta$,
+    $\veps_{E}\beta$, $\veps_{Q}\beta$  and $\veps_{E}\beta$, respectively.
+    An asymptomatic individual is transferred into the symptomatic class at a rate
+    $k_1$ and a quarantined individual is transferred into the isolated class at
+    a rate $k_2$. The per-capita death rates induced by the disease are $d_1$ and
+    $d_2$. The per-capita recovery rates of symptomatic and isolated individuals 
+    are $\omega_1$ and $\omega_2$, respectively.
+    
+    The control $u_1 (t)$ represents the rate of quarantining of people who have
+    been in contact with an infected individual by a quarantine program. 
+    The control $u_2(t)$ represents the rate of isolating of symptomatic individuals 
+    by an isolation program.
+    
+    The problem consist on minimize the cost functional
+
+\begin{equation}\label{eqn:sars_cost}
+  \int_{0}^{t_f}
+      \left[
+        B_1 E(t)
+        + B_2 Q(t)
+        + B_3 I(t)
+        + B_4 J(t)
+        + \frac{C_1}{2} u_1^2 (t)
+        + \frac{C_2}{2} u_2^2 (t)
+      \right]
+      dt.
+\end{equation}
+\newpage
+\begin{table}
+    \begin{center}
+      \begin{tabular}{@{}rl@{}}
+        \toprule
+        & \multicolumn{1}{l}{\bf{Parameter Description}}
+        \\
+        \midrule
+        $\beta$
+          & Transmission coefficient
+        \\
+        $\varepsilon_E$, 
+        $\varepsilon_Q$,
+        $\varepsilon_J$
+          & Modification parameter for 
+          \\
+          &  exposed, quarantine and isolation classes 
+          \\
+        $\mu$
+          & Natural death rate.
+        \\
+        $\Lambda$
+          & Constant recruitment rate
+        \\
+        $p$
+          & Net inflow of asymptomatic individuals
+        \\
+        $k_1$ 
+          & Transfer rate from class 
+          \\
+          & of asymptomatic to symptomatic
+          \\
+        $k_2$
+          & Transfer rate from the quarantine 
+          \\ 
+          & class to isolation
+        \\
+        $d_1$, $d_2$
+          & Per-capita disease induced death rates 
+          \\
+          & for the symptomatic individuals and 
+          \\
+          & isolated individuals.
+        \\
+        $\sigma_1$, $\sigma_2$
+          & Per-capita recovery rates for the 
+          \\
+          & symptomatic individuals and 
+          \\
+          &  isolated individuals
+        \\
+        $t_f$
+          & Final time 
+        \\
+        $B_1$, $B_2$, $B_3$, $B_4$
+        & Respectively cost for 
+        \\
+        &
+          $E$,$Q$,$I$,$J$ classes
+        \\
+        $C_1$, $C_2$
+        & Costs for Isolation and Quarantine 
+        \\
+          & policies.
+        \\
+        \bottomrule
+      \end{tabular}
+     \caption{Parameter description for the SARS model
+     \eqref{eqn:sars_model}.}
+     \label{tbl:sars_table_des}
+     \end{center}
+\end{table}
+
+\begin{algorithm}[htb]
+  \caption{Evolutionary Algorithms}
+  \label{alg:DE1}
+  \begin{algorithmic}
+    % \small
+    \State $Y$ $\leftarrow$ $\mathbf{Y}_0(Np,\mathcal{V})$
+    \While{(the stopping criterion has not been met)}
+    \State $M$ $\leftarrow$  $\mathbf{M}(Y)$
+    \State $C$ $\leftarrow$  $\mathbf{C}(Y,C)$
+    \State $Y$ $\leftarrow$  $\mathbf{S}(Y,C,fob)$ 
+    \EndWhile
+    \State $\mathbf{y}_{best} \leftarrow \mathbf{Best}(Y, fob)$
+  \end{algorithmic}
+\end{algorithm}%
+
+\begin{figure}[htb] 
+	\begin{center}
+    	\includegraphics[width=\textwidth,keepaspectratio]%
+    	{Chapters/Chapter6_Applications2/Figures/figure_1_sars}
+		\caption{}\label{Figure_SARS_sbfm}
+	\end{center}
+\end{figure}
+

@@ -4,35 +4,54 @@
 \hypersetup{urlcolor=black, colorlinks=true} 
 \usepackage{amsmath} 
 \usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{dsfont}
 \usepackage{indentfirst}
 \usepackage{enumitem}
 \usepackage{url}
 \usepackage{float}
 \usepackage[colorinlistoftodos, prependcaption, textsize=tiny]{todonotes}
 \usepackage{cleveref}
-\usepackage{babelbib}
+%\usepackage{babelbib}
+\usepackage{abstract}
 \usepackage{siunitx}
 \usepackage{booktabs}
-\usepackage[toc]{appendix}
 
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{paralist}
 \usepackage[utf8]{inputenc}
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
+\usepackage[toc,page]{appendix}
+\DeclareMathOperator{\lsc}{l.s.c. }
+\DeclareMathOperator{\usc}{u.s.c. }
+%
+\DeclareMathOperator{\epi}{epi }
+\DeclareMathOperator{\hypo}{hypo }
+%
+\DeclareMathOperator{\esssup}{esssup }
 
 \setlength{\parindent}{0.5cm}
 \newcommand{\tr}{\mathrm{tr}}
 \newcommand{\diag}{\mathrm{diag}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
 \newcommand{\extReal}{\mathbb{R}\cup \lbrace \pm \infty \rbrace}
 \newcommand{\extRealp}{\overline{\mathbb{R}}}
-
-
 \renewcommand{\qedsymbol}{\rule{0.5em}{0.5em}}
-
+\newcommand{\ind}{\mathds{1}}
+\newcommand{\stcomp}[1]{{#1}^{\mathsf{c}}}
+\newcommand{\veps}{\varepsilon}
 %-------------------------------------------------------
 \newtheorem{definition}{Definition}[chapter]
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{lemma}{Lemma}[chapter]
 \newtheorem{corollary}{Corollary}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{remark}{Remark}[chapter]
 %-------------------------------------------------------
 
 \begin{document}
@@ -50,25 +69,39 @@
 	\input{Agradecimientos}
 	\input{Contenido}
 	\input{Dedicatoria}
-	\mainmatter 
+	\begin{abstract}
+	    The main objective of this Thesis is to explore the applications of
+	    the deterministic optimal control in biology. In particular we area
+	    interested in open-loop policies. That is, in polices that only depends
+	    on time. Thus we expose the theory of existence of this kind of policies and
+	    a way to obtained by  Pontryagin
+	\end{abstract}
 	\pagestyle{fancy} 
 %---------%---------%---------%---------%---------%---------%---------%------
 % CHAPTERS
 %---------%---------%---------%---------%---------%---------%---------%------
-
-  \input{Chapters/Chapter1/Chapter1}
-  \input{Chapters/Chapter2/Chapter2}
-  \input{Chapters/Chapter3/Chapter3}
-  \input{Chapters/Chapter4/Chapter4}
+    \mainmatter 
+    \input{0.Introduction/Introduction.tex}
+    \input{Chapters/Chapter1_Ekeland/Chapter1.tex}
+    \input{Chapters/Chapter2_ExistenceTheory/Chapter2.tex}
+    \input{Chapters/Chapter3_Pontryagin/Chapter3.tex}
+    \input{Chapters/Chapter4_NumericalMethods/Chapter4.tex}
+    \input{Chapters/Chapter5_Applications1/Chapter5.tex}
+    \input{Chapters/Chapter6_Applications2/Chapter6.tex}
+    \input{Conclusions/Conclusions.tex}
+    %
+    \begin{appendices}
+        \input{Appendices.tex}
+    \end{appendices}
 \newpage
 %---------%---------%---------%---------%---------%---------%---------%---------
 %	BIBLIOGRAPHY
 %---------%---------%---------%---------%---------%---------%---------%---------
+    \addcontentsline{toc}{chapter}{Bibliography}
     \chapter*{Bibliography}
 	%\nocite{*}
     \label{Bibliography}
-	\lhead{\emph{Bibliograf\'ia}}
+	\lhead{\emph{Bibliography}}
 	\bibliographystyle{plainnat} 
-	% \bibliography{library,bibliographybooks}
     \bibliography{bibliographybooks,bibliographyarticles}  
 \end{document}

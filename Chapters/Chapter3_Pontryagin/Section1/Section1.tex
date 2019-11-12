@@ -1,0 +1,617 @@
+\section{Preliminaries}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+%               RHO IS A METRIC, U A METRIC SPACE
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{lemma}[\citep{Ekeland_OTVP}, Lemma 7.2]\label{Lemma_rhometric}
+    Consider the set of all measurable controls $\mathscr{U}[t,T]$. Define
+    $$
+        \rho(u(\cdot), v(\cdot)) = \lambda\left(\{s \in [t, T] :  %
+            u(s) \neq v(s)\} \right), \hspace{1cm} u(\cdot), v(\cdot) \in \mathscr{U}[t,T].
+    $$
+    Then, $(\mathscr{U}[t,T], \rho )$ is a metric space.
+\end{lemma}
+\begin{proof}
+    First, we will prove that $\rho$is a metric over $\mathscr{U}[t,T]$.
+    \begin{asparaenum}[i)]
+        \item Non-negativity. Note that 
+            $$
+                \rho(u(\cdot), v(\cdot))\geq 0 \, \forall u(\cdot), v(\cdot) \in \mathscr{U}[t,T],
+            $$
+            by definition of Lebesgue measure.
+        \item Identity of Indiscernibles,
+            $$
+                \rho(u(\cdot), v(\cdot))=0 \iff  u(s) = v(s) \hspace{1cm} a.e. \, %
+                    s \in [t,T].
+            $$
+            Suppose that $\rho(u(\cdot), v(\cdot))=0 $. By definition,
+            $$
+                \rho(u(\cdot), v(\cdot)) = \lambda\left(\{s \in [t, T] :  %
+            u(s) \neq v(s)\}\right) = 0,
+            $$
+            that is, $u(s) = v(s)$ $a.e.$ $s \in [t,T]$.
+            Now, assume $u(s) = v(s)$ $a.e.$ $s \in [t,T]$, by definition 
+            $$
+                \lambda\left(\{s \in [t, T] :  u(s) \neq v(s)\} \right)=0.
+            $$
+            That is, $ \rho(u(\cdot), v(\cdot))=0 $.
+        \item Simmetry. By definition of $\rho$
+            $$
+                \rho(u(\cdot), v(\cdot)) = \rho(v(\cdot), u(\cdot)), \hspace{1cm}%
+                    \forall u,v \in \mathscr{U}.
+            $$
+        \item Triangle inequality
+            $$
+                \rho(u(\cdot), v(\cdot)) \leq \rho(u(\cdot), w(\cdot)) +    %
+                    \rho(w(\cdot), v(\cdot)), \hspace{1cm} \forall \,       %
+                    u,v,w \in \mathscr{U}.
+            $$
+            We have
+            $$
+                \left\{s\in[t,T] : u(s) \neq v(s)\right\} \subseteq %
+                \left\{s\in[t,T] : u(s) \neq w(s)\right\} \cup %
+                \left\{s\in[t,T] : w(s) \neq v(s)\right\},
+            $$
+            since
+            $$
+                \left\{s\in[t,T] : u(s) = w(s)\right\} \cap %
+                \left\{s\in[t,T] : w(s) = v(s)\right\} \subseteq %
+                \left\{s\in[t,T] : u(s) = v(s)\right\}
+            $$
+            Then
+            \begin{align*}
+                \rho(u(\cdot), v(\cdot)) 
+                    &\leq \lambda \left( 
+                        \left\{s\in[t,T] : u(s) \neq w(s)\right\}%
+                        \cup \left\{s\in[t,T] : w(s) \neq v(s)\right\} %
+                    \right) \\
+                    &\leq \lambda(\left\{s\in[t,T] : u(s) \neq w(s)\right\}) + %
+                        \lambda(\left\{s\in[t,T] : w(s) \neq v(s)\right\}) \\
+                    &\leq \rho(u(\cdot), w(\cdot)) + \rho(w(\cdot), v(\cdot)).
+            \end{align*}
+    \end{asparaenum}
+    Hence $(\mathscr{U}[t,T], \rho)$ is a metric space.
+\end{proof}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%                        (U, RHO) COMPLETE METRIC SPACE!
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{lemma}[\citep{Ekeland_OTVP}, Lemma 7.2]\label{Lemma_ucompleteMS}
+    Consider $(\mathscr{U}[t,T], \rho) $ as in \Cref{Lemma_rhometric}. Then
+    $(\mathscr{U}[t,T], \rho) $ is complete.
+\end{lemma}
+\begin{proof}
+    We will use the usual method. That is, we take a Cauchy sequence  $\{u_n\}$
+    in $\mathscr{U}[t,T]$, and prove that a subsequence $\{u_{n_k}\}$ converges in
+    $\mathscr{U}[t,T]$.
+    Let $\{u_n\}_{n=1}^{\infty} \subseteq \mathscr{U}[t,T]$ be a Cauchy sequence.
+    Take a subsequence $\{u_{n_k}\}_{k=1}^{\infty}$ such that 
+    $$
+        \rho(u_{n_k}(\cdot), u_{n_{k+1}}(\cdot)) < \dfrac{1}{2^{k+1}}(T-t)
+    $$
+    Now, we prove that $\rho(u_{n_k})$ converges in $\mathscr{U}[t,T]$ . Define the
+    set
+    $$
+        A_{k} := \bigcup_{p \geq k}\left\{ s\in[t,T] : u_{n_p}(s) \neq u_{n_{p+1}}(s)%
+            \right\} \hspace{1cm} \forall k \in \mathbb{N}.
+    $$
+    Note that $A_{k+1} \subseteq A_k$, for each $k \in \mathbb{N}$. Further, for
+    $k \in \mathbb{N}$
+    \begin{align*}
+        \lambda(A_k) 
+            &= \lambda \left(\bigcup_{p \geq k} \{s\in[t,T] : u_{n_p}(s) %
+                \neq u_{n_{p+1}}(s)\}\right) \\
+            &\leq \sum_{p \geq k} \lambda(\{s\in[t,T] : u_{n_p}(s) \neq %
+                u_{n_{p+1}}(s)\}) \\
+            &= \sum_{p \geq k} \rho(u_{n_p}(\cdot), u_{n_{p+1}}(\cdot)) \\
+            &\leq \sum_{p \geq k}\dfrac{T-t}{2^{p}} \\
+            &= \dfrac{T-t}{2^{k}}. 
+    \end{align*}
+    Thus, $\stcomp{A_1}$
+    $$
+        \Bar{u}(s) := u_{n_{1}}(s) = u_{n_{l}}(s), \hspace{1cm} l \geq 1, \, s \in \stcomp{A_1}.
+    $$
+    Then, for each $s \in A_1$
+    $$
+        \lim_{l \to \infty} u_{n_l}(s) = u_{n_1}(s) = \Bar{u}(s).
+    $$
+    Similarly for $k$, $\Bar{u}(s) = u_{n_k} = u_{n_l}$, $l \geq k$, $s \in \stcomp{A_{k}}$.
+    Hence,
+    \begin{equation*}
+        \Bar{u}(s) = \left\{
+        \begin{matrix} 
+            u_{n_1}(s), & s\in \stcomp{A_1} \\
+            u_{n_2}(s), & s\in \stcomp{A_2} \\
+            \vdots      & \vdots \\
+            u_{n_k}(s), & s \in \stcomp{A_k} \\
+            \vdots      & \vdots 
+        \end{matrix}
+        \right. 
+    \end{equation*}
+    In this way we obtain a function $\Bar{u}$ which is measurable since
+    $$
+        \Bar{u}(s) = \sum_{k=1}^{\infty}u_{n_k}(s) \ind_{\stcomp{A_k}}(s)
+    $$
+\end{proof}
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+%                    CONTINUITY OF THE FUNCTION J 
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+\begin{asparaenum}
+    \item 
+    Show the continuity of the mapping 
+    $$
+        u\mapsto \int_{t}^{\tau} g(s, X(s), u(s))ds, \ \ \ u\in U[t,\tau]
+    $$
+\end{asparaenum}
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{lemma}\label{Lemma0}
+    If $\{ u_{n}\}$ is Cauchy sequence in $(\mathscr{U},\rho)$, then $\{ X_{n}\}$ 
+    is a Cauchy sequence in $(C[t, \tau ], ||\cdot ||)$, where $(u_{n}, X_{n})$
+    satisfies $\cref{Eq;CtrlSys}$.
+\end{lemma}
+\begin{proof}
+    From $\cref{Eq;CtrlSys}$ we know that
+    $$
+        X_{n}(s)= x+\int_{t}^{s} f(r, u_{n}(r), X_{n}(r)) dr,
+    $$
+    for $s\in [t, \tau]$ and $n\in\mathbb{N}$. For $n$ and $k$ in $\mathbb{N}$,
+    $$
+        X_{n}(s)- X_{k}(s)= \int_{t}^{s}[f(r, u_{n}(r), X_{n}(r))-f(r, u_{k}(r),%
+        X_{k}(r))] dr,
+    $$
+    and
+    \begin{align*}
+        |X_{n}(s)- X_{k}(s)| &\leq \int_{A_{n,k}}|f(r, u_{n}(r), X_{n}(r))- %
+            f(r, u_{k}(r), X_{k}(r))|dr \\
+        & +\int_{A_{n,k}^{c}}|f(r, u_{n}(r), X_{n}(r))-f(r, u_{k}(r), X_{k}(r))|dr.
+    \end{align*}
+    where 
+    $$
+        A_{n,k}:= \{ r\in[t,s] \ : \ u_{n}(r)\neq u_{k}(r) \}.
+    $$
+    Further,
+    \begin{align*}
+        |X_{n}(s)- X_{k}(s)| &\leq \int_{A_{n,k}}|f(r, u_{n}(r), X_{n}(r))|dr +
+        \int_{A_{n,k}}|f(r, u_{k}(r), X_{k}(r))|dr \\
+        &\phantom{=} +\int_{A_{n,k}^{c}}|f(r, u_{n}(r), X_{n}(r))|dr +
+        \int_{A_{n,k}^{c}}|f(r, u_{k}(r), X_{k}(r))|dr \\
+        &\leq \int_{A_{n,k}} L(1+|X_{n}(r)|)dr + \int_{A_{n,k}}L(1+|X_{k}(r)|)dr \\
+        &\phantom{=}+ \int_{A_{n,k}} L(X_{n}(r)-X_{k}(r))dr \\
+        &\leq 2Le^{L(T+t)}(1+|x|)\lambda(A_{n,k})+\int_{t}^{s} %
+        L\abs{X_{n}(r)-X_{k}(r)}dr.
+    \end{align*}
+    That is
+    $$
+        \abs{X_{n}(s)-X_{k}(s)}\leq 2Le^{L(T+t)}(1+|x|)\rho(u_{n}, %
+            u_{k})+\int_{t}^{s}L\abs{X_{n}(r)-X_{k}(r)}dr,
+    $$
+    and by Gronwall's inequality \eqref{prop:GI},
+    $$
+        \abs{X_{n}(s)-X_{k}(s)}\leq 2Le^{L(T+t)}(1+|x|)\rho(u_{n}, u_{k})e^{L(s+t)}.
+    $$
+    Put $k=2Le^{2L(T+t)}(1+|x|)$. Then
+    $$
+        \abs{X_{n}(s)-X_{k}(s)}\leq k\rho(u_{n}, u_{k}), \ \ \ s\in [t,T].
+    $$
+    and so
+    $$
+        \norm{X_{n}(\cdot)-X_{k}(\cdot)}\leq k\rho(u_{n}, u_{k}),
+    $$
+    Therefore, $\{X_{n}\}$ is a Cauchy sequence, whenever $\{u_{n}\}$ is a Cauchy sequence.
+\end{proof}
+\begin{proposition}\label{Proposition1}
+    The mapping $u \mapsto X_{n}$ from $(\mathscr{U}, \rho)$ into $(C[t,T], \norm{\cdot})$ is continuous.
+\end{proposition}
+\begin{proof}
+    Let $\{u_{n}\}$ converge to $u$ in $(\mathscr{U},\rho)$. Denote by $X_{n}$ the unique solution \cref{prop2.1.1} toC
+    \begin{equation}\label{dosestrellas}
+        X_{n}(s)=x\int_{t}^{s} f(x, u_{n}(r), X_{n}(r))dr, \ \ \ s\in [t,T], n=0,1,2,\ldots
+    \end{equation}
+    By Lemma \ref{Lemma0}, $\{ X_{n}\}$ is a Cauchy sequence and $(C[t,T], \norm{\cdot})$ %
+    is a Banach space, then exists $\Bar{X}\in C[t, T]$ such that 
+    $$
+        \lim_{n\to\infty}\norm{X_{n}(\cdot)-\Bar{X}}=0.
+    $$
+    We don't know whether $X_{0}$ equals $\Bar{X}$. To conclude the proof we will show 
+    that indeed $X_{n}\to X_{0}$ in norm. Since $X_{n}\to\bar{X}$ in norm, then 
+    $X_{n}(r)$ converges to $\bar{X}(r)$ for every $r\in[t, T]$. On the other hand, 
+    $u_{n}\to u_{0}$ under $\rho$, then $u_{n}\to u_{0}$ a.e. Then, this facts on 
+    the continuity of $f$ imply
+    $$
+        f(r, u_{n}(r), X_{n}(r))\to f(r, u_{0}(r), \Bar{X}(r)), \, \ \ a.e.
+    $$
+    Further,
+    $$
+        \abs{\int_{t}^{s} f(r, u_{n}(r), X_{n}(r))dr}\leq K,
+    $$
+    for some $K$ in $\mathbb{R}$. By Lesbesgue's dominated convergence theorem,
+    $$
+        \lim_{n\to\infty}\int_{t}^{s}f(r, u_{n}(r), X_{n}(r))dr%
+        = \int_{t}^{s}f(r, u_{0}(r), \Bar{X}(r))dr.
+    $$
+    Thus, from \eqref{dosestrellas}
+    $$
+        \Bar{X}(s):= x+ \int_{t}^{s}f(r, u_{0}(r),\Bar{X}(r))dr
+    $$
+    and the uniqueness result (\cref{prop2.1.1}) implies 
+    $$
+        \Bar{X}(s)=X_{0}(s), \ \ \ s\in [t, T].
+    $$
+\end{proof}
+\begin{theorem}\label{Thm:Jcontinuity}
+    The mapping 
+    $$
+        u \mapsto \int_{t}^{T}g(r, u(r), X_0(r))dr
+    $$
+    is continuous.
+\end{theorem}
+\begin{proof}
+    Let $\{u_{n}\}$ converge to $u_{0}$ in $(\mathscr{U},\rho)$. We use the 
+    same notation $X_{n}$ given in \Cref{dosestrellas}. By \Cref{Proposition1} 
+    and the continuity of $g(r, \cdot, \cdot)$ we have
+    $$
+        \lim_{n\to\infty}g(r, u_{n}(r), X_{n}(r)) = g(r, u_{0}(r), X_{0}(r)) \ \ \ a.e.
+    $$
+    Then by Lebesgue's theorem,
+    $$
+        \lim_{n\to\infty}\int_{t}^{T}g(r, u_{n}(r), X_{n}(r))dr=\int_{t}^{T}%
+        g(r, u_{0}(r), X_{0}(r))dr.
+    $$
+\end{proof}
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+\begin{proposition}\label{prop6.8}
+    Given $f \in L^{p}$, $1 < p \leq \infty$ and $\veps > 0$, there is a step
+    function $\varphi$ and a continuous function $\psi$ such that 
+    $\norm{f - \varphi}_{p} < \veps$ and $\norm{f - \psi}_{p} < \veps$.
+\end{proposition}
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+%                           Spike Variation Lemma
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{lemma}[ Lemma 1.4.6, p. 30, \citep{YongDG_ACIntro}]\label{lem:spike}
+    Suppose $f(\cdot) \in L^{1}([0,T] ; \mathbb{R}^{n})$ and for $\delta > 0$, let
+    $$
+        \mathbb{E}_{\delta} = \left \{ E \subseteq [0,T] \, : \, %
+            \lambda(E) = \delta T  \right\},
+    $$
+    where $\lambda$ is the Lebesgue measure. Define $g:[0,T] \to \mathbb{R}^{n}$ as
+    $$
+        g(t) = \int_{0}^{t}\left(1 - \dfrac{1}{\delta} \ind_{E}\right)%
+            f(s) ds.
+    $$
+    Then
+    $$
+        \inf_{E \in \mathbb{E}_{\delta} } \norm{g(t)}_{C([0,T] ; %
+            \mathbb{R}^{n})} = 0.
+    $$
+\end{lemma}
+\begin{proof}
+    By Proposition \cref{prop6.8}, for any $f(\cdot) \in L^{1}([0,T]; \mathbb{R}^n)$
+    and any $\veps >0$ there exist an $f_{\veps} \in C([0,T]; \mathbb{R}^n)$
+    such that
+    \begin{equation}
+        \int_{0}^{T} \abs{f(r) - f_{\veps}(r)}dr < \veps.
+    \end{equation}
+    We can find a partition $0 = t_0<t_1 < \cdots < t_{k-1} < t_k = T$ of $[0,T]$
+    such that
+    \begin{equation}
+        \norm{f_{\veps}(\cdot)}_{C([0,T]; \mathbb{R}^n)} \max_{1 \leq i \leq k}%
+            (t_i -t_{i-1}) < \dfrac{\veps}{k}.
+    \end{equation}
+    Define the step function $\Bar{f}_{\veps}(\cdot)$ as
+    \begin{equation}\label{SpikeVar;eqfeps}
+        \Bar{f}_{\veps}(r) = \sum_{i=1}^{k}f_{\veps}(t_i)\ind_{(t_{i-1},t_i]}(r), \, r \in [0,T].
+    \end{equation}
+    First, we prove that 
+    \begin{equation}
+        \int_{0}^{T}\abs{f_{\veps}(r) - \Bar{f}_{\veps}(r)}dr < \veps.
+    \end{equation}
+    Using \cref{SpikeVar;eqfeps} we get
+    \begin{align*}
+        \int_{0}^{T}\abs{f_{\veps}(r) - \Bar{f}_{\veps}(r)}dr %
+        &=
+            \int_{0}^{T}\abs{f_{\veps}(r) - \sum_{i=1}^{k}f_{\veps}(t_i)\ind_{(t_{i-1},t_i]}(r) }dr 
+        \\
+        &=
+            \int_{0}^{t_1}\abs{f_{\veps}(r) 
+            - \sum_{i=1}^{k}f_{\veps}(t_i)%
+            \ind_{(t_0,t_1]}(r) }dr + \cdots 
+        \\
+        & + \int_{t_{k-1}}^{T}\abs{f_{\veps}(r) - %
+            \sum_{i=1}^{k}f_{\veps}(t_i)\ind_{(t_{i-1},t_i]}(r) }dr 
+        \\
+        &\leq   
+            \int_{0}^{t_1}\abs{f_{\veps}(r) - \ind_{(t_0,t_1]}(r) f_{\veps}(t_1)} dr  + \cdots 
+        \\
+        & + \int_{t_{k-1}}^{T}\abs{f_{\veps}(r) - \ind_{(t_{k-1},T]}(r) f_{\veps}(T)}dr \\
+        &=
+            \int_{0}^{t_1}\abs{f_{\veps}(r) - f_{\veps}(t_1)} dr + \ldots + %
+            \int_{t_{k-1}}^{T}\abs{f_{\veps}(r) - f_{\veps}(T)}dr \\
+        &\leq
+            \int_{0}^{t_1}\norm{f_{\veps}(\cdot)}dr + \ldots + %
+            \int_{t_{k-1}}^{T}\norm{f_{\veps}(\cdot)}dr \\
+        &\leq 
+            k\int_{t_{i-1}}^{t_i}\norm{f_{\veps}(\cdot)} dr.
+    \end{align*}
+    Then,
+    \begin{equation*}
+        \int_{0}^{T}\abs{f_{\veps}(r) - \Bar{f}_{\veps}(r)}dr \leq %
+        k \norm{f_{\veps}(\cdot)} \max_{1\leq i \leq k}(t_{i-1},t_i) < \veps.
+    \end{equation*}
+    Now, let
+    \begin{equation}
+        E_{\delta} = \bigcup_{i=1}^{k}[t_{i-1}, t_{i-1} + \delta(t_i - t_{i-1})].
+    \end{equation}
+    Note that $\lambda(E_{\delta}) = \sum_{i\geq k}\delta(t_i - t_{i-1}) = \delta T$.
+    For any $s \in [0,T]$, there is an index $j$ such that $t_{j-1} < s \leq t_j$. 
+    We prove that the integral 
+    \begin{equation}\label{SpikVar;eqIi}
+        I_{i} := \int_{t_{i-1}}^{t_i}\left(1 - \dfrac{1}{\delta} \ind_{E_{\delta}}(r)\right)%
+        \Bar{f}_{\veps}(r)dr = 0,
+    \end{equation}
+    for all $(t_{i-1},t_i]$ which not enclose $s$. Substituting \cref{SpikeVar;eqfeps}
+    in \cref{SpikVar;eqIi} yields
+    \begin{align*}
+        I_i &= \int_{t_{i-1}}^{t_i}\left(1 - \frac{1}{\delta} \ind_{E_{\delta}}(r)\right)%
+                \sum_{i=1}^{k}f_{\veps}(t_i)\ind_{(t_{i-1},t_i]}(r) dr \\
+            &= \int_{t_{i-1}}^{t_i}\left(1 - \frac{1}{\delta} \ind_{E_{\delta}}(r)\right)%
+                f_{\veps}(t_i) dr \\
+            &= f_{\veps}(t_i) \int_{t_{i-1}}^{t_i}\left(1 - \frac{1}{\delta} %
+                \ind_{[t_{i-1}, t_{i-1} + \delta (t_i - t_{i-1})]}(r)\right) \\
+            &= f_{\veps}(t_i)\left[(t_i - t_{i-1}) - \frac{1}{\delta}%
+                \delta (t_i - t_{i-1})\right] \\
+            &= 0.
+    \end{align*}
+    Now we consider the interval $(t_{j-1}, s]$ and estimate
+    \begin{equation*}
+        I_{j} := \abs{\int_{t_{i-1}}^{s} \left(1 - \frac{1}{\delta}%
+                 \ind_{E_{\delta}}(r)\right) \Bar{f}_{\veps}(r) dr}.
+    \end{equation*}
+    By definition of $\Bar{f}_{\veps}$ we have
+    \begin{align*}
+        I_{j} &= \abs{\int_{t_{i-1}}^{s} \left(1 - \frac{1}{\delta}%
+                \ind_{E_{\delta}}(r)\right) f_{\veps}(r) dr}\\
+            &= \abs{f_{\veps}(t_j)} \abs{\int_{t_{i-1}}^{s} \left(1 - %
+                \frac{1}{\delta}\ind_{[t_{j-1}, t_{j-1}+ \delta(t_j - t_{j-1})]}\right)dr} \\
+            &= \abs{f_{\veps}(t_j)} \abs{s-t_{j-1} - \dfrac{1}{\delta} \left\{%
+                (s - t_{j-1}) \wedge [\delta(t_j - t_{j-1})]\right\} } \\
+            &\leq  \abs{f_{\veps}(t_j)}(t_j - t_{j-1}) \\
+            &< \norm{f_{\veps}(\cdot)} \max_{1\leq i \leq k}(t_i - t_{i-1}) \\
+            &< \dfrac{\veps}{k} < \veps.
+    \end{align*}
+    Now,
+    \begin{align*}
+        \abs{\int_{0}^{s} \left(1 - \frac{1}{\delta} \ind_{E_{\delta}}(r) \right)f(r)dr} &= %
+            \abs{\int_{0}^{s} \left(1 - \frac{1}{\delta} \ind_{E_{\delta}}(r) \right)(f(r) - f_{\veps}(r))dr} \\ %
+            &+ \abs{\int_{0}^{s} \left(1 - \frac{1}{\delta} \ind_{E_{\delta}}(r) \right)(f_{\veps}(r) - \Bar{f}_{\veps}(r))dr} \\%
+            &+ \abs{\int_{0}^{s} \left(1 - \frac{1}{\delta} \ind_{E_{\delta}}(r) \right) \Bar{f}_{\veps}(r)dr} %
+    \end{align*}
+    Note that,
+    \begin{align*}
+        \abs{\int_{0}^{s} \left(1 - \frac{1}{\delta} \ind_{E_{\delta}}(r) \right)%
+        (f(r) - f_{\veps}(r))dr} %
+        &= \int_{0}^{s} \abs{1 - \frac{1}{\delta} \ind_{E_{\delta}}(r)}\abs{f(r) - f_{\veps}(r)}dr \\
+        &\leq \dfrac{1 +\delta}{\delta} \int_{0}^{s}\abs{f(r) - f_{\veps}(r)}dr \\
+        &< \dfrac{(1+\delta)\veps}{\delta}.
+    \end{align*}
+    Similar ideas applies to show that 
+    \begin{equation*}
+        \abs{\int_{0}^{s} \left(1 - \frac{1}{\delta} \ind_{E_{\delta}}(r) \right)%
+            (f_{\veps}(r) - \Bar{f}_{\veps}(r))dr}  < \dfrac{(1+\delta)\veps}{\delta}.
+    \end{equation*}
+    Thus
+    \begin{equation*}
+        \abs{\int_{0}^{s} \left(1 - \frac{1}{\delta} \ind_{E_{\delta}}(r) %
+        \right)f(r)dr} < \dfrac{2(1+\delta)\veps}{\delta} + \veps.
+    \end{equation*}
+    Since $\veps$ is arbitrary we obtain the conclusion.
+\end{proof}
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+    Since $0<\delta <1$ is fixed in spike variation \cref{lem:spike}, by the
+    definition of infimum there is $E_\delta \in \mathbb{E}_{\delta}$ such that
+    \begin{equation*}
+        \sup_{\tau \in [t,T]} \abs{\int_{t}^{\tau} f(s)ds - %
+        \frac{1}{\delta}\int_{t}^{\tau} \ind_{E_\delta}(s)f(s)ds} < \delta,
+    \end{equation*}
+    that is 
+    $$
+        \abs{\delta \int_{t}^{\tau}f(s)ds - \frac{1}{\delta}\int_{t}^{\tau} %
+        \ind_{E_\delta}(s)f(s)ds} < \delta, \, \, \forall \tau \in [t,T].
+    $$
+    Then
+    $$
+        \abs{\delta \int_{t}^{\tau} f(s)ds - \int_{t}^{\tau} \ind_{E_\delta}(s)%
+        f(s)ds} < \delta^2, \, \, \forall \tau \in [t,T].
+    $$
+    Define 
+    $$
+        r_{\delta}(\tau) := \delta \int_{t}^{\tau}f(s)ds - %
+        \int_{t}^{\tau}\ind_{E_\delta}(s)f(s)ds, \, \, \tau \in [t,T].
+    $$
+    So we obtain the next corollary.
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+    \begin{corollary}\label{cor:spike}
+        Suppose $f(\cdot) \in L^{1}([t,T] ; \mathbb{R}^{n})$ and for
+        $0 < \delta < 1$, let
+        $$
+            \mathbb{E}_{\delta} = \left \{ E \subseteq [0,T] \, : \, %
+                \lambda(E) = \delta (T-t)  \right\},
+        $$
+        where $\lambda$ is the Lebesgue measure. Then, there exists 
+        $E_\delta \in \mathbb{E}_{\delta}$ and a function $
+        r_\delta \in L^{1}([t,T] ; \mathbb{R}^{n}) $ such that 
+        \begin{equation*}
+            \delta\int_{t}^{\tau}f(s)ds = \int_{t}^{\tau} \ind_{E_\delta}(s)%
+            f(s)ds + r_\delta(\tau), \, \, \tau \in [t,T],
+        \end{equation*}
+        and $\abs{r_{\delta}(\tau)} < {\delta}^2$ for all $\tau \in [t,T]$.
+    \end{corollary}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------   
+    \begin{theorem}[Danskin's theorem, p.20, \citep{guler2010foundations}]\label{thm:danskin}
+        Let $X \subseteq \mathbb{R}^n$ open and $Y$ a compact set. Suppose that 
+        $f : X \times Y \to \mathbb{R}$ is continuous and $\nabla_{x} f(x,y)$ 
+        exists and is continuous. Define
+        $$
+            \varphi(x) := \min_{y \in Y} \{f(x,y)\}.
+        $$
+        Then $\varphi$ is continuous and the directional derivative of $\phi$ 
+        exists and is given by
+        $$
+            D_{v}^{+}\varphi(x) = \min_{y\in Y(x)}\{\langle \nabla_{x} f(x,y), v \rangle\},
+        $$
+        where $Y(x) = \{y\in Y \, : \, \varphi(x) = f(x,y)\}$ is the set of 
+        minimizers.
+        If the set of minimizers has only one element, that is, $Y(x) = \{y_0\}$
+        then
+        $$ 
+            D_{v}^{+}\varphi(x) = \{\langle \nabla_{x} f(x,y_0), v \rangle\},
+        $$
+    \end{theorem}
+    
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------    
+\begin{proposition}[\citep{YongDG_ACIntro}, Proposition 1.4.8, p. 32]
+    Let $M \subseteq \mathbb{R}^{n}$ be a non-empty closed convex set. Then there 
+    exists a map $P_{M} : \mathbb{R}^{n} \to M$ such that
+    \begin{asparaenum}[i)]
+        \item
+            $ \abs{x - P_{M}(x)} = \inf_{y \in M}\abs{x-y} \equiv d(x,M), $
+        \item 
+            $\abs{P_{M}(x_1) - P_M(x_2)} \leq \abs{x_1 - x_2},$ for all 
+            $x_1, x_2$ in $ \mathbb{R^{n}}$.
+    \end{asparaenum}
+    Moreover, for $z \in M$, 
+    \begin{asparaenum}[iii)]
+        \item $z = P_{M}(x)$ if and only if $\langle x-z, y-z \rangle \leq 0$.
+    \end{asparaenum}
+\end{proposition}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{proof}
+    Let $\{z_k\} \subseteq M$ such that $\lim_{k \to \infty}\abs{x - z_k} = d(x,M)$
+    for any $x \in \mathbb{R}^{n}$. Since $z_k \in M$ for all $k \in \mathbb{N}$,
+    $\{z_k\}$ is bounded. We may assume that $z_k \to \bar{z} \in M$, if not we 
+    can extract a subsequence. Then
+    $$
+        \lim_{k\to\infty}\abs{x - z_k} = \abs{x - \bar{z}} = d(x,M).
+    $$
+    Now, let $\bar{y} \in M$ such that $\abs{x - \bar{y}} = d(x,M)$. By the 
+    convexity of M, $\dfrac{\bar{y} + \bar{z}}{2} \in M$, which implies 
+    \begin{align*}
+        (d(x,M))^2 &\leq \abs{x - \dfrac{\bar{y} + \bar{z}}{2}}^2 \\
+            &= \frac{1}{4}\abs{2x - \bar{y} - \bar{z}}^2 \\
+            &= \frac{1}{4}\abs{x - \bar{y} + x - \bar{z}}^2 \\
+            &\leq \frac{1}{4}(\abs{(x - \bar{y}) + (x - \bar{z})}^2 + %
+            \abs{(x - \bar{y}) - (x - \bar{z})}^2 - \abs{\bar{y} - \bar{z}}^2) \\
+            &\leq \frac{1}{4}(2\abs{x - \bar{y}}^2 + 2\abs{x - \bar{z}}^2 - %
+                \abs{\bar{y} - \bar{z}}^2) \\
+            &= (d(x,M))^2 - \dfrac{1}{4}\abs{\bar{y} - \bar{z}}^2),
+    \end{align*}
+    thus, $\bar{y} = \bar{z}$. Consequently, $P_M$ is a well-defined map.
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+%---------%---------%---------%---------%---------%---------%---------%---------    
+    Suppose that $P_M(x) \in M$. Then for any $y \in M$ and $\alpha \in (0,1)$,
+    we have
+    $$
+        P_M(x) + \alpha(y - P_M(x)) = (1-\alpha)P_M(x) + \alpha y \, \in M.
+    $$
+    Then,
+    $$
+        \abs{P_M(x) - x}^2 \leq \abs{P_M(x) + \alpha (y-P_M(x)) - x}^2,
+    $$
+    which implies
+    \begin{align*}
+        0 &\leq \abs{P_M(x) - x} + \abs{\alpha(y - P_M(x))}^2 - \abs{P_M(x) - x}^2 \\
+        &= 2\alpha \langle P_M(x) - x, y - P_M(x)\rangle + \alpha^2\abs{y-P_M(x)}^2 \\
+        &= -2\alpha \langle P_M(x) - x, y - P_M(x)\rangle + \alpha^2\abs{y-P_M(x)}^2.
+    \end{align*}
+    Dividing by $\alpha$ and multiplying by $-1$ we have
+    $$
+        \langle P_M(x) - x, y - P_M(x)\rangle - \alpha \abs{y-P_M(x)}^2 \leq 0.
+    $$
+    Letting $\alpha \to 0$ we get
+    \begin{equation}\label{prdless0}
+        \langle x- P_M(x), y-P_M(x)\rangle \leq 0, \, \, \forall y \in M.
+    \end{equation}
+    Now, suppose that, for $z \in M$ for $z\in M$
+    $$
+        \langle x-z, y-z \rangle \leq 0, \, \, \forall y \in M.
+    $$
+    Note
+    $
+        \abs{y-x}^2 = \abs{z-x}^2 + \abs{y-z}^2 + 2\langle y-z, z-x \rangle,
+    $
+    then
+    $$
+         \abs{y-x}^2 - \abs{z-x}^2 = \abs{y-z}^2 + 2\langle y-z, z-x \rangle,
+    $$
+    for all $y \in M$. Thus $\abs{y-x} \geq \abs{z-x}$ for all $y \in M$. By
+    definition of infimum $z = P_M(x)$.
+    
+    From \cref{prdless0}, for any $x_1, x_2 \in  \mathbf{R}^n$, we have 
+    $$
+        \langle P_M(x_1) - P_M(x_2), x_2 - P_M(x_2)\rangle \leq 0,
+    $$
+    and
+    $$
+        \langle P_M(x_2) - P_M(x_1), x_1 - P_M(x_1)\rangle = %
+        \langle P_M(x_1) - P_M(x_2), P_M(x_2) - x_1\rangle \leq 0.
+    $$
+    Adding the both inequalities we obtain
+    $$
+        \langle P_M(x_1) - P_M(x_2), x_2 - P_M(x_2) -x_1 + P_M(x_1)\rangle \leq 0
+    $$
+    $$
+        \langle P_M(x_1) - P_M(x_2), P_M(x_1) - P_M(x_2) - (x_1 -x_2)\rangle \leq 0
+    $$
+\end{proof}
+
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+
+Let us assume the following,
+\begin{theorem}[Taylor's Theorem, p. 359 \citep{marsden1993elementary}]\label{thm:TT}
+    Let $f : A \to \mathbb{R}$ be of class $C^{r}$ for $A \subseteq \mathbb{R}^{n}$
+    an open set. Let $x,y \in A$, ans suppose that the segment joining $x$ and $y$
+    lies in $A$. Then there is a point $c$ on that segment such that
+    \begin{equation*}
+        f(y) - f(x) = \sum_{k=1}^{r-1}\dfrac{1}{k!}\mathbf{D}^{k}f(x)(y-x,\ldots, y-x)%
+        + \dfrac{1}{r!}\mathbf{D}^{r}f(c)(y-x,\ldots, y-x),
+    \end{equation*}
+    where $\mathbf{D}^{k}f(x)(y-x,\ldots, y-x)$ denotes $\mathbf{D}^{k}f(x)$ as a
+    $k$-linear map applied to the $k$-tuple $(y-x,\ldots, y-x)$. In coordinates,
+    \begin{equation*}
+        \mathbf{D}^{k}f(x)(y-x,\ldots, y-x) = \sum_{i_1, \ldots, i_k  =1}%
+        \left(\dfrac{\partial^{k}f}{\partial x_{i_1} \cdots \partial x_{i_k}}\right)%
+        \left(y_{i_1} - x_{i_1}\right) \cdots (y_{i_k} - x_{i_k}).
+    \end{equation*}
+    Setting $y = x + h$, we can write the Taylor formula as
+    \begin{equation*}
+        f(x+h) = f(x) + \mathbf{D}f(x)\cdot h + \cdots  + \dfrac{1}{(r-1)!}%
+        \mathbf{D}^{r-1}f(x)\cdot (h, \ldots, h) + R_{r-1}(x,h),
+    \end{equation*}
+    where $R_{r-1}(x,y)$ is the remainder. Furthermore,
+    \begin{equation*}
+        \dfrac{R_{r-1}(x,h)}{\norm{h}^{r-1}} \to 0 \text{ as } h \to 0. 
+    \end{equation*}
+\end{theorem}
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------

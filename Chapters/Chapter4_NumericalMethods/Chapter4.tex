@@ -1,0 +1,347 @@
+%
+\chapter{The Forward-Backward Sweep Method}
+\lhead{\emph{Numerical Methods}}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+%           MODIFICAR :
+    The purpose of this chapter is to present and explain the four-stage Runge 
+    Kutta (RK) method and the forward backward sweep method. Both of them are 
+    used to find the optimal control. Also, we present examples of a one-stage 
+    and two-stage explicit RK method, and an example of how to apply the
+    forward-backward sweep method. For a more extensive explanation see
+    \cite{griffiths2010numerical}.
+%%%%%%%%%       \section*{The Runge Kutta Method}
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+    \noindent Consider the following initial value problem (IVP)
+    \begin{equation}\label{eq:ivp}
+        \begin{aligned}
+            x'(t)  &= f(t, x(t)), \hspace{1cm} t \geq t_0, \\
+            x(t_0) &= x_0,
+        \end{aligned}
+    \end{equation}
+%       MODIFICAR: 
+    The Runge-Kutta (RK) method is used to approximate the solution of the IVP 
+    described by \cref{eq:ivp}. This method is iterative and consists of a number
+    of stages. For example, Euler's method is a one-stage RK method. The RK 
+    method computes the slopes of nearby points at a time $t_n$ and then 
+    calculates the mean of these slopes to approximate the solution at the next
+    time $t_{n+1}$. The general $s$-stage RK method is defined as
+    \begin{equation}\label{eq:GenSSRK}
+        x_{n+1} = x_n + h \sum_{i=1}^{s} b_i k_i,
+    \end{equation}
+    where the terms $k_i$ are computed from the following evaluation in the 
+    right-hand side of the IVP  \eqref{eq:ivp}:
+    \begin{equation}\label{eq:kterms}
+        k_i = f \left( t_n + c_i h, x_n + h \sum_{j=1}^{s} a_{i,j}k_j\right), %
+                \hspace{1cm} i = 1, \cdots s,
+    \end{equation}
+    with
+    \begin{equation}
+        c_i =  \sum_{j=1}^{s} a_{i,j}, \hspace{1cm} i = 1, \cdots, s.
+    \end{equation}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+    Thus, given a value of $s$, the method depends on $s^2 +s$ parameters
+    $\{a_{i,j},b_{j}\}$. These parameters can be displayed in a tableau known as the
+    Butcher array (see \cref{tab:GButcherArray}).
+    \begin{table}[h!]\label{tab:GButcherArray}
+        \begin{center}
+            \begin{tabular}{l | l } 
+                c  & A  \\
+                \hline
+                \hspace{0.1cm} & b
+            \end{tabular}
+            \caption{General form of a Butcher array.}
+        \end{center}
+    \end{table}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+    \noindent Vector $c$ indicates the positions within the step of the 
+    stage values. The matrix $A$ indicates the dependence of the stages on the
+    derivatives found at other stages. And $b$ is a vector of quadrature weights,
+    showing how the final result depends on the derivatives computed at various
+    stages. In the explicit RK methods the upper-triangular components of the 
+    matrix $A$ are zero. So, in Table \cref{tab:ExplicitBA} is shown an 
+    extended Butcher array for an explicit RK method. 
+    \begin{table}[h!]\label{tab:ExplicitBA}
+        \begin{center}
+            \begin{tabular}{l | l l l l l} 
+                0     & 0 & 0 & $\cdots$ &0 &    0 \\
+                $c_2$     & $a_{2,1}$ & 0 & $\cdots$ &0 & 0 \\
+                $c_3$     & $a_{3,1}$ & $a_{3,2}$ & $\cdots$ & 0& $\vdots$ \\
+                $\vdots$  & $\vdots$  & $\vdots$  &          &0 & 0 \\
+                $c_s$     & $a_{s,1}$ & $a_{s,2}$ & $\cdots$ & $a_{s,s-1}$ & 0 \\
+                \hline
+                \hspace{0.1cm} & $b_1$ & $b_2$ & $\cdots$ & $_{s-1}$ & $b_s$ \\
+            \end{tabular}
+            \caption{The Butcher array for an explicit RK method}
+        \end{center}
+    \end{table}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+    Let us introduce the definition of the local truncation error. 
+    \begin{definition}[Local Truncation Error, {\citep[def. 9.3, p. 127]{griffiths2010numerical}}]
+        The Local Truncation Error, $T_{n+1}$ of an RK method is defined to be
+        the difference between the exact and the numerical solution of the IVP at
+        time $t = t_{n+1}$:
+        $$
+            T_{n+1} = x(t_{n+1}) - x_{n+1},
+        $$
+        under the localizing assumption that $x_n = x(t_n)$. If $T_{n+1} = \mathcal{O}^{p+1}$,
+        the method is said to be of order $p$.
+    \end{definition}
+    We obtain the parameters in the RK methods, using the definition below. To clarify this idea, we present an example of a one-stage RK method, that is,
+    $s = 1$. Following the definitions \eqref{eq:GenSSRK} and \cref{eq:kterms},
+    we get
+    $
+        x_{n+1} = x_n + hb_1 k_1,
+    $
+    and
+    $
+        k_1 = f(t_n + c_1 h, x_n + h a_{1,1} k_1).
+    $
+    By the definition of $c_i$ we have that, $c_1 = a_{1,1} = 0$. Also, 
+    $k_1 = f(t_n,x_n) = f_n$, then $ x_{n+1} = x_n + h b_1 f_n$. To find the
+    coefficient $b_1$, we have to compare this expression with the expression for
+    $x(t_{n+1})$:
+    $$
+        x(t_{n+1}) = x(t_n) + hx'(t_n) + \dfrac{1}{2}h^{2}x''(t_n) + \mathcal{O}(h^{3}).
+    $$
+    To do this comparison, we need to differentiate the equation $x'(t) = f(t,x(t))$, 
+    with respect to t. By the chain rule, we obtain
+    $$ 
+        x''(t) = \dfrac{\partial f}{\partial t}t' + %
+                 \dfrac{\partial f}{\partial x}  x'(t) %
+            = f_{t} + f_{x} f.
+    $$
+    Then, 
+    \begin{align*}
+        T_{n+1}
+            &= x(t_{n+1}) - x_{n+1} \\
+            &= x(t_n) + hx'(t_n) + \dfrac{1}{2}h^2 x''(t_n)  - x_n - hb_1 f_n +  \mathcal{O}(h^3)\\
+            &= x_n + hf_n + \dfrac{1}{2}h^2(f_t + ff_x)\vert_{t = t_n} - x_n - hb_1f_n + \mathcal{O}(h^3)\\
+            &= h(1-b_1)f_n + \dfrac{1}{2}h^2(f_t + ff_x)\vert_{t = t_n} + \mathcal{O}(h^3),
+    \end{align*}
+    Choosing $b_1 = 1$ the method is consistent of order $p=1$. This choosing 
+    gives the only first-order one-stage explicit RK method, the Euler's method
+    $$
+        x_{n+1} = x_n + hf_n.
+    $$
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+    To fix ideas, consider the next example for the two stage RK method, which 
+    is a modified Euler method. Let the IVP
+    \begin{equation}\label{eq:IVP2}
+        \begin{aligned}
+            x'(t) &= (1-2t)x(t), \hspace{1cm} t>0, \\
+            x(0)  &= 1.
+        \end{aligned}
+    \end{equation}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+    According to the two stage RK method, 
+    \begin{align*}
+        t_{n+1} &= t_n + h, \\
+        x_{n+1} &= x_n + hk_2, 
+    \end{align*}
+    and
+    \begin{equation}\label{eq:IVP2_kterms}
+        \begin{aligned}
+            k_1 &= f(t_n, x_n), \\
+            k_2 &= f\left(t_n + \dfrac{1}{2}h, x_n + \dfrac{1}{2}hk_1 \right),
+        \end{aligned}
+    \end{equation}
+    we calculate the approximate solution of \ref{eq:IVP2} choosing $h=0.2$.
+    Thus, substituting \ref{eq:IVP2_kterms} in \ref{eq:IVP2} we obtain
+    \begin{align*}
+        k_1 &= (1- 2t_n)x_n,\\
+        k_2 &= (1 - (2t_n + h))\left(x_n + \dfrac{1}{2}h k_1\right).
+    \end{align*}
+    So, for $n = 0$, we have
+    \begin{align*}
+        k_1 &= (1-2t_0)x_0 = (1 - 2(0))(1) = 1,    \\ 
+        k_2 &= (1 - 2t_0 - h)(x_0 + 0.5hk_1) = (1-0.2)(1+0.5(0.2)(1)) = 0.88, \\
+        t_1 &= t_0 + h = 0 + 0.2 = 0.2, \\
+        x_1 &= x_0 + hk_2 = 1 + (0.2)(0.88) = 1.176.
+    \end{align*}
+    Now, for $n=1$, yields
+    \begin{align*}
+        k_1 &= (1-2t_1)x_1 = (1 - 2(0.2))(1.176) = 0.7056,    \\ 
+        k_2 &= (1 - 2t_1 - h)(x_1 + 0.5hk_1) =
+            (1-2(0.2)-0.2)(1.176+0.5(0.2)(0.7056)) = 0.4986, \\
+        t_2 &= t_1 + h = 0.2 + 0.2 = 0.4, \\
+        x_2 &= x_1 + hk_2 = 1.176 + (0.2)(0.4986) = 1.2757,
+    \end{align*}
+    and so on. This is an example of an explicit RK method.
+    
+%    -> here goes a tiny graph <3
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+    Now, letting $s=4$, we get a four-stage RK explicit method for the IVP 
+    (\ref{eq:ivp})
+    \begin{equation}\label{RK4_method}
+        x_{n+1} = x_n + h(b_{1}k_{1} + b_{2}k_{2} + b_{3}k_{3} + b_{4}k_{4})
+    \end{equation}
+    where
+    \begin{equation}\label{RK4_kterms}
+        \begin{aligned}
+            k_1 &=  f(t_n, x_n), \\
+            k_2 &=  f(t_n + c_2 h, x_n + h a_{2,1}k_1), \\
+            k_3 &=  f\left(t_n + c_3 h, x_n + h\sum_{j=1}^{2}a_{3,j}k_j\right), \\
+            k_4 &=  f\left(t_n + c_4 h, x_n + h\sum_{j=1}^{3}a_{1,j}k_j\right),
+        \end{aligned}
+    \end{equation}
+    To obtain the parameters we have to satisfy the following conditions
+    \begin{align*}
+        b_1 + b_2 + b_3 + b_4 &= 1, \\
+        b_2 c_2 + b_3 c_3 + b_4 c_4 &= \dfrac{1}{2}, \\
+        b_2 {c_2}^{2} + b_3{c_3}^{2} + b_4{c_4}^{2} &= \dfrac{1}{3}, \\
+        b_3 a_{3,2}c_2 + b_4 a_{4,2}c_2 + b_4 a_{4,3}c_3 &= \dfrac{1}{6}, \\
+        b_2 {c_2}^{3} + b_3{c_3}^{3} + b_4{c_4}^{3} &= \dfrac{1}{4}, \\
+        b_3 c_3 a_{3,2}c_2 + b_4 c_4 a_{4,2}c_2 + b_4 c_4 a_{4,3}c_3 &= \dfrac{1}{8}, \\
+        b_3 a_{3,2}{c_2}^{2} + b_4 a_{4,2}{c_2}^{2} + b_4 a_{4,3}{c_3}^{2} &= \dfrac{1}{12}, \\
+        b_4 a_{4,3}a_{3,2} c_2 &= \dfrac{1}{24}.
+    \end{align*}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+    There is a lot of solutions and families of solutions. We show in Table \cref{tab:BA-RK4} some parameters that solves the equations
+    below. This set of parameters conform the Runge Kutta-Felberg method
+    of fourth order. This method is common used in package from R, Julia and
+    MATLAB. 
+    
+    \begin{table}[h!]\label{tab:BA-RK4}
+        \begin{center}
+            \begin{tabular}{l | l l l l l} 
+                0     & 0 &  &  &     \\
+                $\frac{1}{2}$ & $\frac{1}{2}$ & 0 &  & \\
+                $\frac{1}{2}$ & 0 & $\frac{1}{2}$ & 0 & \\
+                1  & 0  &  0  & 1 & 0 \\
+                \hline
+                \hspace{0.1cm} & $\frac{1}{6}$ & $\frac{1}{3}$ & $\frac{1}{3}$ & $\frac{1}{6}$  \\
+            \end{tabular}
+            \caption{The Butcher array for an explicit four stage RK method}
+        \end{center}
+    \end{table}
+    
+    \noindent Substituting the parameters showed in Table \cref{tab:BA-RK4} 
+    in (\ref{RK4_method}) and (\ref{RK4_kterms}), we obtain the Runge Kutta-Felberg method
+    \begin{equation}\label{RK4_method}
+        x_{n+1} = x_n + \dfrac{1}{6}h(k_{1} + 2k_{2} + 2k_{3} + k_{4})
+    \end{equation}
+    where
+    \begin{equation}\label{RK4_kterms}
+        \begin{aligned}
+            k_1 &=  f(t_n, x_n), \\
+            k_2 &=  f\left(t_n + \dfrac{1}{2}h, x_n + \dfrac{1}{2}hk_1\right), \\
+            k_3 &=  f\left(t_n + \dfrac{1}{2}h, x_n + \dfrac{1}{2}hk_2\right), \\
+            k_4 &=  f\left(t_n + h, x_n + hk_3\right). 
+        \end{aligned}
+    \end{equation}
+\section*{The Forward Backward Sweep Method}
+%[theorem name, {\citep[Thm. #, page]{reference}}]
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+    The Pontryagins principle allows us to transform the problem of finding a
+    control which optimizes the cost functional to optimizing the Hamiltonian. 
+    To this end, we need to solve forward in time the dynamics with a given 
+    initial condition, and backward in time the adjoint equation with a 
+    transversality condition, using the four-stage  RK method. This way of
+    solving is called the forward backward sweep metho. So the idea is to 
+    follow the next steps.
+    
+    \begin{description}
+    	\item[Step 1.]
+        	Make an initial guess for $\vec{u}$ over the interval.
+        \item[Step 2.]
+        	Using the initial condition $x_1 = x(t_0) = a$ and the values for 
+            $\vec{u}$, solve $\vec{x}$ forward in time according to its differential
+            equation in the optimality system.
+    	\item[Step 3.]
+        	Using the transversality condition $\lambda_{N+1} = \lambda(t_1) = 0$ 
+            and the values for $\vec{u}$ and $\vec{x}$, solve $\vec{\lambda}$ 
+            backward in time according to its differential equation in the optimality
+            system.
+        \item[Step 4.]
+        	Update $\vec{u}$ by entering the new $\vec{x}$ and $\vec{\lambda}$ values 
+            into the characterization of the optimal control. 
+    	\item[Step 5.]
+        	Check convergence. If the values of the variables in this iteration and 
+            the last iteration and the last iteration are negligibly close, output the 
+            current values as solutions. If values are not close, return to Step 2.
+    \end{description}
+
+    Using Python, we made an implementation of this method \citep{python_Thesisrepo},
+    which follows the next  \Cref{FBSM_alg}. 
+
+\begin{algorithm}
+	\caption{Forward Backward Sweep }\label{FBSM_alg}
+    INPUT: $t_0, t_f, n_{max}, x_0,h, a, r, m, \epsilon, \lambda_{f}$ \\
+    OUTPUT: $x^*, u^*, \lambda$ \\
+	\begin{algorithmic}[1]
+		\Procedure{Forward backward sweep}{$g,\lambda_{\text{function}}, 
+        u, x_0, 
+        \lambda_f, h, n_{max}$} 
+			\While{$ \text{test} > \epsilon $}
+				\State $u_{\text{old}} \gets u$ 
+                \State $x_{\text{old}} \gets x$ 
+                \State $ x \gets$ \Call{runge\_kutta\_forward}%
+                        {$g, u, x_0, h,n_{max}$}
+                \State $\lambda_{\text{old}} \gets \lambda $
+				\State $\lambda \gets$ \Call{runge\_kutta\_backward}%
+				        {$\lambda_{\text{function}}, x, \lambda_f, h, n_{max}$}
+                \State $\displaystyle u_1 \gets$ \Call{optimality\_condition} %
+                        {$u, x, \lambda$}
+                \State $\displaystyle u \gets \frac{u_1 + u_{old}}{2}$
+                \State $test_1 \gets \displaystyle 
+                \frac{||u - u_{\text{old}}||}{||u||}$
+                \State $test_2 \gets \displaystyle 
+                \frac{||x - x_{\text{old}}||}{||x||}$
+                \State $test_3 \gets \displaystyle 
+                \frac{||\lambda - \lambda_{\text{old}}||}{||\lambda||}$
+                \State $\text{test} \gets \max{ \{ test_1, test_2, test_3 \}}$
+			\EndWhile\label{}
+			\State \textbf{return} $ x^*, u^*, \lambda$
+            \Comment{Optimal pair}
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+    Now, consider the following maximization problem.
+    \begin{equation*}
+        \max_{u} \int_{0}^{1} Ax(t) - B(u(t))^{2} dt
+    \end{equation*}
+    with $A \geq 0$, $B>0$, subject to the dynamics
+    \begin{equation*}
+        x'(t) = -\dfrac{1}{2}(x(t))^{2} + Cu(t), \, \, x(0) = x_0 >-2.
+    \end{equation*}
+    Note that the Hamiltonian 
+    $$
+        H = Ax - Bu^2 - \dfrac{1}{2}\lambda x^2 + C\lambda u.
+    $$
+    Using the optimility condition, 
+    $$
+        \dfrac{\partial H}{\partial u} = -2Bu + C\lambda
+    $$
+    we get $u^{*} = \dfrac{C\lambda}{2B}$. Calculating the adjoint equation we
+    find
+    \begin{align*}
+        x'(t) &= -\dfrac{1}{2}x^2 + Cu, \, \, x(0) = x_0, \\
+        \lambda'(t) = -A + x \lambda, \, \, \lambda(1) = 0.
+    \end{align*}
+    
+    
+
+    
+    \todo{example 4.1}
+
+
+
+%    \input{Chapters/Chapter4_NumericalMethods/Section1/Section1.tex}
+%    \input{Chapters/Chapter4_NumericalMethods/Section2/Section2.tex}
+
+\newpage

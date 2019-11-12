@@ -1,4 +1,4 @@
-\NeedsTeXFormat{LaTeX2e}[1996/12/01]
+%\NeedsTeXFormat{LaTeX2e}[1996/12/01]
 \ProvidesClass{Thesis}
               [2007/22/02 v1.0
    LaTeX document class]
@@ -72,12 +72,6 @@
 \if@twocolumn\hbox{}\newpage\fi\fi\fi}
 \usepackage{amsmath,amsfonts,amssymb,amscd,amsthm,xspace}
 \theoremstyle{plain}
-\newtheorem{teorema}{Teorema}[section]
-\newtheorem{lema}[teorema]{Lema}
-\newtheorem{ejemplo}[teorema]{Ejemplo}
-\newtheorem{definicion}[teorema]{Definici\'{o}n}
-\newtheorem{proposicion}[teorema]{Proposici\'{o}n}
-\newtheorem{resultado}[teorema]{Resultado}
 \usepackage[centerlast,small,sc]{caption}
 \setlength{\captionmargin}{20pt}
 \renewcommand{\topfraction}{0.85}
@@ -108,7 +102,7 @@
     bookmarksopen=true,
    	bookmarksopenlevel=0,
     bookmarksnumbered=true,
-    hypertexnames=false,
+    hypertexnames=true,
    	colorlinks,
     linkcolor=blue,
     citecolor=blue,
@@ -135,27 +129,23 @@
 \def\ctosinodal#1{\def\sinodd{\Large #1}}%
 \def\sinodd{}%
 \primsinodal{
-		Dr. Fernando Verduzco González
+		Dr. David Gonzalez
 		\\
-		Universidad de Sonora, Hermosillo, M\'exico
  }
  \segsinodal{
-		Dr. Francisco Armando Carrillo Navarro
+		Dr. 
 		 \\
-		 Universidad de Sonora, Hermosillo, M\'exico
  	}
   \tersinodal{
-		Dr. Daniel Olmos Liceaga\\
-		Universidad de Sonora, Hermosillo, M\'exico
+		Dr. 
+		\\
  }
   \ctosinodal{
 		Dr. Sa\'ul Díaz Infante Velasco\\
 		CONACYT-Universidad de Sonora, Hermosillo, M\'exico
  }
 \titulo{
-	Modelos Epidemeológicos para la Tuberculosis:
-	Resistencia Múltiple, Reinfección Exógena y Bifurcación
-	Hacia Atrás
+	write your title
 } 
 %-------------------------------------------------  
 \director{Dr. Saúl Díaz Infante Velasco} 
@@ -345,7 +335,7 @@
 \btypeout{Acknowledgements}
 \addtotoc{Acknowledgements}
 \thispagestyle{plain}
-\begin{center}{\huge{\textit{Agradecimientos}} \par}\end{center}
+\begin{center}{\huge{\textit{Acknowledgements}} \par}\end{center}
 {\normalsize #1}
 	\vfil\vfil\null
 }

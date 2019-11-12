@@ -1,0 +1,65 @@
+% EPIDEMIC MODEL
+\section{Epidemic Model}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+    In this case, we consider a standard epidemic model to model the dynamics 
+    of a disease in a population. We use optimal control techniques to find a 
+    vaccination schedule for the disease. The goal is to minimize the number of 
+    infectious populations and the cost of the vaccination during a fixed time 
+    period. 
+
+    \noindent First, let $S(t)$ be the number of susceptible individuals, $E(t)$ the exposed or latent population, $I(t)$ the number of infectious individuals, and $R(t)$ the recovered population at the time $t$. Also, define the total population as $N(t) = S(t) + E(t) + I(t) + R(t)$. Let $u(t)$ be the percentage of susceptible individuals being vaccinated per unit of time. Since it is impossible to vaccinate the whole population, we consider a bounded control, that is, $0 \leq u(t) \leq 0.9$. Let $b$ be the natural birth rate of the population, $d$ be the natural death rate. Let $e$ be the rate at which the exposed individual become infectious and $g$ the rate at which infectious individuals recover. The optimal control problem is described as follows
+    $$
+        \min_{u} J(u) = \min_{u} \int_{0}^{1} AI(t) + u^{2}(t) dt,
+    $$
+    subject to the dynamic
+    \begin{align*}
+        \dot{S}(t) &=
+            bN(t) - dS(t) - cS(t)I(t) - u(t)S(t), & S(0) = S_0 \geq 0,   \\
+        \dot{E}(t) &=
+            cS(t)I(t) - (e + d)E(t), & E(0) = E_0 \geq 0,    \\
+        \dot{I}(t) &=
+            eE(t) - (g + a +d)I(t), & I(0) = I_0 \geq 0,     \\
+        \dot{R}(t) &=
+            gI(t) -dR(t) + u(t)S(t), & R(0) = R_0 \geq 0,    \\
+        \dot{N}(t) &=
+            (b - d)N(t) - aI(t), & N(0) = N_0 \geq 0.        \\
+    \end{align*}
+    The disease free equilibrium of the dynamic is $(bN/d,0,0,0)$. Following the
+    definition of the Hamiltonian (ref) we have that
+    \begin{align*}
+        H(t,x,u,\psi) &= g(t,x,u) + \left < \psi , f(t,x,u) \right>\\
+            &= AI + u^{2} + \sum_{i \in J} \psi_{i}f_{i},
+    \end{align*}
+    where $J = \{S, E, I, R\}$ and $g_i$ is the right hand side of the corresponding
+equation. By the definition (ref) the adjoint equations are
+    $$
+        \dot{\psi}_{i} = - \dfrac{\partial H}{\partial i},
+    $$
+    with $i \in J$ so,
+    \begin{align*}
+         \dot{\psi}_{S} &=
+            \psi_{S}\left(d + cI + u \right) - \psi_{E}cI - \psi_{R}u ,  \\
+        \dot{\psi}_{E} &=
+            \psi_{E}(e + d) - \psi_{I}e , \\
+        \dot{\psi}_{I} &=
+            (\psi_{S} - \psi_{E})cS + \psi_{I}(g + a +d) - \psi_{R}g
+            \psi_{N}a,  \\
+        \dot{\psi}_{R} &=    \psi_{R}d,  \\
+        \dot{\psi}_{N} &=
+            - \psi_{N}d  (b - d).
+    \end{align*}
+    (aqui la tablita con valores)
+    
+    \noindent In Figure \ref{fig:epimod} we can observe the difference between the controlled dynamics and the uncontrolled. At first, the infected population looks like the same, but after less than 5 years we see that the infected population decreases significantly with the vaccination schedule in comparison to the population without control. Also, we can see that the control remains constant between the first 7 years and then it starts to decrease to zero. It is in this period of time when the infected population declines exponentially and after 10 years is almost zero. However, without the vaccination schedule the infected are decreasing in the first 10 years, then begins to grow again.
+    
+\begin{figure}[htb] 
+	\begin{center}
+    	\includegraphics[width=\textwidth,keepaspectratio]%
+    	    {Chapters/Chapter6_Applications2/Figures/figure_1_epidemic_model}
+		\caption{In the left figure the dashed orange line represents the infected population of the controlled model and the green line represents the infected population without control. In the right, we have the adjoint equation $\psi$ 
+		and the vaccination schedule, $u$. The parameters used are presented in Table (ref).
+    	}\label{fig:epimod}
+	\end{center}
+\end{figure}

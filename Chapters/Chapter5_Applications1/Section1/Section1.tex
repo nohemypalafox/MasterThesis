@@ -1,0 +1,140 @@
+\section{Mold and Fungicide} %\label{Chap2-Sect1} 
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+    For the first example, we consider a concentration of mold at a time $t$,
+    denoted by $x(t)$, that we want to reduce over a fixed period of time. We
+    assume $x$ grows at a rate $r$ and has a carrying capacity $M$. To reduce
+    the mold population we have to apply some chemicals, like fungicide. We
+    denote by $u(t)$ the amount of fungicide added to kill the mold at time $t$.
+    The effects of the mold and the fungicide are negative for the individuals
+    around them \textemdash plants, animals, etc. \textemdash, so the aim is to
+    minimize both of them. The minimization problem we consider is from
+    \citep{lenhart2007optimal} and it is as follows
+    
+    \begin{align*}
+    	\min_{u} &\int_{0}^{T} (Ax^2(t) + u^2(t))dt \\
+        \text{subject to } x'(t) &= r(M - x(t)) - u(t)x(t), \ x(0) = x_0 > 0,
+    \end{align*}
+    
+    \noindent where $u$ and $x$ are quadratic terms since we need to penalize larger amounts 
+    of mold and fungicide. Also, $A$ is a weight parameter that 
+    balances the relative importance of the two terms in the objective functional. 
+    Note that the Hamiltonian, the optimality condition, the adjoint equation and the transversality 
+    conditions are
+    \begin{align*}
+        &H = Ax^2 + u^2 + \lambda [r(M-x) - ux], \\
+        &2u - \lambda x = 0, \\
+        &\lambda ' = -2Ax + \lambda(r + u), \\
+        &\lambda(T) = 0.
+    \end{align*}
+    respectively. These conditions are used in the forward-backward sweep method.
+        
+    \noindent Note that in Figure \ref{Figure_MF_1} that, initially, the 
+    control and the state increases. Then, both become constant, here we 
+    say that the control and the state are in equilibrium because both stay 
+    at constant value. Then, the control eventually begins decreasing and
+    vanishes to zero, but the state never decreases. We want to decrease or
+    eliminate the mold concentration. To do this we have to use a higher 
+    weight parameter $A$.
+    
+    \begin{figure}[h] 
+    	\begin{center}
+        	\includegraphics[width=.65\textwidth,keepaspectratio]%
+            {Chapters/Chapter5_Applications1/Figures/MF_state_control_adjoint_1}
+    		\caption{%
+            	The horizontal axis represents time $t$. The vertical axis
+                represents, in each case, the state $x$, the control $u$ and the
+                solution of the adjoint equation $\lambda$. The parameters are
+          		$r = \num{0.3}$, 
+          		$M = \num{10}$, 
+          		$A = \num{1}$, 
+          		$x_0 = \num{1}$, 
+          		$T =\num{5}$.
+        	}\label{Figure_MF_1}
+    	\end{center}
+    \end{figure}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+    \noindent Now, let $A = 10$ and see \ref{Figure_MF_2}.  First, with this
+    change, the level of fungicide is much higher. Also, we can notice that the
+    state and the control still have a long period of equilibrium. The control
+    begins at its greatest point, decreasing slightly before becoming constant,
+    then decreases again. As desired, the state decreases from its initial
+    amount and then becomes constant. However, when the level of fungicide
+    starts to decrease again, at the end of the interval, the level of mold
+    rapidly increases. Now, we compare the optimal state with a state where no
+    fungicide is used.
+    
+     \begin{figure}[h] 
+    	\begin{center}
+        	\includegraphics[width=.65\textwidth,keepaspectratio]%
+        	{Chapters/Chapter5_Applications1/Figures/MF_state_control_adjoint_2}
+    		\caption{%
+            	The horizontal axis represents time $t$. The vertical axis represents 
+            	the mold concentration $x$. The optimal mold population is 
+            	represented by a solid line, and the mold population without control 
+            	is the dashed line. The optimal increases at the end of the interval, 
+            	but is held much lower overall than if no fungicide was used. The
+            	parameters are:
+          		$r = \num{0.3}$, 
+          		$M = \num{10}$, 
+          		$A = \num{10}$, 
+          		$x_0 = \num{1}$, 
+          		$T =\num{5}$.
+        	}\label{Figure_MF_2}
+    	\end{center}
+    \end{figure}    
+    
+    In Figure \ref{Figure_MF_4} we present a comparison between the uncontrolled 
+     problem and the controlled one with the same parameters used below.
+     
+    \begin{figure}[h] 
+    	\begin{center}
+        	\includegraphics[width=.65\textwidth,keepaspectratio]%
+        	{Chapters/Chapter5_Applications1/Figures/MF_control_uncontrol}
+    		\caption{%
+            	The horizontal axis represents time $t$. The vertical axis represents 
+            	the mold concentration $x$. The optimal mold population is 
+            	represented by a solid line, and the mold population without control 
+            	is the dashed line. The optimal increases at the end of the interval, 
+            	but is held much lower overall than if no fungicide was used. The
+            	parameters are:
+          		$r = \num{0.3}$, 
+          		$M = \num{10}$, 
+          		$A = \num{10}$, 
+          		$x_0 = \num{1}$, 
+          		$T =\num{5}$.
+        	}\label{Figure_MF_3}
+    	\end{center}
+    \end{figure}    
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%--------- 
+    
+    Now, if we vary the carrying capacity $M$, the mold would increase quickly.
+    We need to balance this effect with the mold concentration and the fungicide. 
+    Consider $r = \num{0.6}$, $M = \num{5}$, $A = \num{10}$, $x_0 = \num{5}$, 
+    $T =\num{5}$. See \cref{Figure_MF_4}. Here, the control begins with an extreme
+    concentration of fungicide and then, rapidly,the mold and the fungicide achieve a small value and become constant again. So, an initial value like this for the 
+    fungicide is devastating for the mold population.
+    
+    \begin{figure}[h] 
+    	\begin{center}
+        	\includegraphics[width=.65\textwidth,keepaspectratio]%
+        	{Chapters/Chapter5_Applications1/Figures/MF_state_control_adjoint_3}
+    		\caption{%
+            	The horizontal axis represents time $t$. The vertical axis
+                represents, in each case, the mold concentration $x$, the 
+                fungicide $u$ and the solution of the adjoint equation $\lambda$.
+                The parameters are
+          		$r = \num{0.6}$, 
+                $M = \num{5}$, 
+                $A = \num{10}$, 
+                $x_0 = \num{5}$, 
+                $T =\num{5}$.
+        	}\label{Figure_MF_4}
+    	\end{center}
+    \end{figure}
+    
+    
+    
+\newpage

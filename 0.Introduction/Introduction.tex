@@ -1,0 +1,67 @@
+\chapter{Introduction}
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+\label{Introduction} 
+\lhead{\emph{Introduction}} 
+%---------%---------%---------%---------%---------%---------%---------%---------
+    
+    In this thesis we review a complete and self-contained proof of the 
+    Pontryagin's Maximum Principle \citep{YongDG_ACIntro}. To proof this result
+    we apply the so-called Ekeland's $\veps$-Variational Principle
+    \citep{guler2010foundations}. We also reproduce the simulation of some 
+    literature examples which follow the optimal control framework of Lenhart
+    \citep{lenhart2007optimal}. That is, control a given dynamics with linear 
+    terms and approximate the optimally policies with the 
+    forward-backward sweep method. 
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+    In the literature of optimal control applied to biological models, contingent 
+    policies such as vaccination, quarantine, isolation, treatment, among others,
+    are naturally described by control terms \citep{SARS,lenhart2007optimal, PanettaFister, butler1997optimal, BearSalinasLenhart,articleLenhart}. This linear form 
+    simplifies the characterization of optimal policies. In short, a policy is a 
+    function that prescribes which actions apply according to information. If the 
+    control policy only depends on time, then this policy is of open-loop. In the 
+    other way, if it depends on the current state, then it is of closed-loop.  
+    Thus, if a policy optimizes a given cost functional \textemdash a function 
+    from $\mathbb{R}^n$ to $\mathbb{R}$ that describes the resource consumption 
+    and the profit generation \textemdash, then this policy is optimal. For 
+    example, in [reference] represents a vaccination campaign as a control policy 
+    and the cost functional describes the balance between the necessary money to 
+    run the campaign and the number of infected individuals to be minimized.
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+%---------%---------%---------%---------%---------%---------%---------%--------- 
+    First, we have to ensure the existence of an optimal policy. To this end, 
+    we appeal to the theorems Arzela-Ascoli and Banach-Sacks, to the Filippov
+    lemma and some other results. Newt we apply the Pontryagin's Maximum 
+    Principle to characterize optimal control. That is, we get the necessary 
+    conditions to approximate the optimal policy. However, some problems 
+    lacks of unique optimal policies, which still is, an open problem.
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+%---------%---------%---------%---------%---------%---------%---------%---------   
+    The aim of this thesis is  to review the existence and characterizations of
+    the underlying solution to optimal control problems with applications to
+    biology and to approximate the regarding optimal policies. 
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+    After of this introduction, in Chapter 2 we introduce and prove the Ekeland's
+    $\veps$-Variational Principle, which will give the existence of an approximate
+    control. Chapter 3 presents the necessary theory to ensure the existence 
+    of an optimal control. In Chapter 4 we enunciate and prove the 
+    Pontryagin's maximum principle. Chapter 5 discusses the forward-backward sweep 
+    method , which approximate the optimal policies. 
+    Chapter 6 exposes the one dimensional control problems with one control 
+    on their dynamics. 
+    Chapter 7 describes the multidimensional control problems with one control and two
+    controls on their dynamics 
+    We closed this work with the conclusion and perspectives in Chapter 8. 
+    
+    
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+\newpage
+

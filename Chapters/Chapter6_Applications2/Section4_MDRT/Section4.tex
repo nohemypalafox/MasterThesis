@@ -1,0 +1,371 @@
+%CHAPTER 4
+\section{Multidrug-resistant Tuberculosis} % Main chapter title \label{Chap1} 
+\lhead{\emph{Multidrug-resistant Tuberculosis (MDR-TB)}} 
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------                           MDR-TB                          ----------%
+%---------%---------%---------%---------%---------%---------%---------%---------
+    The Tuberculosis (TB) is a disease caused by a bacteria called \textit{ Mycobacterium tuberculosis} affecting, principally, the lungs. This disease is one of the top 10 causes of death worldwide and is a leading killer of HIV-positive people. Fortunately, it is a treatable and curable disease. But, failures in treatment, inappropriate use of medicines can cause a drug resistance to TB. So, the Multidrug-resistant tuberculosis (MDR-TB) is a form of TB caused by bacteria that do not respond to isoniazid and rifampicin, the 2 most powerful anti-TB drugs. The MDR-TB is still curable, but is expensive and requires chemotherapy.
+    The following is MDR-TB model based on \cite{Castillo-Chavez1997} without 
+    control
+    \begin{align*}
+    	\dot{S}	&= 
+        	\Lambda -\beta_{1} S \frac{I_1}{N} - \beta_{3}S\frac{I_2}{N} - 
+            \mu S 
+            \\
+        \dot{L}_1 &= 
+        	\beta_{1}S \frac{I_1}{N} - (\mu + k_1 + r_1)L_{1} + 
+            pr_2 I_1 + \beta_{2} T \frac{I_1}{N} -
+            \beta_{3} L_{1}\frac{I_2}{N}  
+            \\
+        \dot{I}_1 &=  
+        	k_1 L_{1} - (\mu + d_1 + r_2)I_1  
+            \\
+        \dot{L}_2 &=  
+        	q r_2 I_1 - (\mu + k_2)L_2 + \beta_{3}(S + L_1 + 
+            T)\frac{I_2}{N}  
+            \\
+        \dot{I}_2 &=  
+        	k_2 L_2 - (\mu + d_2)I_2  
+            \\
+        \dot{T} &=  
+        	r_1 L_{1} + (1-(p+q))r_2 I_1 - \beta_{2} T \frac{I_1}{N} - 
+            \beta_{3}T\frac{I_2}{N}  
+    \end{align*}
+    
+    \input{Chapters/Chapter6_Applications2/Tables/mdr_tb_param_descrip.tex}
+    The disease-free equilibrium is 
+    $$
+        x_0 = \left(\frac{\lambda}{\mu}, 0 , 0 ,0, 0, 0\right)
+    $$
+    In the next part we calculate the basic reproduction number $\mathscr{R}_{0}$. 
+    First we have to reorder the equations in such a way the first equations
+    are the infectious ones.
+    \begin{align*}
+        \dot{L}_1 &= 
+        	\beta_{1}S \frac{I_1}{N} - (\mu + k_1 + r_1)L_{1} + 
+            pr_2 I_1 + \beta_{2} T \frac{I_1}{N} -
+            \beta_{3} L_{1}\frac{I_2}{N}  
+            \\
+        \dot{I}_1 &=  
+        	k_1 L_{1} - (\mu + d_1 + r_2)I_1  
+            \\
+        \dot{L}_2 &=  
+        	q r_2 I_1 - (\mu + k_2)L_2 + \beta_{3}(S + L_1 + 
+            T)\frac{I_2}{N}  
+            \\
+        \dot{I}_2 &=  
+        	k_2 L_2 - (\mu + d_2)I_2  
+            \\
+        \dot{S}	&= 
+        	\Lambda -\beta_{1} S \frac{I_1}{N} - \beta_{3}S\frac{I_2}{N} - 
+            \mu S 
+            \\
+        \dot{T} &=  
+        	r_1 L_{1} + (1-(p+q))r_2 I_1 - \beta_{2} T \frac{I_1}{N} - 
+            \beta_{3}T\frac{I_2}{N}  
+    \end{align*}
+    
+    \noindent For this model, the progression from $L_1$ to $I_1$, and $L_2$ 
+    to $I_2$ are 
+    not considered to be new infections, the only terms that represent new infections
+    are $ \beta_{1} S \frac{I_1}{N}$, $\beta_{2} T \frac{I_1}{N}$,  $(p + q )r_2 I_1$, and
+    $\beta_{3} (S + L_{1} + T)\frac{I_2}{N} $. Hence, the functions $\mathscr{F}$ and 
+    $\mathscr{V}$ are
+    \begin{equation*}
+        \mathscr{F} = 
+            \begin{pmatrix}
+                \beta_{1} S \frac{I_1}{N} + \beta_{2} T \frac{I_1}{N} + p r_2 I_1 \\
+                \beta_{3} (S + L_{1} + T)\frac{I_2}{N} + q r_2 I_1 \\
+                0 \\
+                0 \\
+                0 \\
+                0
+            \end{pmatrix},
+    \end{equation*}
+    
+    \begin{equation*}
+        \mathscr{V} = 
+            \begin{pmatrix}
+                (\mu + k_1 + r_1)L_{1} +  \beta_{3} L_{1}\frac{I_2}{N} \\
+                (\mu + k_2)L_2 \\
+                - k_1 L_{1} + (\mu + d_1 + r_2)I_1 \\
+                - k_2 L_2 + (\mu + d_2)I_2 \\
+                - \Lambda + \beta_{1} S \frac{I_1}{N} + \beta_{3}S\frac{I_2}{N} + \mu S \\
+                - r_1 L_{1} + (p+q - 1)r_2 I_1 + \beta_{2} T \frac{I_1}{N} + \beta_{3}T\frac{I_2}{N}  
+            \end{pmatrix}.
+    \end{equation*}
+    
+    \begin{equation*}
+        F(x) = 
+            \begin{pmatrix}
+                0 & 0 & \beta_{1} S \frac{1}{N} + \beta_{2} T \frac{1}{N} + p r_2 & 0 \\
+                \beta_{3}\frac{I_2}{N} & 0 &   q r_2  &   \beta_{3} (S + L_{1} + T)\frac{1}{N} \\
+        		0 & 0 & 0 & 0 \\
+    		    0 & 0 & 0 & 0
+            \end{pmatrix},
+    \end{equation*}
+    \begin{equation*}
+        V(x) =
+            \begin{pmatrix}
+                \mu + k_1 + r_1 +  \beta_{3} \frac{I_2}{N} & 0 & 0 & \beta_{3} \frac{L_1}{N} \\
+                0 & \mu + k_2 & 0 & 0 \\
+                -k_1 & 0 & \mu + d_1 + r_2 & 0 \\
+                0 & 0 & -k_2 & \mu + d_2 
+            \end{pmatrix}
+    \end{equation*}
+    
+    Evaluate the disease-free equilibrium $x_0 = \left(0, 0, 0, 0, N, 0 \right)$ 
+    \begin{equation*}
+        F(x) = 
+            \begin{pmatrix}
+                0 & 0 & \beta_{1} + p r_2 & 0 \\
+                0 & 0 &   q r_2  &   \beta_{3} \\
+        		0 & 0 & 0 & 0 \\
+    		    0 & 0 & 0 & 0
+            \end{pmatrix},
+    \end{equation*}
+    \begin{equation*}
+        V(x) =
+            \begin{pmatrix}
+                \mu + k_1 + r_1 & 0 & 0 & 0 \\
+                0 & \mu + k_2 & 0 & 0 \\
+                -k_1 & 0 & \mu + d_1 + r_2 & 0 \\
+                0 & 0 & -k_2 & \mu + d_2
+            \end{pmatrix}
+    \end{equation*}
+    Calculate the next generation matrix on $x_0$
+    \begin{align*}	
+    	FV^{-1}(x_0) 
+    	&=  
+        \begin{pmatrix}
+            0 & 0 & \beta_{1} + p r_2 & 0 \\
+            0 & 0 &   q r_1  &   \beta_{3} \\
+    		0 & 0 & 0 & 0 \\
+    	    0 & 0 & 0 & 0
+        \end{pmatrix}
+    	\begin{pmatrix}
+    		\frac{1}{\mu + k_1 + r_1} & 0 & 0 & 0 \\
+    		0 & \frac{1}{\mu + k_2} & 0 & 0 \\
+    		\frac{k_1}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} & 0 & \frac{1}{\mu + d_1 +r_2} & 0 \\
+    		0 & \frac{k_2}{(\mu + k_2)(\mu + d_2)} & 0 & \frac{1}{\mu + d_2} \\
+    	\end{pmatrix}  \\
+    	&= 
+    	\begin{pmatrix}
+    		\dfrac{k_1(\beta_1 + pr_2)}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} 
+            & 0 & \dfrac{\beta_1 + pr_2}{\mu + d_1 +r_2} & 0 
+        \\
+    		\dfrac{k_1 q r_2}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} 
+    			& \dfrac{k_2 \beta_3}{(\mu + k_2)(\mu + d_2)} 
+          & \dfrac{qr_2}{\mu + d_1 +r_2} & \dfrac{\beta_3}{\mu + d_2} 
+        \\
+    		0 & 0 & 0 & 0 
+    		\\
+    		0 & 0 & 0 & 0 
+    		\\
+    	\end{pmatrix}.
+    \end{align*}
+    Define $K = FV^{-1}(x_0)$, then
+    \begin{align*}	
+    	\det(K-\lambda I_d)
+    	&= 
+    	\begin{vmatrix}
+    		\dfrac{k_1(\beta_1 + pr_2)}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} 
+    	    -\lambda 
+    	    & 0 
+    	    & \dfrac{\beta_1 + pr_2}{\mu + d_1 +r_2} 
+    	    & 0 
+    	  \\
+    		\dfrac{k_1 qr_2}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} 
+    		& \dfrac{k_2 \beta_3}{(\mu + k_2)(\mu + d_2)} -\lambda 
+    		& \dfrac{qr_2}{\mu + d_1 +r_2} 
+    		& \dfrac{\beta_3}{\mu + d_2} 
+    		\\
+    		0 & 0 & -\lambda & 0 
+    		\\
+    		0 & 0 & 0 & -\lambda 
+    		\\
+    	\end{vmatrix} \notag \\
+    	&= -\lambda
+    	\begin{vmatrix}
+    		\dfrac{k_1(\beta_1 + pr_2)}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} 
+    			-\lambda & 0 & 0 
+    		\\
+    		\dfrac{k_1 q r_2}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} 
+    			& \dfrac{k_2 \beta_3}{(\mu + k_2)(\mu + d_2)}
+            -\lambda &\dfrac{\beta_3}{\mu + d_2} 
+        \\
+    		0 & 0 & -\lambda 
+    	\end{vmatrix}
+    	\\
+    	&= \lambda^2
+    	\begin{vmatrix}
+    		\dfrac{k_1(\beta_1 + pr_2)}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} -\lambda 
+    			& 0 
+    		\\
+    		\dfrac{k_1 q r_2}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} 
+    			& \dfrac{k_2 \beta_3}{(\mu + k_2)(\mu + d_2)} 
+           -\lambda 
+        \\
+    	\end{vmatrix} 
+    	\\
+    		&= 
+    		\lambda^2 
+    	  \left( 
+    		  \dfrac{k_1(\beta_1 + pr_2)}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} 
+    		  -\lambda 
+    		\right) 
+        \left(
+    	    \dfrac{k_2 \beta_3}{(\mu + k_2)(\mu + d_2)}-\lambda 
+    	  \right).
+    \end{align*} 
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+    By the above,
+    $$
+    	\mathscr{R}_{1} = 
+    		\dfrac{k_1(\beta_{1} + pr_2)}{(\mu + k_1 + r_1)(\mu + d_1 +r_2)} ,
+    		\qquad
+    	\mathscr{R}_{2} = 
+    		\dfrac{k_2 	\beta_{3}}{(\mu + k_2)(\mu + d_2)}.
+    $$
+    The basic reproduction number is 
+    $
+    	\mathscr{R}_{0} =  \max\lbrace \mathscr{R}_{1},\mathscr{R}_{2} 
+    \rbrace
+    $.
+    As Castillo-Chavez established in \cite{Castillo-Chavez1997}, the disease free equilibrium is stable when $\mathscr{R}_{0} < 1$ and it is unstable if $mathscr{R}_{0} > 1$
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------                       MDR-TB with control                 ----------%
+%---------%---------%---------%---------%---------%---------%---------%---------
+    \noindent We consider the same MDR-TB model presented above but with two controls $u_1$ and $u_2$. This example is from {\citep{articleLenhart}}. So we have the same compartments and parameters. The control $u_1$ (case finding) represents the fraction of typical TB latent individuals that are identified and put under treatment. The term $1 - u_2$ (case holding), represents the measures to avoid the failure of treatment.  So the controlled dynamic is 
+    \begin{align*}
+    	\dot{S}	&= 
+        	\psi -\beta_{1} S \frac{I_1}{N} - \beta_{3}S\frac{I_2}{N} - 
+            \mu S 
+            \\
+        \dot{L}_1 &= 
+        	\beta_{1}S \frac{I_1}{N} - (\mu + k_1 + u_1(t)r_1)L_{1} + 
+            (1 - u_2(t))pr_2 I_1 + \beta_{2} T \frac{I_1}{N} -
+            \beta_{3} L_{1}\frac{I_2}{N}  
+            \\
+        \dot{I}_1 &=  
+        	k_1 L_{1} - (\mu + d_1 + r_2)I_1  
+            \\
+        \dot{L}_2 &=  
+        	(1 - u_2(t))q r_2 I_1 - (\mu + k_2)L_2 + \beta_{3}(S + L_1 + 
+            T)\frac{I_2}{N}  
+            \\
+        \dot{I}_2 &=  
+        	k_2 L_2 - (\mu + d_2)I_2  
+            \\
+        \dot{T} &=  
+        	u_1(t)r_1 L_{1} + (1-(1-u_2(t))(p+q))r_2 I_1 - \beta_{2} T \frac{I_1}{N} - 
+            \beta_{3}T\frac{I_2}{N}  
+    \end{align*}
+    and the objective functional to be minimized is 
+    $$
+        J(u_1(t),u_2(t)) = \int_{0}^{t_f} %
+            \left[% 
+                L_2(t) + I_2(t) + \dfrac{B_1}{2} u_{1}^{2}(t) + \dfrac{B_2}{2} u_{2}^{2}(t)%
+            \right] dt
+    $$
+    Our goal is to find an optimal control pair $u_{1}^{*}$ and $u_{2}^{*}$ such that
+    $$
+        J(u_{1}^{*},u_{2}^{*}) = min_{\Omega}J(u_1,u_2)
+    $$
+    where $\Omega = \{(u_1,u_2) \in L^{1}(0, t_{f}) | a_i \leq u_i \leq b_i, \}$ and
+    $a_i , b_i$ are fixed positive constants. 
+    
+    From the definition (ref) the Hamiltonian is
+    $$
+        H = L_2 + I_2 + \dfrac{B_1}{2} u_{1}^{2} + \dfrac{B_2}{2} u_{2}^{2} +
+            \sum_{i=1}^{6} \psi_i g_i
+    $$
+    where $g_i$ is the right hand side of the differential equation of the $i$th
+    state variable.
+    
+    \begin{theorem}
+        There exists an optimal control pair $u_{1}^{*}$ and $u_{2}^{*}$ and 
+        corresponding solution, $S^{*}, L_{1}^{*}, I_{1}^{*}, L_{2}^{*}, I_{2}^{*}$
+        and $T^{*}$, that minimizes $J(u_1,u_2)$ over $\Omega$. Moreover, there exists
+        adjoint functions, $\psi_{1}(t), \ldots, \psi_{6}(t)$ such that
+        \begin{align*}
+    	    \dot{\psi}_1	&= 
+    	        \psi_{1} \left(\beta_{1}\frac{I_1}{N} + \beta_{3}\frac{I_2}{N} 
+    	            + \mu \right)
+    	       -\psi_{2} \beta_{1}\frac{I_1}{N}
+    	       -\psi_{4} \beta_{3}\frac{I_2}{N}
+            \\
+            \dot{\psi}_2	&= 
+    	        \psi_{2} \left( \mu + k_1 + u_1 r_1 + \beta_{3}\frac{I_2}{N}         \right)
+    	       -\psi_{3} k_1
+    	       -\psi_{4} \beta_{3}\frac{I_2}{N}
+    	       -\psi_{6} \left( u_1 r_1 \right)
+            \\
+            \dot{\psi}_3	&= 
+    	        \psi_{1} \beta_{1}\frac{S}{N}
+    	       -\psi_{2} \left( \beta_{1}\frac{S}{N} + (1 - u_2)pr_2 +
+    	            \beta_{2}\frac{T}{N} \right)
+    	       +\psi_{3} \left( \mu + d_1 + r_2 \right)
+    	       -\psi_{4} \left(1 - u_2\right)qr_2  \\
+    	       &\quad -\psi_{6} \left((1 - ( 1- u_2)(p+q))r_2 - \beta_{2}\frac{T}{N}
+    	            \right)
+    	   \\
+    	   \dot{\psi}_4	&= -1
+    	       +\psi_{4} \left( \mu + k_2 \right)
+    	       -\psi_{5} k_2
+            \\
+            \dot{\psi}_5	&= -1
+    	       +\psi_{1} \beta_{3}\frac{S}{N} 
+    	       +\psi_{2} \beta_{3}\frac{L_1}{N}
+    	       -\psi_{4} \beta_{3}\frac{S + L_1 + T}{N}
+    	       +\psi_{5} \left( \mu + d_2 \right)
+    	       +\psi_{6} \beta_{3}\frac{T}{N}
+            \\
+            \dot{\psi}_6	&= 
+    	       -\psi_{2} \beta_{2}\frac{I_1}{N}
+    	       -\psi_{4} \beta_{3}\frac{I_2}{N}
+    	       -\psi_{6} \left( \beta_{2}\frac{I_1}{N} + \beta_{3}\frac{I_2}{N}
+    	            + \mu \right).
+        \end{align*}
+    \end{theorem}
+    
+    %---------%---------%---------%---------%---------%---------%---------%---------
+    \input{Chapters/Chapter6_Applications2/Tables/mdr_tb_param_values}
+    \input{Chapters/Chapter6_Applications2/Tables/mdr_tb_intialcond}
+    %---------%---------%---------%---------%---------%---------%---------%---------
+    In Figure \ref{Figure_TBM_1} we can observe that the infected population without these countermeasures is growing linearly, in contrast with the controlled model the infected population remains almost constant in the beginning.  After 3 years the controlled MDR-TB shows that the infected population grows faster but stays low. 
+    
+    \begin{figure}[htb] 
+    	\begin{center}
+        	\includegraphics[width=\textwidth,keepaspectratio]%
+        	{Chapters/Chapter6_Applications2/Figures/figure_1_two_strain_tbm}
+    		\caption{%
+            	In the left side, the green line represents the uncotrolled state of
+            	MDR-TB infected population (I/N) and the orange dashed line represents the 
+            	controlled state. In the right side, the two controls are plotted
+                The parameters that were used are:
+        	}\label{Figure_TBM_1}
+    	\end{center}
+    \end{figure}
+    %---------%---------%---------%---------%---------%---------%---------%---------
+    \begin{figure}[htb] 
+    	\begin{center}
+        	\includegraphics[width=\textwidth,keepaspectratio]%
+        	{Chapters/Chapter6_Applications2/Figures/figure_2_two_strain_tbm}
+    		\caption{}\label{Figure_TBM_2}
+    	\end{center}
+    \end{figure}
+    %---------%---------%---------%---------%---------%---------%---------%---------
+    \begin{figure}[htb] 
+    	\begin{center}
+        	\includegraphics[width=\textwidth,keepaspectratio]%
+        	{Chapters/Chapter6_Applications2/Figures/figure_3_two_strain_tbm}
+    		\caption{}\label{Figure_TBM_3}
+    	\end{center}
+    \end{figure}
+    %---------%---------%---------%---------%---------%---------%---------%---------
+    %---------%---------%---------%---------%---------%---------%---------%---------
+    \newpage

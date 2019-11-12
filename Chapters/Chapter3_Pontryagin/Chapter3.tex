@@ -1,0 +1,59 @@
+\chapter{Pontryagin's Maximum Principle}
+\lhead{\emph{Variational Principles}}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+    We use the definition of control system from \cref{Section:ContSys}.
+    \begin{equation} \label{Eq;CtrlSys}
+        \begin{aligned}
+            &\Dot{X}(s) = f(s, X(s), u(s)), & s\in[t,T], \\
+            &X(t) = x,
+        \end{aligned}
+    \end{equation}
+    with terminal state constraint:
+    $$
+        X(T; t,x,u(s)) \in M,
+    $$
+    where $M \subseteq \mathbb{R}^{n}$ is fixed, and with cost functional
+    $$
+        J(t,x;u(\cdot)) = \int_{t}^{T} g(s, X(s), u(s))ds + h(X(T)).
+    $$
+    Recall,
+    $$
+        \widetilde{\mathcal{U}}_{x}^{M}[t,T] = \left\{ u(\cdot) \in \mathcal{U}[t,T] : %
+        X(T; t,x,u(\cdot)) \in M \right\}
+    $$
+    and
+    Problem $(OC)^\top$. For a given $(t,x) \in [0,T) \times \mathbb{R}^{n}, \ $ %
+    with $ \ \widetilde{\mathcal{U}}_{x}^{M}[t,T] \neq \varnothing$, find a control % 
+    $\Bar{u} \in \widetilde{\mathcal{U}}_{x}^{M}[t,T]$ such that 
+    \begin{equation*}
+        J(t,x; \Bar{u}(\cdot)) = \inf_{u(\cdot) \in %
+        \widetilde{\mathcal{U}}_{x}^{M}[t,T] } %
+        J(t,x; u(\cdot)) \equiv V(t,x)    
+    \end{equation*}
+    
+    Also, we consider the assumptions C-1 (\ref{Cond:C1}) and C2(\ref{Cond:C2}).
+    Additionally, we introduce a fourth condition
+    \begin{asparaenum}
+        \item[(\textbf{C}-4)] The map 
+        \begin{equation*}
+            x \mapsto \big(f(t,x,u), g(t,x,u), h(x) \big),
+        \end{equation*}
+        is differentiable, the map
+        \begin{equation*}
+            (x,u) \mapsto \big(f(t,x,u), f_x(t,x,u), g(t,x,u), g_x(t,x,u), h_x(x) \big),
+        \end{equation*}
+        is continuous and bounded, and
+        \begin{align*}
+            &\abs{f_{x}(t,x_1,u) - f_{x}(t,x_2,u)} \leq L \abs{x_1 - x_2},
+            &\abs{g_{x}(t,x_1,u) - g_{x}(t,x_2,u)} \leq L \abs{x_1 - x_2},
+        \end{align*}
+        for some constant $L>0$.
+
+    \end{asparaenum}
+    In the first section we introduce previous results that would be necessary 
+    for the proof of Pontryagin's principle. In the second one we present the proof
+    of this principle
+
+\input{Chapters/Chapter3_Pontryagin/Section1/Section1.tex}
+\input{Chapters/Chapter3_Pontryagin/Section2/Section2.tex}

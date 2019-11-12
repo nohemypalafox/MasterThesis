@@ -1,0 +1,504 @@
+\section{Proof of Pontraying's Maximum Principle} 
+
+According to the (OC)$^{T}$ problem (*), we consider the adjoint equation 
+\begin{equation}\label{psi_der}
+    \Dot{\psi}(s) = - f_{x}(s, \Bar{X}(s), \Bar{u}(s))^{\top}\psi(s) + %
+        \psi^{0}g_{x}(s, \Bar{X}(s), \Bar{u}(s))^{\top}, s \in [t,T],
+\end{equation}
+with
+\begin{align*}
+    &\psi^{0} \leq 0, \\
+    &\abs{\psi^{0}}^{2} + \abs{\psi(T) - \psi^{0}h_{x}(\Bar{X}(T))^{\top}}^{2}=1.
+\end{align*}
+We also define the Hamiltonian function regarding to the Problem (OC)$^{T}$ as
+\begin{equation}
+    H(s, x, u, \psi^{0}, \psi) := \psi^{0}g(s,x,u) + \langle \psi^{0}, f(s,x,u) \rangle,
+\end{equation}
+with $(s, x, u, \psi^{0}, \psi) \in [t,T]\times \mathbb{R}^{n}\times U \times %
+        \mathbb{R}\times \mathbb{R}^{n}$.
+
+\begin{theorem}[Pontryagin maximum principle]
+    Let (C4) hold. Let $M$ be a non-empety closed convex set. Suppose 
+    $(\Bar{X}(\cdot), \Bar{u}(\cdot))$ is an optimal pair of problem $(OC)^\top$ 
+    for the initial pair $(t,x)$ and $\psi$ is the solution of \cref{psi_der}. 
+    Then the following conditions holds:
+    \begin{asparaenum}[\bf{(}\bf{P}-1\bf{)}]
+        \item Maximum condition:
+        \begin{equation*}
+            H(s, \Bar{X}(s), \Bar{u}, \psi^{0}, \psi(s)) = %
+            \max_{u \in U} H(s, \Bar{X}(s), \psi^{0}, \psi(s)), \hspace{1cm}%
+                a.e. s \in [t,T],
+        \end{equation*}
+        \item Transversality condition:
+        \begin{equation*}
+            \langle \psi(T) - \psi^{0}h_x (\Bar{X}(T))^\top, y -\Bar{X}(T)\rangle %
+            \geq 0, \hspace{1cm} \forall y \in M.
+        \end{equation*}
+    \end{asparaenum}
+\end{theorem}
+\begin{remark}
+    Note that in the case $M = \mathbb{R}^{n}$ the transversality condition becomes
+    $$
+        \psi(T) = \psi^{0}h_x (\Bar{X}(T))^\top.
+    $$
+\end{remark}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{proof}
+    We prove this theorem, following the next steps.
+    \begin{inparaenum} [\textbf{Step}-1]
+        \item
+            Introduce an auxiliary cost functional $J_{\veps}^{T}$.
+        \item
+            Apply the Corollary \eqref{EVP_Corollary} of the E.V.P to 
+            the functional $J_{\veps}^{T}$, in order to obtain an 
+            $\veps$-optimal pair $(x, u^{\veps})$.
+        \item
+            From the \cref{cor:spike} of the spike variation lemma we obtain the necessary 
+            conditions for the $\veps$-optimal pair.
+        \item
+            Take the limit $\veps \to 0$ to obtain the necessary 
+            conditions for the original problem.
+    \end{inparaenum}
+    
+    \begin{asparaenum}[\textbf{Step}-1]
+        \item
+        First, without loss of generality we may assume that 
+        $$
+            J(\bar{u}) = J(t,x; \Bar{u}(\cdot)) = \int_{t}^{T} g(s, \Bar{X}(s), \Bar{u}(s)) ds %
+                + h(\Bar{X}(t)) = 0,
+        $$
+        otherwise, we can consider the functional 
+        $
+             J(u) -  J(\Bar{u}).
+        $
+        Let $\veps >0$ and define the functional
+        \begin{equation}
+            J_{\veps}(u) = %
+                \left[
+                    \left( J(u) + \veps \right)^{2}
+                    + 
+                    d_{M}^2\left(X_{u}(T)\right) 
+                \right]^{1/2} \geq 0,
+        \end{equation}
+        where+
+        \begin{equation*}
+            d_{M}(x) = \min_{y\in M}(\abs{x-y}) = \abs{x - P_{M}(x)},
+        \end{equation*}
+        and
+        \begin{equation*}
+            d_{M}^2(x) = \min_{y\in M}(\abs{x-y}^2) = \abs{x - P_{M}(x)}^2,
+        \end{equation*}
+        for all $x \in \mathbb{R}^{n}$. Note that
+        \begin{equation*}
+             d_{M}^2(x) = \min\{\abs{x-y}^2 \,:\, y\in Y\},
+        \end{equation*}
+        with $Y = M \cap \{z \, :\, \abs{z-P_M(x)} \leq 1 \}$ and the set of
+        minimizers is $Y(x) = \{P_{M}(x)\}$. So, by Danskin \Cref{thm:danskin}
+        \begin{align*}
+            \nabla_x d_M^2(x) &= \nabla_x (\abs{x-y}^2) \vert_{y = P_M(x)} \\
+                &= 2(x-y)\vert_{y = P_M(x)} \\
+                &= 2(x-P_M(x)).
+        \end{align*}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+        \item
+        First, we have that $\mathcal{U}$ is a complete metric space by
+        \Cref{Lemma_ucompleteMS}. Also, note that $J_{\veps}$ is continuous by
+        \Cref{{Thm:Jcontinuity}}, bounded 
+        below and
+        \begin{align*}
+            J_{\veps}(\Bar{u}) &= \veps       \\ 
+                &\leq \inf_{u(\cdot) \in \mathcal{\widetilde{U}}_x^{M}}J_{\veps}(u(\cdot)) %
+                + \veps.
+        \end{align*}
+        By \Cref{EVP_Corollary} there is $u^{\veps} \in \mathcal{U}[t,T]$ 
+        such that
+        \begin{asparaenum}
+            \item
+                $J_{\veps}(u^{\veps}) \leq J_{\veps}(\Bar{u})$,
+            \item
+                $\rho(u^{\veps}, \Bar{u}) \leq \sqrt{\veps}$,
+            \item
+                $J_{\veps}(u^{\veps}) \leq J_{\veps}(u)%
+                + \sqrt{\veps}\rho(u, u^{\veps})$.
+        \end{asparaenum}
+        Thus, $u^{\veps}$ is a minimum of the map 
+        \begin{equation*}
+            u \longmapsto J_{\veps}(u) + %
+            \sqrt{\veps}\rho(u, u^{\veps}).
+        \end{equation*}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+        \item We obtain the necessary conditions for the $\veps$-pair 
+        $(x^{\veps}(\cdot), u^{\veps}(\cdot))$. Let $\veps>0$ be fixed and for
+        each $0<\delta<1$ and $u\in \mathcal{U}$ we apply the \Cref{cor:spike}
+        to the map
+        \begin{equation*}
+            \tau \longmapsto %
+            \begin{pmatrix}
+                g(\tau, X^{\veps}(\tau), u(\tau)) %
+                    - g(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) \\
+                f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) %
+                    - f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) 
+            \end{pmatrix},
+        \end{equation*}
+        then, there is $E_\delta^{\veps} \in \mathbb{E}_{\delta}$ and
+        a function $ r_\delta \in L^{1}([t,T] ; \mathbb{R}^{n}) $ such that 
+        \begin{align*}
+            \delta  &\int_{t}^{s} %
+            \begin{pmatrix}
+                g(s, X^{\veps}(\tau), u(\tau)) %
+                    - g(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) \\
+                f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) %
+                    - f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) 
+            \end{pmatrix} d\tau \\
+            &= \int_{t}^{\tau} \ind_{E_\delta^{\veps}}(s)%
+            \begin{pmatrix}
+                g(s, X^{\veps}(\tau), u(\tau)) %
+                    - g(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) \\
+                f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) %
+                    - f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) 
+            \end{pmatrix} d\tau + %
+            \begin{pmatrix}
+                r_\delta^{0,\veps}(s) \\
+                r_\delta^{\veps}(s)
+            \end{pmatrix}
+        \end{align*}
+        where 
+        $\abs{r_\delta^{0,\veps}(s)}  + \abs{r_\delta^{\veps}(s)} \leq {\delta}^2$ for all $ s \in [t,T]$. Thus, given $u$ and $\delta$, the
+        set $E_{\delta}^{\veps}$, given by \Cref{cor:spike} is used to define
+        the spike variation $u^{\veps}_{\delta}$ of the optimal control
+        $u^{\veps}$ as 
+        \begin{equation*}
+            u^{\veps}_{\delta}(s) = \left\{ %
+                \begin{matrix}
+                    u^{\veps}(s) & \text{ if } & s \in [t,T]\setminus E^{\veps}_{\delta} \\
+                    u(s)  & \text{ if } &  E^{\veps}_{\delta}
+                \end{matrix} \right.
+        \end{equation*}
+        where $E^{\veps}_{\delta} \subseteq [t,T]$ and 
+        $\lambda(E^{\veps}_{\delta}) = \delta(T-t)$. Let $X^{\veps}(\cdot) %
+        = X(\cdot, t, x, u^{\veps}(\cdot))$. First, consider
+        \begin{equation*}
+            I_{g,f} := \int_{t}^{s} %
+            \begin{pmatrix}
+                g(\tau, X^{\veps}(\tau), u_{\delta}^{\veps}(\tau)) - g(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) \\
+                f(\tau, X^{\veps}(\tau), u_{\delta}^{\veps}(\tau)) - f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) 
+            \end{pmatrix} d\tau 
+        \end{equation*}.
+        
+        Splitting  $I_{g,f}$ into the sets $[t,s]\cap E_{\delta}^{\veps}$, 
+        $[t,s]\setminus E_{\delta}^{\veps}$ and adding a conveniently zero we have
+        \begin{align*}
+            \delta I_{g,f}
+            &=  \delta \int\limits_{[t,s]\cap E_{\delta}^{\veps}} %
+                \begin{pmatrix}
+                    g(\tau, X^{\veps}(\tau), u(\tau)) - g(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) \\
+                    f(\tau, X^{\veps}(\tau), u(\tau)) - f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) 
+                \end{pmatrix} d\tau \\ 
+            &+  \delta \int\limits_{[t,s]\setminus E_{\delta}^{\veps}} %
+                \begin{pmatrix}
+                    g(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) - g(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) \\
+                    f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) - f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) 
+                \end{pmatrix} d\tau \\ 
+            &+  \int\limits_{[t,s]\cap E_{\delta}^{\veps}} %
+                \begin{pmatrix}
+                    g(\tau, X^{\veps}(\tau), u(\tau)) - g(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) \\
+                    f(\tau, X^{\veps}(\tau), u(\tau)) - f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) 
+                \end{pmatrix} d\tau \\
+            &- \int\limits_{[t,s]\cap E_{\delta}^{\veps}} %
+                \begin{pmatrix}
+                    g(\tau, X^{\veps}(\tau), u(\tau)) - g(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) \\
+                    f(\tau, X^{\veps}(\tau), u(\tau)) - f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) 
+                \end{pmatrix} d\tau. 
+        \end{align*}
+        Then 
+        \begin{align*}
+            \delta I_{g,f} &= \delta \int\limits_{[t,s]\cap E_{\delta}^{\veps}} %
+                \begin{pmatrix}
+                    g(\tau, X^{\veps}(\tau), u(\tau)) - g(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) \\
+                    f(\tau, X^{\veps}(\tau), u(\tau)) - f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) 
+                \end{pmatrix} d\tau \\
+            &+  \int\limits_{[t,s]\cap E_{\delta}^{\veps}} %
+                \begin{pmatrix}
+                    g(\tau, X^{\veps}(\tau), u(\tau)) - g(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) \\
+                    f(\tau, X^{\veps}(\tau), u(\tau)) - f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) 
+                \end{pmatrix} d\tau \\
+            &- \int\limits_{[t,s]\cap E_{\delta}^{\veps}} %
+                \begin{pmatrix}
+                    g(\tau, X^{\veps}(\tau), u(\tau)) - g(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) \\
+                    f(\tau, X^{\veps}(\tau), u(\tau)) - f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) 
+                \end{pmatrix} d\tau 
+        \end{align*}
+        From here, using $(D3)$ we have
+        \begin{align*}
+            &\Bigg\vert \delta I_{g,f}  %
+            - \int\limits_{[t,s]\cap E_{\delta}^{\veps}} %
+                \begin{pmatrix}
+                    g(\tau, X^{\veps}(\tau), u(\tau)) - g(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) \\
+                    f(\tau, X^{\veps}(\tau), u(\tau)) - f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) 
+                \end{pmatrix} d\tau \Bigg\vert \\
+            &= \Bigg\vert  (\delta -1) \int\limits_{[t,s]\cap E_{\delta}^{\veps}} %
+                \begin{pmatrix}
+                    g(\tau, X^{\veps}(\tau), u(\tau)) - g(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) \\
+                    f(\tau, X^{\veps}(\tau), u(\tau)) - f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) 
+                \end{pmatrix} d\tau \Bigg\vert \\
+            &\leq (\delta + 1) \int_{t}^{T}%
+                \abs{\begin{pmatrix}
+                    \Bar{\omega}(u, u^{\veps}) \\
+                    \Bar{\omega}(u, u^{\veps})
+                \end{pmatrix}} \ind_{E_{\delta}^{\veps}} d\tau \\
+            &= (\delta + 1)\delta (T-t)K \\
+            &= (\delta ^{2} + \delta)K
+        \end{align*}
+        The above implies that
+        \begin{align*}
+            &\delta \int_{t}^{s} %
+            \begin{pmatrix}
+                g(\tau, X^{\veps}(\tau), u_{\delta}^{\veps}(\tau)) - g(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) \\
+                f(\tau, X^{\veps}(\tau), u_{\delta}^{\veps}(\tau)) - f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) 
+            \end{pmatrix} d\tau \\
+            &= \int\limits_{[t,s]\cap E_{\delta}^{\veps}} %
+                \begin{pmatrix}
+                    g(\tau, X^{\veps}(\tau), u(\tau)) - g(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) \\
+                    f(\tau, X^{\veps}(\tau), u(\tau)) - f(\tau, X^{\veps}(\tau), u^{\veps}(\tau)) 
+                \end{pmatrix} d\tau + %
+                \begin{pmatrix}
+                    r_{\delta}^{\veps, 0}(s) \\
+                    r_{\delta}^{\veps}(s)
+                \end{pmatrix}
+        \end{align*}
+        with 
+        \begin{equation*}
+            \abs{r_{\delta}^{\veps, 0}(s)} + \abs{r_{\delta}^{\veps}(s)} \leq \delta^2, \, s\in[t,T].
+        \end{equation*}
+        
+        Now, define $X_{\delta}^{\veps} := X(\cdot; t, x, u_{\delta}^{\veps})$ and
+        \begin{equation*}
+            Y_{\delta}^{\veps} = \dfrac{X_{\delta}^{\veps}(s) - X^{\veps}(s)}{\delta}, \, s \in [t,T].
+        \end{equation*}
+        Then, hay algo raro aquí
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+        \begin{align*}
+            Y_{\delta}^{\veps} %
+            &=  \dfrac{1}{\delta} \int_{t}^{s}\left[f(\tau, X_{\delta}^{\veps}%
+                (\tau),u_{\delta}^{\veps}(\tau)) - f(\tau,X^{\veps}(\tau), %
+                u^{\veps}(\tau) )\right]d\tau \\
+            &=  \dfrac{1}{\delta} \int_{t}^{s}\left[f(\tau, X_{\delta}^{\veps}%
+                (\tau), u_{\delta}^{\veps}(\tau)) - f(\tau,X^{\veps}(\tau),%
+                u^{\veps}_{\delta}(\tau) )\right]d\tau \\
+             &+ \frac{1}{\delta} \int_{t}^{s} \left[f(\tau,X^{\veps}(\tau), %
+                u^{\veps}_{\delta}(\tau)) - f(\tau,X^{\veps}(\tau), %
+                u^{\veps}(\tau) )\right]d\tau \\
+            &=  \dfrac{1}{\delta} \int_{t}^{s}\left[f(\tau, X_{\delta}^{\veps} %
+                (\tau), u_{\delta}^{\veps}(\tau)) - f(\tau,X^{\veps}(\tau),%
+                u^{\veps}_{\delta}(\tau) )\right]d\tau \\
+             &+ \frac{1}{\delta} \int\limits_{[t,s] \cap E_{\delta}^{\veps}} %
+                \left[f(\tau,X^{\veps}(\tau), u(\tau)) - f(\tau,X^{\veps}(\tau),%
+                u^{\veps}(\tau) )\right]d\tau \\
+             &+ \frac{1}{\delta}\int\limits_{[t,s] \setminus E_{\delta}^{\veps}} %
+                \left[f(\tau,X^{\veps}(\tau), u^{\veps}(\tau)) - %
+                f(\tau,X^{\veps}(\tau),u^{\veps}(\tau) )\right]d\tau \\
+            &=  \dfrac{1}{\delta} \int_{t}^{s}\left[f(\tau, X_{\delta}^{\veps} %
+                (\tau), u_{\delta}^{\veps}(\tau)) - f(\tau,X^{\veps}(\tau),%
+                u^{\veps}_{\delta}(\tau) )\right]d\tau \\
+             &+ \frac{1}{\delta} \int\limits_{[t,s] \cap E_{\delta}^{\veps}} %
+                \left[f(\tau,X^{\veps}(\tau), u(\tau)) - f(\tau,X^{\veps}(\tau),%
+                u^{\veps}(\tau) )\right]d\tau \\
+            &=  \int_{t}^{s}\int_{0}^{1}f_{x}\big(\tau, X^{\veps}(\tau) + %
+                \theta[X_{\delta}^{\veps}(\tau) - X^{\veps}(\tau)], %
+                u_{\delta}^{\veps}(\tau)\big)Y_{\delta}^{\veps}(\tau)d\theta %
+                d\tau \\
+            &+ \int_{t}^{s}\big[f(\tau,X^{\veps}(\tau),u^{\veps}_{\delta}(\tau))%
+                - f(\tau,X^{\veps}(\tau),u^{\veps}(\tau) )\big]d\tau %
+                - \dfrac{r_{\delta}^{\veps}(\tau)}{\delta}d\tau .
+        \end{align*}
+        Now, we let $Y^{\veps}(\cdot)$ be the solution to the following:
+        \begin{equation*}
+            \begin{aligned}
+                \Dot{Y}^{\veps}(s) &= f_{x}(s, X^{\veps}(s), u^{\veps}(s)) Y^{\veps}(s) \\
+                    &+ f(s, X^{\veps}(s), u(s)) - f(s, X^{\veps}(s), u^{\veps}(s)), %
+                        \hspace{0.5cm} s\in[t,T],\\
+                Y^{\veps}(t) &= 0.  
+            \end{aligned}
+        \end{equation*}
+        It is not hard to show that
+        \begin{equation*}
+            \lim_{\delta \to 0} \norm{Y_{\delta}^{\veps}(\cdot) - %
+                Y^{\veps}(\cdot)}_{C([t,T];\mathbb{R}^{n})} = 0.
+        \end{equation*}
+        On the other hand, by the optimality of $u^{\veps}(\cdot)$, we have
+        \begin{align*}
+            -\sqrt{\veps} (T-t) &= -\sqrt{\veps}\dfrac{\lambda (E_{\delta}^{\veps}) }{\delta} \\
+            &\leq -\sqrt{\veps}\dfrac{\rho(u_{\delta}^{\veps}(\cdot), u^{\veps}(\cdot))}{\delta} \\
+            &\leq \dfrac{1}{\delta}[J_{\veps}^{T}(t, x; u_{\delta}^{\veps}(\cdot)) %
+                - J_{\veps}^{T}(t, x; u^{\veps}(\cdot))] \\
+            &=  \dfrac{\left\{ [J^{T}(t,x; u_{\delta}^{\veps}(\cdot)) %
+                + \veps]^{+}\right\}^{2} - \left\{[J^{T}(t,x; u^{\veps}(\cdot)) + %
+                \veps]^{+}\right\}^{2}}{\delta[J_{\veps}^{T}(t,x; u_{\delta}^{\veps}(\cdot))%
+                + J_{\veps}^{T}(t,x; u_{\delta}^{\veps}(\cdot))]} \\
+            &+ \dfrac{d_{M}(X_{\delta}^{\veps}(T))^2 + d_{M}(X^{\veps}(T))^2}%
+                {\delta[J_{\veps}^{T}(t,x; u_{\delta}^{\veps}(\cdot))%
+                + J_{\veps}^{T}(t,x; u_{\delta}^{\veps}(\cdot))]} \\
+            &=  \Bar{\psi}_{\delta}^{\veps, 0} \Big\{\dfrac{1}{\delta}%
+                \int_{t}^{T}[g(s, X_{\delta}^{\veps}(s) u_{\delta}^{\veps}) %
+                    - g(s, X^{\veps}(s), u^{\veps})]ds  \\
+                    &+ \dfrac{h(X_{\delta}^{\veps}(T)) - h(X^{\veps}(T))}{\delta}\Big\} %
+                    +\Bar{\psi}_{\delta}^{\veps}Y_{\delta}^{\veps}(T),
+        \end{align*}
+        where
+        \begin{equation*}
+            \begin{aligned}
+                \Bar{\psi}_{\delta}^{\veps, 0} &= %
+                    \dfrac{[J^{T}(t,x; u_{\delta}^{\veps}(\cdot)) + \veps]^{2} + %
+                    [J^{T}(t,x; u^{\veps}(\cdot)) + \veps]^{2}}%
+                    { J_{\veps}^{T}(t,x; u_{\delta}^{\veps}(\cdot)) %
+                    + J_{\veps}^{T}(t,x; u^{\veps}(\cdot))}, \\
+                \Bar{\psi}_{\delta}^{\veps} &= %
+                    \dfrac{\int_{0}^{1} \nabla(d_{M}^{2})(X^{\veps}(T) + %
+                    \theta[X_{\delta}^{\veps}(T) - X^{\veps}(T)])d\theta}%
+                    { J_{\veps}^{T}(t,x; u_{\delta}^{\veps}(\cdot)) %
+                    + J_{\veps}^{T}(t,x; u^{\veps}(\cdot))}.
+            \end{aligned}
+        \end{equation*}
+        Then
+        \begin{equation*}
+            \begin{aligned}
+                \lim_{\delta \to 0}\Bar{\psi}_{\delta}^{\veps, 0} %
+                    &= \Bar{\psi}^{\veps, 0} %
+                    \equiv \dfrac{[J^{T}(t,x; u^{\veps}(\cdot)) + \veps]^{+}}%
+                    {J_{\veps}^{T}((t,x; u^{\veps}(\cdot))}, \\
+                \lim_{\delta \to 0}\Bar{\psi}_{\delta}^{\veps} %
+                    &= \Bar{\psi}^{\veps}\dfrac{d_{M}(X^{\veps}(T))\partial %
+                    d_M(X^{\veps}(T))}{J_{\veps}^{T}((t,x; u^{\veps}(\cdot))},
+            \end{aligned}
+        \end{equation*}
+        where 
+        \begin{equation*}
+            \partial d_M(X^{\veps}(T)) = %
+            \left\{ %
+                \begin{matrix}
+                    \dfrac{X^{\veps}(T) - X^{\veps}(T)}{\norm{X^{\veps}(T) - P_M(X^{\veps}(T))}}, & X^{\veps}(T) \notin M, \\
+                    \nu(X^{\veps}(T)), & X^{\veps}(T) \notin \partial M, \\
+                    0, & X^{\veps}(T) \notin M \setminus \partial M.
+                \end{matrix}
+            \right.
+        \end{equation*}
+        In the above, recall that $P_M(X^{\veps}(T))$ is the projection of 
+        $X^{\veps}(T)$ onto the convex set $M$, $\nu(X^{\veps}(T))$ is a unit 
+        outward normal of $M$ at $X^{\veps}(T) \in \partial M$, defined to be
+        a unit vector satisfying
+        \begin{equation*}
+            \langle \nu(X^{\veps}(T)), y - X^{\veps}(T)\rangle \leq 0, \forall \in M.
+        \end{equation*}
+        It's clear that
+        \begin{equation*}
+            \begin{aligned}
+                &\abs{ \Bar{\psi}^{\veps,0}}^2 + \abs{\Bar{\psi}^{\veps}}^{2} = 1, \forall \epsilon > 0, \\
+                &\langle  \Bar{\psi}^{\veps} , y - X^{\veps}(T)\rangle \leq 0, \forall y\in M.
+            \end{aligned}    
+        \end{equation*}
+  
+        Further,
+        \begin{align*}
+            &\dfrac{1}{\delta} \int\limits_{t}^{T}\Big[%
+                g(\tau, X_{\delta}^{\veps}(\tau), u_{\delta}^{\veps}(\tau))%
+                - g(\tau, X^{\veps}(\tau),u^{\veps}(\tau))\Big] d\tau \\
+            &= \dfrac{1}{\delta} \int\limits_{t}^{T}\Big[%
+                g(\tau, X_{\delta}^{\veps}(\tau), u_{\delta}^{\veps}(\tau))%
+                - g(\tau, X^{\veps}(\tau),u^{\veps}(\tau))\Big] d\tau \\
+            &+ \dfrac{1}{\delta} \int\limits_{[t,s]\cap E_{\delta}^{\veps}}\Big[%
+                g(\tau, X^{\veps}(\tau), u(\tau))%
+                - g(\tau, X^{\veps}(\tau),u^{\veps}(\tau))\Big] d\tau \\
+            &= \int\limits_{t}^{T} \int\limits_{0}^{1} %
+                g_x(\tau, X^{\veps} + \theta[X_{\delta}^{\veps}(\tau)-%
+                X^{\veps}(\tau)], u_{\delta}^{\veps}(\tau))Y_{\delta}^{\veps}(\tau)%
+                d\theta d\tau \\
+            &+ \int\limits_{t}^{T}\Big[g(\tau, X^{\veps}(\tau), u(\tau))%
+                - g(\tau, X^{\veps}(\tau),u^{\veps}(\tau))\Big]d\tau %
+                + \int\limits_{t}^{s}\dfrac{r_{\delta}^{\veps,0}(\tau)}{\delta} d\tau \\
+            &\to \int\limits_{t}^{T}\Big[g_{x}(\tau, X^{\veps}(\tau), u^{\veps}(\tau))%
+                Y^{\veps}(\tau) + g(\tau, X^{\veps}, u(\tau)) - g(\tau, X^{\veps}(\tau), %
+                u^{\veps}(\tau))\Big] d\tau.
+        \end{align*}
+        \item
+            Consequently, letting $\delta \to 0$ in 2.12 , one has
+            \begin{align*}
+                -\sqrt{\veps}(T-t) 
+                &
+                \leq \Bar{\phi} ^ {\veps,0}
+                \int_{t} ^ {T}
+                \Big[%
+                    g_{x}(\tau, X^{\veps}(\tau), u^{\veps}(\tau))
+                    Y^{\veps}(\tau) 
+                    \\
+                    &+ %
+                    g(\tau, X ^ {\veps} (\tau), u(\tau))
+                    - 
+                    g(\tau, X^{\veps}(\tau), u^{\veps}(\tau))
+                \Big]
+                d \tau 
+                + \Big[
+                    \Bar{\psi} ^ {\veps, 0} h_x (X^{\veps}(T)) %
+                    + \Bar{\psi}^{\veps}
+                \Big]
+                Y ^ {\veps}(T).
+            \end{align*}
+            By (2.13), we may assume that $(\psi^{\veps, 0}, \psi^{\veps})$ is 
+            convergent, as $\veps \to 0$. Denote
+            \begin{equation*}
+                \lim_{\veps\to 0}(\psi^{\veps, 0}, \psi^{\veps}) = -(\psi^{0}, \psi),
+            \end{equation*}
+            with
+            \begin{equation*}
+                \begin{aligned}
+                    &\abs{\psi^{0}}^2 + \abs{\psi}^2 = 1, \, \psi^{0} \leq 0, \\
+                    &\langle \psi, y - \bar{X}(T) \rangle \geq 0.
+                \end{aligned}
+            \end{equation*}
+            Also,
+            \begin{equation*}
+                \lim_{\veps \to 0} \norm{Y^{\veps}(\cdot) - Y(\cdot)}_{C([t,T]; %
+                \mathbb{R}^{n})} = 0,
+            \end{equation*}
+            where
+            \begin{align*}
+                \Dot{Y}(s) &= f_x(s, \bar{X}(s), \Bar{u}(s))Y(s) + f(s, \bar{X}(s), u(s))
+                    - f(s, \bar{X}(s), \Bar{u}(s)), \\
+                Y(t) &= 0,
+            \end{align*}
+            with $s \in [t,T]$.
+            Let $\psi(\cdot)$ be the solution of the adjoint equation (2.9) with
+            \begin{equation*}
+                \psi(T) = \psi + \psi^{0}h_x(\bar{X}(T)).
+            \end{equation*}
+            Then (2.10) - (2.11) hold. Now, let $\veps \to 0$ in (2.14), we obtain
+            \begin{align*}
+                0 &\geq \int_{t}^{T}\psi^{0}\Big[g_x(s, \bar{X}(s), u(s))Y(s) + %
+                    g(s, \bar{X}(s), u(s)) - g(s, \bar{X}(s), \Bar{u}(s))\Big]ds \\
+                &+ \Big[ \psi^{0}h_x(X(T)) + \psi(s) \Big]Y(T) \\
+                &=  \int_{t}^{T}\Big\{\psi^{0}\Big[g_x(s, \bar{X}(s), u(s)) Y(s) %
+                    + g(s, \bar{X}(s), u(s)) - g(s, \bar{X}(s), \bar{u}(s))\Big] \\
+                &+ \big\langle \Dot{\psi}(s), Y(s)\big\rangle + %
+                    \big\langle \psi(s), f_x(s, \bar{X}(s), \bar{u}(s))Y(s)\big\rangle \\
+                &+ \big\langle \psi(s), f(s, \bar{X}(s), u(s)) - f(s, \bar{X}(s), %
+                    \bar{u}(s)) \big\rangle \Big\} ds \\
+                &=  \int_{t}^{T}\Big\{ \psi^{0}\Big[g(s, \bar{X}(s), u(s)) - %
+                    g(s, \bar{X}(s), \bar{u}(s))\Big] \\
+                &+ \big\langle \psi(s), f(s,\bar{X}(s),u(s)) - f(s,\bar{X}(s),%
+                    \bar{u}(s)) \big\rangle\Big\}ds \\
+                &= \int_{t}^{T}\Big[H\big(s,\bar{X}(s),u(s), \psi^{0}, \psi(s) \big) %
+                    - H \big(s,\bar{X}(s),\bar{u}(s),\psi^0,\psi(s) \big)\Big]ds.
+            \end{align*}
+            This implies (2.8).
+    \end{asparaenum}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+\end{proof}
+
+    Now, we introduce a particular case of this Theorem. This is presented in
+    \citep{lenhart2007optimal} and we are going to use this one on the followings
+    chapters.
+\newpage

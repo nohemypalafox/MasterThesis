@@ -1,0 +1,94 @@
+%---------%---------%---------%---------%---------%---------%---------%---------
+\section{HIV}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+    The Human Immunodeficiency Virus (HIV) is a condition that targets the 
+    immune system and weakens people's defense system against other infections 
+    and some types of cancer. The HIV has no cure and that's why it is one of 
+    the biggest problems in public health. However, there exist treatments to 
+    control this sickness, like drugs or chemotherapy. So, in this example
+    the control will represent chemotherapy strategies, and the goal is to find 
+    the  best chemotherapy strategy. 
+    
+    \noindent  We consider a model for HIV reported in \citep{butler1997optimal} which describes the interaction between the immune system and the HIV virus. Let $T(t)$ be the concentration of uninfected $CD4^{+}T$ cells and $T_i(t)$ the infected $CD4^{+}T$ cells. Let $V(t)$ be the concentration of free virus cells and $\dfrac{s}{1 + V(t)}$ the rate of generation of new $CD4^{+}T$ cells. We consider $r$ as the growth rate of T cells per day. This growth is assumed to be logistic, with a maximum level of $T_{max}$. Let $u(t)$ be the strength of the chemotherapy, where $u(t) = 0$ represents maximum therapy and $u(t) = 1$ is no therapy.
+    The dynamics without control reads
+    \begin{align*}
+        \dfrac{dT}{dt} &= \dfrac{s}{1 + V} - \mu_{1}T + rT \left( 1 - %
+                            \dfrac{T + T_{i}}{T_{max}} \right) - k_{1}VT , \\
+        \dfrac{dT_{i}}{dt} &= k_{1}VT - \mu_{2}T_{i} , \\
+        \dfrac{dV}{dt} &= N \mu_2 T_{i} - \mu_{3}V.
+    \end{align*}
+    And the objective is to maximize the functional
+    $$
+        \max_{u} J(u) = \max_{u} \int_{t_i}^{t_f} {\left[ AT(t) - 
+                        (1 - u(t))^{2} \right]} dt, 
+    $$
+    subject to 
+    \begin{equation}
+    \label{eqn:ode_hiv}
+        \begin{aligned}
+            \dfrac{dT}{dt} &= \dfrac{s}{1 + V} - \mu_{1}T + rT \left( 1 - %
+                \dfrac{T + T_{i}}{T_{max}} \right) - u(t)kVT \\
+            \dfrac{dT_{i}}{dt} &= u(t)kVT - \mu_{2}T_{i} \\
+            \dfrac{dV}{dt} &= N \mu_2 T_{i} - \mu_{3}V
+        \end{aligned}
+    \end{equation}
+    where $ 0 \leq u(t) \leq 1 $ and $A \geq 0$ is the weight parameter. 
+    Let $g =g(t,x,u)$, 
+    %=  \left(
+    %    \frac{dT}{dt}, \frac{dT_{i}}{dt}, \frac{dV}{dt} \right)$ and 
+        $x = (T,T_i,V)$ the right hand side of ODE \eqref{eqn:ode_hiv}. 
+    By the definition of the Hamiltonian (ref) we have that
+    $$
+        H(t,x,u,\psi) = AT - (1 - u)^{2} + \sum_{i \in J} \psi_{i}f_{i}, 
+    $$
+    with $i \in \{T, T_i, V \}$. Then the adjoint equations are
+    \begin{align*}
+        \dot{\psi}_{T}   
+            &=  - A + \psi_{T} \left[\mu_1 
+            - r\left(1 - \dfrac{T_i}{T_{max}}\right) \right] - \psi_{T_i} u k V      
+            \\ 
+        \dot{\psi}_{T_i} &=  \psi_{T}\dfrac{rT}{T_{max}} + 
+            \psi_{T_i}\mu_2 - \psi_{V}N\mu_2                      \\
+        \dot{\psi}_{V}   &=  \psi_{T} \left(\dfrac{s}{(1+V)^2} + 
+            ukT\right) - \psi_{T_i}ukT + \psi_{V}\mu_{3}   
+    \end{align*}
+
+    \noindent  the Hamiltonian we obtain the optimality condition 
+    $$
+        \dfrac{\partial H}{\partial u} = 2(1 - u) + (\psi_{T_i} - \psi_{T})kVT
+    $$
+    
+    \noindent Since the control is bounded, the optimality conditions are
+    $$  
+        \begin{cases}
+            u^{*} = 0  \quad &\text{if} \quad  
+               \frac{\partial H}{\partial u} < 0 \\
+            0 \leq u^{*} \leq 1 \quad  &\text{if} \quad
+                \frac{\partial H}{\partial u} = 0 \\
+            u^{*} = 1 \quad  &\text{if} \quad  
+                \frac{\partial H}{\partial u} > 0
+        \end{cases}
+    $$
+    
+    Considering the values of the following tables we obtain Figure \ref{Figure_HIV_1}
+%---------%---------%---------%---------
+\input{Chapters/Chapter6_Applications2/Tables/hiv_param_values}
+\input{Chapters/Chapter6_Applications2/Tables/hiv_initial_cond.tex}
+%---------%---------%---------%---------
+
+    \noindent Can we discuss this example? I want to do a comparative of the same with no control.
+    
+\begin{figure}[htb] 
+	\begin{center}
+    	\includegraphics[width=\textwidth,keepaspectratio]%
+        {Chapters/Chapter6_Applications2/Figures/figure_1_hiv_chemo}
+		\caption{%
+        	The horizontal axis represents time $t$ on days. The vertical axis
+            represents, in each case, the states 
+            Susceptibles $T_{\text{cells}}$, Infected $T_{\text{cells}}$, Virus and the control $u$, Chemotherapy. The parameters used are presented in (ref).
+    	}\label{Figure_HIV_1}
+	\end{center}
+\end{figure}
+
+%---------%---------%---------%---------%---------%---------%---------%---------

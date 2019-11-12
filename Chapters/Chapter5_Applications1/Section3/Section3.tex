@@ -1,0 +1,381 @@
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+\section{Cancer} \label{Chap2-Sect3}
+    From {\cite{PanettaFister}} we analize the Skiper's log-kill hypothesis, which
+    states cell-kill due to chemotherapeutic drugs is
+    proportional to tumor populatin. Thus, if $N(t)$ is the normalized density
+    of the tumor at time $t$, we have the model
+    \begin{equation*}
+        N'(t) = r N(t) \log{(\dfrac{1}{N(t)})} - u(t)\delta N(t),
+    \end{equation*}
+    where $r$ is the growth rate of the tumor. $\delta$ is the magnitude of the dose,
+    and $u(t)$ describes the pharmacokinetics of the drug, i.e., $u(t) = 0$ implies
+    no drug effect and $u(t) > 0 $ is the strength of the drug effect.
+
+
+    
+    Our problem is to 
+    \begin{equation*}
+        \min_{u} \int_{0}^{T} a N(t)^{2} + u(t)^{2} dt,
+    \end{equation*}
+    subject to
+    \begin{equation*}
+        N'(t) = r N(t) \log{(\dfrac{1}{N(t)})} - u(t)\delta N(t), \, N(0) = N_0,
+    \end{equation*}
+    with $u(t) > 0$
+        
+    
+\newpage
+
+LO QUE NO USAMOS
+
+
+\begin{asparaenum}[\bf{(}\bf{D}-1\bf{)}]
+    \item\label{HipD1}
+        $(U,d)$ is a separable metric space and $T>0$.
+    \item
+        The maps $f:[0,T] \times \mathbb{R}^{n} \times U \to \mathbb{R}^{n}$,
+        $g:[0,T] \times \mathbb{R}^{n} \times U \to \mathbb{R}$, and 
+        $h:\mathbb{R}^{n} \to \mathbb{R}$ are measurable, and there exist a 
+        constant $L>0$ and a modulus of continuity $\Bar{\omega}:[0,\infty) %
+        \to [0,\infty)$ such that for $\phi(t,x,u) = f(t,x,u)$, $g(t,x,u)$, $h(x)$
+        we have, 
+        \begin{equation}\label{HipD2}
+            \begin{aligned}
+                &\abs{\phi(t,x,u) - \phi(t, \widehat{x}, \widehat{u})} \leq %
+                    L\abs{x - \widehat{x}} + \Bar{\omega}(d(u, \widehat{u})),\\
+                &\abs{\phi(t,0,u) \leq L},
+            \end{aligned}
+        \end{equation}
+        for all $t \in [0,T]$, $x, \widehat{x} \in \mathbb{R}^{n}$ and
+        $u, \widehat{u}\in U$.
+    \item
+        The maps $f$, $g$ and $h$ are $C^{1}$ in $x$, and there exists a modulus 
+        of continuity $\Bar{\omega}: [0,\infty) \to [0,\infty)$ such that for 
+        $\phi(t,x,u) = f(t,x,u)$, $g(t,x,u)$, $h(x)$, we have
+        \begin{equation}\label{HipD3}
+            \abs{\phi_x(t,x,u) - \phi_x(t, \widehat{x}, \widehat{u})} \leq %
+            \Bar{\omega}\big(\abs{x - \widehat{x}}  + d(u, \widehat{u})\big),
+        \end{equation}
+        for all $t \in [0,T]$, $x, \widehat{x} \in \mathbb{R}^{n}$ and
+        $u, \widehat{u}\in U$.
+\end{asparaenum}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{lemma}
+Let $(D1)-(D3)$ hold. Let $X^{\veps}(\cdot) \equiv X(\cdot; u^{\veps}(\cdot))$
+be the solution to the control system under the control $u^{\veps}(\cdot)$,
+and let $Y^{\veps}(\cdot)$ be the solution of the following:
+    \begin{equation}\label{Lem;EqY}
+        \begin{aligned}
+            &\Dot{Y}^{\veps}(t) = f_{x}(t, \Bar{X}(t), \Bar{u}(t))y^{\veps}(t) %
+                + \big\{ f(t, \Bar{X}(t), u(t)) - f(t, \Bar{X}(t), \Bar{u}(t))\big\}
+                \ind_{E_{\veps}}(t) \\
+            &Y^{\veps}(0) = 0.          
+        \end{aligned}
+    \end{equation}
+    Then
+    \begin{align}
+        &\max_{t \in [0,T]}\abs{X^{\veps}(t) - \Bar{X}(t)} = O(\veps), \label{Lem;eq1} \\
+        &\max_{t\in[0,T]}\abs{Y^{\veps}(t)} = O(\veps), \label{Lem;eq2}\\
+        &\max_{t \in [0,T]}\abs{X^{\veps}(t) - \Bar{X}(t) - Y^{\veps}(t)} = o(\veps),\label{Lem;eq3}
+    \end{align}
+    and
+    \begin{equation}\label{Lem;eq4}
+        \begin{aligned}
+            J(u^{\veps}(\cdot)) - J(\Bar{u}(\cdot)) 
+            &= \big\langle h_{x} (\Bar{X}(T), Y^{\veps}(T)) \big\rangle + \int_{0}^{T} %
+                \Big\{ \langle g_x(t, \Bar{X}(t), \Bar{u}(t)), Y^{\veps}(t)\rangle \\
+            &+ \big[g(t, \Bar{X}(t), u(t)) - g(t, \Bar{X}(t), \Bar{u}(t))\big] %
+                \ind_{E_{\veps}}(t) \Big\}dt + o(\veps).
+        \end{aligned}
+    \end{equation}
+\end{lemma}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{proof}
+    Define $\xi^{\veps}(t) := X^{\veps}(t) - \Bar{X}(t)$. Then by 
+    \Cref{Eq;CtrlSys} we have
+    \begin{align*}
+        \abs{\xi^{\veps}(t)} &= \abs{X^{\veps}(t) - \Bar{X}(t)} \\
+            &= \abs{\int_{0}^{t}f(s, X^{\veps}(s), u^{\veps}(s)) %
+                - \int_{0}^{t} f(s, \Bar{X}(s), \Bar{u}(s))} ds \\
+            &\leq \int_{0}^{t} \abs{f(s, X^{\veps}(s), u^{\veps}(s)) - %
+                 f(s, \Bar{X}(s), \Bar{u}(s))}ds.
+    \end{align*}
+    By \cref{HipD2}, we get 
+    \begin{equation*}
+        \abs{\xi^{\veps}(t)} \leq \int_{0}^{t}(L\abs{X^{\veps}(s) %
+            - \Bar{X}(s)} + \Bar{\omega}(d(u^{\veps},\Bar{u})))ds.
+    \end{equation*}
+    Let be $K>0$ be a generic constant, thus
+    \begin{equation*}
+        \abs{\xi^{\veps}(t)} \leq \int_{0}^{t}L\abs{X^{\veps}(s) %
+            - \Bar{X}(s)}ds + \veps K.
+    \end{equation*}
+    Using the Gronwall inequality \eqref{prop:GI}, we have 
+    \begin{equation}
+        \abs{\xi^{\veps}(t)} \leq \veps K e^{LT} \leq \veps K %
+            e^{LT}, \hspace{0.5cm} \forall t\in[0,T].
+    \end{equation}
+    Thus,
+    \begin{equation*}
+        \abs{X^{\veps}(t) - \Bar{X}(t)} \leq \veps K 
+        \, \forall t\in[0,T].
+    \end{equation*}
+    In particular, this implies that
+    \begin{equation*}
+        \max_{t \in [0,T]}\abs{X^{\veps}(t) - \Bar{X}(t)} \leq \veps K.
+    \end{equation*}
+    That is,
+    \begin{equation*}
+        \max_{t \in [0,T]}\abs{X^{\veps}(t) - \Bar{X}(t)} = O(\veps),
+    \end{equation*}
+    which prove \Cref{Lem;eq1}. In a similar way, note that
+    \begin{align*}
+        \abs{Y^{\veps}(t)} &= \Big\vert Y^{\veps}(0) + \int_{0}^{T} %
+            \Big\{f_x(s, \Bar{X}(s), \Bar{u}(s))Y^{\veps}(s) \\
+        &+ \big[ f(s, \Bar{X}(s),u(s)) - f(s, \Bar{X}(s), \Bar{u}(s))\big]%
+            \ind_{E_{\veps}}(s) \Big\}ds \Big\vert \\
+        &\leq \int_{0}^{T} \abs{f_{x}(s, \Bar{X}(s), \Bar{u}(s)) Y^{\veps}(s)} ds \\
+        &+ \int_{E_{\veps}\cap[0,T]} \abs{f(s, \Bar{X}(s), u(s)) - f(s, \Bar{X}(s), \Bar{u}(s))}ds.
+    \end{align*}
+    First, note that by (D*) we have
+    \begin{align*}
+        \int_{E_{\veps}\cap [0,T]} \abs{f(s, \Bar{X}(s), u(s)) - %
+            f(s, \Bar{X}(s),\Bar{u}(s))}ds 
+        &\leq \int_{0}^{T} L\abs{\Bar{X}-\Bar{X}} + \Bar{\omega}(d(u,\Bar{u}))ds \\
+        &= \int_{0}^{T}\Bar{\omega}(d(u,\Bar{u})) \\
+        &= \veps KT.
+    \end{align*}
+    That is
+    \begin{equation}\label{eq;yeps}
+        \abs{Y^{\veps}(t)} \leq \int_{0}^{T} f_x(s,\Bar{X}(s),\Bar{u}(s))Y^{\veps}(s)ds %
+        + \veps KT.
+    \end{equation}
+    Because \cref{HipD3}, we can apply the Gronwall inequality \eqref{prop:GI} to deduce from \cref{eq;yeps}
+    that 
+    \begin{equation}
+        \abs{Y^{\veps}(t)} \leq \veps KT e^{\int_{0}^{T} f_x(s,\Bar{X}(s),\Bar{u}(s))ds},
+    \end{equation}
+    for all $t \in [0,T]$. This implies that
+    \begin{equation*}
+        \max_{t\in[0,T]} \abs{Y^{\veps}(t)} = O(\veps),
+    \end{equation*}
+    which prove \cref{Lem;eq2}. 
+    
+    Now, we prove \cref{Lem;eq3}, defining
+    \begin{equation*}
+        \eta^{\veps}(t) := X^{\veps}(t) - \Bar{X}^{\veps}(t) - Y^{\veps}(t) = 
+        \xi^{\veps} - y^{\epsilon}(t).
+    \end{equation*}
+    Note that from \cref{Eq;CtrlSys} and \cref{Lem;EqY} we have
+    \begin{align*}
+        \Dot{\eta}^{\veps}(t) 
+        &= f(t, X^{\veps}(t), u^{\veps}(t)) - %
+            f(t, \Bar{X}(t), \Bar{u}(t)) - f_{x}(t, \Bar{X}(t), \Bar{u}(t)) \\
+        &- \big\{ f(t, \Bar{X}(t), u^{\veps}(t)) - f(t, \Bar{X}(t), \Bar{u}(t))\big\}%
+            \ind_{E_{\veps}}(t), \ \text{ a.e. } t \in [0,T].
+    \end{align*}
+    Define
+    \begin{equation*}
+        h(\theta) := f(t, \theta X^{\veps}(t) + (1 - \theta)\Bar{X}(t), u^{\veps}(t)), %
+        \theta \in [0,1].
+    \end{equation*}
+    Note that
+    \begin{align*}
+        h(1) &= f(t, X^{\veps}(t), u^{\veps}) \text{ and } \\
+        h(0) &= f(t, \Bar{X}(t), u^{\veps}(t)).
+    \end{align*}
+    Now,
+    \begin{align*}
+        \Dot{h}(\theta) &= 
+            f_{x}(t,\theta X^{\veps}(t) + (1 - \theta)\Bar{X}(t), u^{\veps}) d\theta \cdot (X^{\veps}(t) - \Bar{X}(t)) \\
+        &= f_{x}(t, \Bar{X}(t) + \theta \xi^{\veps}(t),u^{\veps}(t))\xi^{\veps}(t).
+    \end{align*}
+    Hence,
+    \begin{equation*}
+        h(1) - h(0) = \int_{0}^{1} f_{x}(t, \Bar{X}(t) + \theta \xi^{\veps}(t), u^{\veps}(t))d\theta \cdot  \xi^{\veps}(t).
+    \end{equation*}
+    Fix $t \in E_{\veps}$, 
+    \begin{equation*}
+        \Dot{\eta}^{\veps}(t) = f(t, X^{\veps}(t), u^{\veps}(t)) - f(t,\Bar{X}(t),%
+            u^{\veps}(t)) - f_{x}(t, \Bar{X}(t), \Bar{u}(t))y^{\veps}(t),
+    \end{equation*}
+    substituting $h(1) - h(0)$, we have
+    \begin{equation*}
+        \Dot{\eta}^{\veps}(t) = \int_{0}^{1} f_{x}(t, \Bar{X}(t) + \theta \xi^{\veps}(t), u^{\veps}(t))d\theta \cdot  \xi^{\veps}(t) -  f_{x}(t, \Bar{X}(t), \Bar{u}(t))y^{\veps}(t), \text{ a.e. } t \in E_{\veps}.
+    \end{equation*}
+    Now, let $t \in [0,T] \setminus E_{\veps}$,
+    \begin{equation*}
+        \Dot{\eta}^{\veps}(t) = f(t, X^{\veps}(t), u^{\veps}(t)) - f(t, \Bar{X}(t), u^{\veps}(t)) - f_x(t, \Bar{X}(t), \Bar{u}(t))Y^{\veps}(t).
+    \end{equation*}
+    Then,
+    \begin{equation*}
+        \Dot{\eta}^{\veps}(t) = \int_{0}^{1} f_{x}(t, \Bar{X}(t) + \theta \xi^{\veps}(t), u^{\veps}(t))d\theta \cdot  \xi^{\veps}(t)  - f_x(t, \Bar{X}(t), \Bar{u}(t))Y^{\veps}(t), \text{ a.e. } t \in [0,T]\setminus E_{\veps}.
+    \end{equation*}
+    Hence, 
+    \begin{equation*}
+        \Dot{\eta}^{\veps}(t) = \int_{0}^{1} f_{x}(t, \Bar{X}(t) + \theta \xi^{\veps}(t), u^{\veps}(t))d\theta \cdot  \xi^{\veps}(t)  - f_x(t, \Bar{X}(t), \Bar{u}(t))Y^{\veps}(t), \text{ a.e. } t \in [0,T] .
+    \end{equation*}
+    Using the definition of $\eta ^{\veps}(t)$ we get
+    \begin{equation*}
+        \Dot{\eta}^{\veps}(t) = \int_{0}^{1} f_x(t, \Bar{X}(t) + \theta \xi^{\veps}, u^{\veps})d\theta \cdot \xi^{\veps}(t) - f_x(t, \Bar{X}(t), \Bar{u}(t))\xi^{\veps}(t) + f_x(t, \Bar{X}(t), \Bar{u}(t))\eta^{\veps}(t).
+    \end{equation*}
+    Adding the convenient zero $f_x(t, \Bar{X}(t), u^{\veps}(t))\xi^{\veps}(t) - f_x(t, \Bar{X}(t), u^{\veps}(t))\xi^{\veps}(t)$, we have
+    \begin{align*}
+        \Dot{\eta}^{\veps}(t) &= \underbrace{\int_{0}^{1} [f_x(t, \Bar{X}(t) + \theta \xi^{\veps}, %
+        u^{\veps}(t)) - f_{x}(t, \Bar{X}(t), u^{\veps}(t))]d\theta \xi^{\veps}(t)}_{:=T_1} \\
+        & - \underbrace{f_x(t, \Bar{X}(t), \Bar{u}(t))\xi^{\veps}(t)}_{:=T_2} + \underbrace{f_x(t, \Bar{X}(t), \Bar{u}(t))\eta^{\veps}(t)}_{:=T_3} + \underbrace{f_x(t, \Bar{X}(t), u^{\veps}(t))\xi^{\veps}(t)}_{:=T_4}.
+    \end{align*}
+    Expanding $T_4$ and $T_2$ with the indicators $\ind_{E_{\veps}}$, 
+    $\ind_{\stcomp{E_{\veps}}}$, we obtain
+    \begin{align*}
+        \Dot{\eta}^{\veps} &=
+            T_1 - f_x(t,\Bar{X}(t),\Bar{u}(t))\xi^{\veps}(t)\ind_{E_{\veps}}(t) - 
+            f_x(t,\Bar{X}(t),\Bar{u}(t))\xi^{\veps}(t)\ind_{\stcomp{E_{\veps}}}(t) + T_3 \\
+            &\,\, + f_x(t, \Bar{X}(t), u^{\veps}(t))\xi^{\veps}(t)\ind_{E_{\veps}}(t)
+            + f_x(t, \Bar{X}(t), u^{\veps}(t))\xi^{\veps}(t)\ind_{\stcomp{E_{\veps}}}(t) \\
+        &=  T_1 + \big[f_x(t,\Bar{X}(t), u(t)) - f_x(t,\Bar{X}(t),\Bar{u}(t))\big]
+            \xi^{\veps}(t)\ind_{E_{\veps}}(t) + T_3 \\
+            &\,\, + \big[f_x(t, \Bar{X}(t),\Bar{u}(t)) - f_x(t,\Bar{X}(t),\Bar{u}(t))\big]
+            \xi^{\veps}(t)\ind_{\stcomp{E_{\veps}}}(t) \\
+        &= T_1 + \big[f_x(t,\Bar{X}(t), u(t)) - f_x(t,\Bar{X}(t),\Bar{u}(t))\big] %
+            \xi^{\veps}(t)\ind_{E_{\veps}}(t) + T_3.
+    \end{align*}
+    Now, by \cref{HipD3} we have 
+    \begin{align*}
+        \abs{T_1} &\leq 
+            \int_{0}^{1}\abs{f_x(t,\Bar{X}(t)+\theta \xi^{\veps},u^{\veps}(t))
+            - f_{x}(t,\Bar{X}(t), u^{\veps}(t))}d\theta \abs{\xi^{\veps}(t)} \\
+        &\leq \int_{0}^{1} \Bar{\omega}(\abs{\Bar{X}(t)+\theta \xi^{\veps} - \Bar{X}(t)} 
+            + d(u^{\veps},u^{\veps})d\theta \abs{\xi^{\veps}(t)} \\
+        &=   \int_{0}^{1} \Bar{\omega}(\abs{\theta \xi^{\veps}})d\theta \abs{\xi^{\veps}(t)} \\
+        &\leq \int_{0}^{1}\Bar{\omega}(\theta \abs{\xi^{\veps}} )d\theta
+            \max_{t\in[0,T]}\abs{X^{\veps}(t) - \Bar{X}(t)} \\
+        &\leq K\veps \int_{0}^{1} \Bar{\omega}(\theta \abs{\xi^{\veps}(t)}) d\theta  \\
+        &\leq K\veps \Bar{\omega}(\abs{\xi^{\veps}(t)}) .
+    \end{align*}
+    Following a similar argument, from \cref{HipD3} we obtain 
+    \begin{align*}
+        \abs{f_x(t,\Bar{X}(t), u(t)) - f_x(t,\Bar{X}(t),\Bar{u}(t))\xi^{\veps}(t)\ind_{E_{\veps}}}
+            &\leq \Bar{\omega}(d(u, \Bar{u}))\abs{\xi^{\veps}(t)}\ind_{E_{\veps}}(t)\\
+            &\leq K \max_{t\in [0,T]} \abs{X^{\veps}(t) - \Bar{X}(t)}\ind_{E_{\veps}}(t) .
+    \end{align*}
+    Also, using D3
+    \begin{equation*}
+        \abs{T_3} \leq \abs{f_x(t, \Bar{X}(t), \Bar{u}(t))}\abs{\eta ^{\veps}(t)}.
+    \end{equation*}
+    Since, $f_x$ is a continuous function on $x$, there is a constant $L>0$ such
+    that $ \abs{T_3} \leq L \abs{\eta ^{\veps}(t)}$. Now, integrating
+    $\Dot{\eta}^{\veps}$ we have
+    \begin{align*}
+        \abs{\eta^{\veps}(t)} &\leq 
+            \int_{0}^{t} K\veps \Bar{\omega}(\abs{\xi^{\veps}(s)}) ds 
+            + \int_{0}^{t}K \max_{t\in [0,T]} \abs{X^{\veps}(t) - \Bar{X}(t)}\ind_{E_{\veps}}(s) ds 
+            + \int_{0}^{t}  L \abs{\eta ^{\veps}(s)} ds \\
+        &\leq K \veps \int_{0}^{T}\Bar{\omega}(\max_{t\in [0,T]} \abs{X^{\veps}(s) - \Bar{X}(s)}) ds 
+            + K\veps\int_{0}^{t}\ind_{E_{\veps}}(s) ds + \int_{0}^{t}  L \abs{\eta ^{\veps}(s)} ds \\
+        &\leq K\veps^{2} + \int_{0}^{t}  L \abs{\eta ^{\veps}(s)} ds.
+    \end{align*}
+    By Gronwall inequality \eqref{prop:GI} we obtain
+    \begin{equation*}
+        \abs{\eta^{\veps}(t)} \leq K\veps^{2},
+    \end{equation*}
+    this implies
+    \begin{equation*}
+        \max_{t \in [0,T]}\abs{X^{\veps}(t) - \Bar{X}(t) - Y^{\veps}(t)} = o(\veps).
+    \end{equation*}
+    
+    Finally, we prove \cref{Lem;eq4}  using the Taylor Theorem \eqref{thm:TT}. First, by definition
+    we have
+    \begin{equation*}
+        J(u^{\veps}(\cdot)) - J(\Bar{u}(\cdot)) = \int_{0}^{T}\big[ g(t, X^{\veps}(t), u^{\veps}(t)) %
+            - g(t, \Bar{X}(t), \Bar{u}(t)) \big] dt + h(X^{\veps}(T)) - h(\Bar{X}(T)).
+    \end{equation*}
+    Note that \cref{Lem;eq3} implies that
+    \begin{equation*}
+        \abs{X^{\veps}(t) - \Bar{X}(t) - Y^{\veps}(t)} \leq K\veps^2,
+    \end{equation*}
+    this implies that for each $\epsilon > 0$ exist $z \in \mathbb{R}^{n}$ such
+    that $X^{\veps}(t) - \Bar{X}(t) = Y^{\veps}(t) + \veps^{2}z$ and  
+    $\abs{\veps z} = o(\veps)$. With this direction, expanding to the first
+    order the function $h$ around $X^{\veps} - \Bar{X}$, for a fixed but 
+    arbitrary $t \in [0,T]$ we obtain
+    \begin{align*}
+        h(X^{\veps}(t)) - h(\Bar{X}(t)) %
+        &=  \langle h_{x}(\Bar{X}(t)), X^{\veps}(t) - \Bar{X}(t) \rangle + \veps^2 \abs{z} \\
+        &=  \langle h_{x}(\Bar{X}(t)), Y^{\veps}(t) + \veps^2 z \rangle + \veps^2 \abs{z}  \\
+        &=  \langle h_{x}(\Bar{X}(t)), Y^{\veps}(t)\rangle + %
+            \veps^2 \langle h_{x}(\Bar{X}(t)), z \rangle + \veps^2 \abs{z}  \\
+        &\leq \langle h_{x}(\Bar{X}(t)), Y^{\veps}(t)\rangle  + K\veps^2 + %
+            \veps^2\abs{ h_{x}(\Bar{X}(t))}\abs{z} \\
+        &\leq \langle h_{x}(\Bar{X}(t)), Y^{\veps}(t)\rangle + K \veps^2,
+    \end{align*}
+    that means
+    \begin{equation*}
+         h(X^{\veps}(t)) - h(\Bar{X}(t)) = \langle h_{x}(\Bar{X}(t)), Y^{\veps}(t)\rangle %
+            + o(\veps).
+    \end{equation*}
+    Following the same ideas, we add the zero $g(t, X^{\veps}(t), \Bar{u}(t)) - %
+    g(t, X^{\veps}(t), \Bar{u}(t))$ and use [reference] to obtain
+    \begin{align*}
+        \int_{0}^{T}\big[ g(t, X^{\veps}(t), u^{\veps}(t)) 
+        & - g(t, \Bar{X}(t), \Bar{u}(t)) \big] dt %
+        \\
+        & = \int_{0}^{T}\big[ g(t, X^{\veps}(t), \Bar{u}(t)) - g(t, \Bar{X}(t), \Bar{u}(t)) 
+        \\
+            &+ g(t, X^{\veps}(t), u^{\veps}(t)) - g(t, X^{\veps}(t), \Bar{u}(t)) \big] dt 
+        \\
+        &= \int_{0}^{T}\big[ g(t, X^{\veps}(t), \Bar{u}(t)) - g(t, \Bar{X}(t), \Bar{u}(t)) \big]dt 
+        \\
+            &+ \int_{E_{\veps}}\big[g(t, X^{\veps}(t), u(t)) - g(t, X^{\veps}(t), \Bar{u}(t)) \big]dt 
+        \\
+            &+ \int_{[0,T]\setminus E_{\veps}}\big[g(t, X^{\veps}(t), \Bar{u}(t)) - g(t, X^{\veps}(t), \Bar{u}(t)) \big]dt\\
+        &= \int_{0}^{T}\big[ g(t, X^{\veps}(t), \Bar{u}(t)) - g(t, \Bar{X}(t), \Bar{u}(t)) \big]dt 
+        \\
+            &+ \int_{E_{\veps}}\big[g(t, X^{\veps}(t), u(t)) - g(t, X^{\veps}(t), \Bar{u}(t)) \big]dt.
+    \end{align*}
+    Now, using the Taylor Theorem \cref{thm:TT}, we obtain 
+    \begin{equation*}
+        g(t, X^{\veps}(t), \Bar{u}(t)) - g(t, \Bar{X}(t), \Bar{u}(t)) = %
+        \big\langle  g_x(t, \Bar{X}(t), \Bar{u}(t)), X^{\veps}(t) - \Bar{X}(t) \big\rangle + o(\veps).
+    \end{equation*}
+    By \cref{Lem;eq3} we can rewrite the above as
+    \begin{align*}
+        g(t, X^{\veps}(t), \Bar{u}(t)) - g(t, \Bar{X}(t), \Bar{u}(t)) &=
+        \big\langle %
+            g_x(t, \Bar{X}(t), \Bar{u}(t)), Y^{\veps}(t) + \veps^{2}z
+        \big\rangle \\
+        &\leq 
+        \big\langle g_x(t, \Bar{X}(t), \Bar{u}(t)), Y^{\veps}(t) \big\rangle %
+            + K\veps^{2}.
+    \end{align*}
+    That is,
+    \begin{equation*}
+        g(t, X^{\veps}(t), \Bar{u}(t)) - g(t, \Bar{X}(t), \Bar{u}(t)) = %
+            \big\langle g_x(t, \Bar{X}(t), \Bar{u}(t)), Y^{\veps}(t) \big\rangle + o(\veps).
+    \end{equation*}
+    Finally, combining , we obtain
+    \begin{align*}
+        J(u^{\veps}(\cdot)) - J(\Bar{u}(\cdot)) &= %
+            \int_{0}^{T} \Big[\big\langle g_x(t, \Bar{X}(t), \Bar{u}(t)), Y^{\veps}(t) \big\rangle %
+            + o(\veps)\Big]dt \\
+        &+ \int_{0}^{T}\big[g(t, X^{\veps}(t),u(t)) - g(t, X^{\veps}(t),\Bar{u}(t)) \big]\ind_{E_{\veps}}(t)dt \\
+        &+ \langle h_{x}(\Bar{X}(t)), Y^{\veps}(t)\rangle + o(\veps) \\
+        &\leq \int_{0}^{T} \Big\{
+            \big\langle g_x(t, \Bar{X}(t), \Bar{u}(t)), Y^{\veps}(t) \big\rangle \\
+        &+ \big[g(t, X^{\veps}(t),u(t)) - g(t, X^{\veps}(t),\Bar{u}(t))\big]\ind_{E_{\veps}}(t)
+        \Big\}dt \\
+        &+ \int_{0}^{T}K\veps^{2}dt + \left\langle h_{x}(\Bar{X}(t)), Y^{\veps}(t)\right\rangle + o(\veps).
+    \end{align*}
+    Hence,
+    \begin{equation*}
+        \begin{aligned}
+            J(u^{\veps}(\cdot)) - J(\Bar{u}(\cdot)) 
+            &= \int_{0}^{T} \Big\{ \big\langle g_x(t, \Bar{X}(t), \Bar{u}(t)), Y^{\veps}(t) \big\rangle \\
+            &+ \big[g(t, X^{\veps}(t),u(t)) - g(t, X^{\veps}(t),\Bar{u}(t))\big]\ind_{E_{\veps}}(t) \Big\}dt \\
+            &+ \int_{0}^{T}K\veps^{2}dt + \left\langle h_{x}(\Bar{X}(t)), Y^{\veps}(t)\right\rangle + o(\veps).
+        \end{aligned}
+    \end{equation*}
+\end{proof}

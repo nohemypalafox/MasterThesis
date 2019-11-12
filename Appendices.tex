@@ -1,0 +1,330 @@
+\chapter{Auxiliary results}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+    We claim that
+    $$
+        \lim \norm{Y_\delta^\veps - Y^{\veps}} = 0
+    $$
+    \begin{align*}
+        Y_{\delta}^{\veps}(s) &= \dfrac{X_{\delta}^{\veps} - X^{\veps}}{\delta} \\
+        &= \dfrac{1}{\delta}\int_{t}^{s} %
+            \left[f(\tau, X_{\delta}^{\veps}(\tau),u{\delta}^{\veps}(\tau)) - %
+            f(\tau, X^{\veps}(\tau), u^{\veps}(\tau))\right]d\tau \\
+        &= \dfrac{1}{\delta}\int_{t}^{s} %
+            \left[f(\tau, X_{\delta}^{\veps}(\tau),u_{\delta}^{\veps}(\tau)) - %
+            f(\tau, X^{\veps}(\tau), u^{\veps}_{\delta}(\tau))\right]d\tau \\
+            &\,+ %
+            \dfrac{1}{\delta}\int_{t}^{s} %
+            \left[f(\tau, X_{\veps}(\tau), u_{\delta}^{\veps}(\tau)) - %
+            f(\tau, X^{\veps}(\tau), u^{\veps}(\tau))\right]d\tau \\
+        &= \dfrac{1}{\delta}\int_{t}^{s} %
+            \left[f(\tau, X_{\delta}^{\veps}(\tau),u_{\delta}^{\veps}(\tau)) - %
+            f(\tau, X^{\veps}(\tau), u^{\veps}_{\delta}(\tau))\right]d\tau \\
+            &\, \,+ %
+            \dfrac{1}{\delta}\int_{[t,s]\cap E^{\veps}_{\delta}} %
+            \left[f(\tau, X^{\veps}(\tau), u(\tau)) - %
+            f(\tau, X^{\veps}(\tau), u^{\veps}(\tau))\right]d\tau \\
+        &= \int_{t}^{s}\left[\int_{0}^{1} f_{x}(\tau, X^{\veps}(\tau) + \theta(X^{\veps}_{\delta}(\tau) - X^{\veps}(\tau)), u^{\veps}_{\delta}(\tau))\right]d\theta
+        Y^{\veps}_{\delta}(\tau)d\tau \\
+        &+ \int_{t}^{s}[f(\tau, X^{\veps}, u) - f(\tau, X^{\veps}, u^{\veps})]d\tau \\
+        &- \dfrac{r^{\veps}_{\delta}(s)}{\delta}.
+    \end{align*}
+    Define $Y^{\veps}$ solution to an ODE and initial condition $Y(t) = 0$
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{theorem}[Interior Maximum Theorem, %
+{\citep[Thm. 19.4, p.~209]{bartle1982elements}}]
+    Let $c$ be an interior point of the domain of f, at which $f$ has a relative 
+    maximum. If the derivative of $f$ at $c$ exists, then it must be equal to zero.
+\end{theorem}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+
+\begin{theorem}[Rolle's Theorem,%
+{\citep[Thm. 19.5, p.~209]{bartle1982elements}}]
+    Suppose that $f$ is continuous on a closed interval $J = [a,b]$, that the 
+    derivative $f'$ exists in the open interval $(a,b)$, and that 
+    $f(a) = f(b) = 0$. Then there exists a point $c \in (a,b)$ such that 
+    $f'(c) = 0$.
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{theorem}[Mean Value Theorem, %
+{\cite[Thm. 19.6, p.~210]{bartle1982elements}}]
+	Suppose that $f$ is continuous on a closed interval $J = [a,b]$ and 
+	differentiable on the open interval $(a,b)$. Then there exists $c \in (a,b)$
+	such that 
+	$$
+	    f(b) - f(a) = f'(c)(b - a).
+	$$
+\end{theorem}
+\begin{proof}
+    Supose that f is continuous on a closed interval $J=[a,b]$
+\end{proof}
+
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{lemma}[Fatou's Lemma, {\citep[Thm. 4.8, p.~33]{bartle2014elements}}]
+    If $(f_n)$ belongs to $M^{+}(X,X)$, then
+    $$
+        \int \liminf f_n d\mu \leq \liminf \int f_n d\mu
+    $$
+\end{lemma}
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{corollary}[{\citep[Thm. 5.4, p.~43]{bartle2014elements}}]
+    If f is measurable, g is integrable and $|f| \leq |g|$, then f is integrable
+    and
+    $$
+        \int |f| d\mu \leq  \int |g| d\mu
+    $$
+\end{corollary}
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{theorem}[{\citep[Thm. 5.5, p.~43]{bartle2014elements}}]
+    A constant multiply $\alpha f$ and a sum $f + g$ of functions in $L$ belongs
+    to $L$ and
+    \begin{align*}
+         \int \alpha fd\mu &= \alpha \int f d\mu \\
+         \int (f + g)d\mu  &= \int fd\mu + \int gd\mu
+    \end{align*}
+\end{theorem}
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{theorem}[Lebesgue Dominated Convergence Theorem, %
+{\citep[Thm. 5.6, p.~44]{bartle2014elements}}]
+    Let $(f_n)$ be a sequence of integrable functions which converges almost
+    everywhere to a real-valued measurable function $f$. If the exists an 
+    integrable function $g$ such that $|f_n| < g$ for all n, then f is integrable
+    and
+    $$
+    \int f d\mu = \lim \int f_n d\mu
+    $$
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{corollary}[{\citep[Thm. 5.9, p.~46]{bartle2014elements}}]
+    Suppose that for some $t_0 \in [a,b]$,  the function $x \rightarrow %
+    f(x, t_0)$ is integrable on $X$, that $\partial f / \partial t$ exists on 
+    $X \times [a,b]$, and that there exists an integrable function g on $X$ such 
+    that
+    $$
+        \left|\dfrac{\partial f}{\partial t} (x,t) \right| \leq g(x).
+    $$
+    Then the function $F(t) = \displaystyle \int f(x,t)d\mu(x)$ is differentiable 
+    on $[a,b]$ and
+    $$
+         \dfrac{dF}{dt} = \dfrac{d }{dt} 
+         \int f(x,t)d\mu(x)  = \int \dfrac{\partial f}{\partial t} f(x,t)d\mu(x)
+    $$
+\end{corollary}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{theorem}[Taylor's Theorem, {\citep[Thm.4, p.~391]{SpivakCalculus}}]
+    Suppose that $f', \ldots f^{(n+1)}$, are defined on $[a,x]$ and 
+    that $R_{n,a}(x)$ is defined by
+    $$
+        f(x) = f(a) + f'(a)(x-a) + \dots +
+        \frac{f^{(n)}(a)}{n!}(x-a)^{n} + R_{n,a}(x). 
+    $$
+    Then
+    \begin{asparaenum}[(i)]
+        \item
+            $R_{n,a}(x) = \dfrac{f^{(n+1)}(t)}{(n)!}(x-t)^{n}(x-a)$ for some 
+            $t \in (a,x)$.
+        \item
+            $R_{n,a}(x) = \dfrac{f^{(n+1)}(t)}{(n+1)!}(x-a)^{n+1}$ for some 
+            $t \in (a,x)$.
+        \item
+            Moreover, if $f^{(n+1)}$ is integrable on $[a,x]$, then
+            $$
+                R_{n,a}(x) = \int_{0}^{x}\dfrac{f^{(n+1)}(t)}{(n)!}(x-t)^{n} dt.
+            $$
+    \end{asparaenum}
+\end{theorem}
+%---------%---------%---------%---------%---------%---------%---------%---------
+The lagrange problem: \\
+A general optimization problem with equality constraints if of the form
+
+\begin{equation}
+    \max \ (\min) \quad f(x_1, \ldots, x_n) \quad \text{subject to} \ %
+    \left\lbrace 
+        \begin{matrix}
+            g_1(x_1, \ldots, x_n) = b_1 & \\
+            \vdots & (m < n) \\
+            g_m(x_1, \ldots, x_n) = b_m & \\
+        \end{matrix}
+    \right..
+\end{equation}
+We assume that $m<n$ because otherwise there are usually no degrees of freedom. 
+In vector formulation, the problem is
+$$
+    \max \ (\min) \quad f(x) \quad \text{subject to} \ g_j(x) = b_j 
+$$
+
+
+%[theorem name, {\citep[Thm. #, page]{reference}}]
+\begin{theorem}[Lagrange Theorem, {\citep[Thm. 3.3.1, p. 118]{LeonardLong}}]
+    Suppose that the function f and $g_1, \ldots, g_m$ are defined on a set S in 
+    $\mathbf{R}^n$, and that $x^* = (x_{1}^{*}, \ldots, x_{n}^{*})$ that solves 
+    problem
+\end{theorem}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{corollary}
+    Suppose that for some $t_0 \in [a,b]$, $f(x,t_0) = \lim_{t \to t_0} f(x,t)$
+    for each $x \in X$, and that there exists an integrable function g on X 
+    such that $|f(t,x)| \leq g(x)$ for all $t\in[a,b]$. Then 
+    $$
+        \int{f(x,t_0)}d\mu = \lim_{t \to t_0} \int{f(x,t)}d\mu. 
+    $$
+\end{corollary}
+
+\begin{corollary}
+    If the function $t \to f(t,x)$ is continuous on $[a,b]$ for each fixed 
+    $x \in X$ and exists $g \in \mathscr{L}$ such that 
+    $$
+        |f(x,t)| \leq g(x).
+    $$
+    Then the function
+    $$
+        F(t) = \displaystyle \int f(x,t)d\mu(x)
+    $$
+    is continuous on $[a,b]$.
+\end{corollary}
+
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+
+
+\section{Optimal Control} 
+	
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+%[theorem name, {\citep[Thm. #, page]{reference}}]
+\begin{definition}
+	Let $I \subset \mathbb{R}$ be an interval. We say a finite-valued function
+    $u : I \leftarrow \mathbb{R}$ is piecewise continuous if it continuous if it
+    is continuous at each $t \in I$, with possible exception of at most a finite 
+    number of t, and if u is equal to either its left or right limit at every
+    $t \in I$.
+\end{definition}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{definition}
+	Let $x : I \rightarrow \mathbb{R}$ be continuous on I, differentiable at all
+    but finitely points of I. Further, suppose that $x'$ is continuous
+    wherever it is defined. Then, we say x is piecewise differentiable.
+\end{definition}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{definition}
+	Let $k : I \rightarrow \mathbb{R}$. We say k is continuously differentiable
+    if $k' $ exists and is continuous on I.
+\end{definition}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{definition}
+	A function $k(t)$ is said to be concave on $[a,b]$ if 
+    $$
+    	\alpha k(t_1) + (1-\alpha)k(t_2) \leq k(\alpha t_1 + (1-\alpha)t_2)
+    $$
+    for all $0 \leq \alpha \leq 1$ and for any $a \leq t_1,t_2 \leq b$.
+\end{definition}
+
+A function $k$ is said to be convex on $[a,b]$ if it satisfies the reverse 
+inequality , or equivalently, if $-k$ is concave. The second derivative of a
+twice differentiable concave function is non-positive; in the case of a convex
+function, is non-negative. If $k$ is concave and differentiable, then we have 
+a tangent line property
+	$$
+    	k(t_2) - k(t_1) \geq (t_2 - t_1)k'(t_2)
+	$$
+for all $a \leq t_1,t_2 \leq b$. 
+In the case where $k$ is a function in two variables, we have the analogue to
+the tangent line property as follows
+	$$
+    	k(x_1,y_1) - k(x_2,y_2) \geq (x_1 - x_2)k_x(x_1,y_1) + 
+        (y_1 - y_2)k_y(x_1,y_1)
+	$$
+    for all points $(x_1,y_1),(x_2,y_2)$ in the domain of $k$.
+
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+\begin{definition}
+	A function k is called Lipchitz if there exists a constant c (particular
+    to k) such that $|k(t_1) - k(t_2)| \leq c|t_1 - t_2|$ for all points $t_1,
+    t_2$ in the domain of k. The constant c is called the Lipchitz constant of 
+    k.
+\end{definition}
+
+Note that a Lipschitz function is uniformly continuous
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+\begin{theorem}
+	If a function $k : I \rightarrow \mathbb{R}$ is piecewise differentiable on
+    a bounded interval I, then K is Lipschitz
+\end{theorem}
+%---------%---------%---------%---------%---------%---------%---------%---------
+%---------%---------%---------%---------%---------%---------%---------%---------
+
+existence optimal control theorem
+
+\begin{theorem}[Existence Theorem]
+    Consider the standard optimal control problem
+\end{theorem}
+Pontryagins theorems
+
+
+\begin{theorem}[{\cite[Thm.*]{lenhart2007optimal}}]
+	Consider
+    \begin{align*}
+    	J(u) &= \int_{t_0}^{t_1} f(t,x(t),u(t))dt \\
+        \text{subject to} \ x'(t) &= g(t,x(t),u(t)), \ x(t_0) = x_0 
+    \end{align*}
+    Suppose that $f(t,x(t),u(t))$ and $g(t,x(t),u(t))$ are both continuously 
+    differentiable functions in their three arguments and concave in x and u. 
+    Suppose $u^{*}$ is a control, with associated state $x^{*}$, and $\lambda$
+    a piecewise differentiable function, such that $u^{*}$, $x^{*}$, and 
+    $\lambda$together satisfy on $t_0 \leq t \leq t_1$:
+    \begin{align*}
+    	& f_{u} + \lambda g_{u} = 0, \\
+        & \lambda ' = f_{u} + \lambda g_{u}, \\
+        & \lambda (t_1) = 0, \\
+        & \lambda (t) \geq 0.
+    \end{align*}
+    Then for all controls $u$, we have
+    $$
+    	J(u^{*}) \geq J(u)
+    $$
+\end{theorem}
+
+\begin{theorem}
+	Let the set of controls for problem (aqui va una referencia) be Lebesgue
+    integrable functions (instead of just piecewise continuous functions) on
+    $t_0 \leq t \leq t_1$ with values in $\mathbb{R}$ Suppose that 
+    $f(t,x(t),u(t))$ is convex in $u$, and there exist constants $C_4$ and
+    $C_1, C_2, C_3 > 0$ and $\beta > 1$ such that
+    \begin{asparaenum}[i.]
+    	\item
+        	$g(t,x,u) = \alpha (t,x) + \beta (t,x)u$
+        \item
+        	$|g(t,x,u)| \leq C_1 |1 + |x| + |u||$
+        \item
+        	$|g(t,x_1,u) - g(t,x,u)| \leq C_2 |x_1 - x|(1 + |u|)$
+        \item
+        	$f(t,x,u) \geq C_3 |u|^{\beta} - C_4$
+    \end{asparaenum}
+	for all t with $t_0 \leq t \leq t_1$, x, $x_1$, u in $\mathbb{R}$. Then 
+    there exists an optimal control $u^{*}$ maximizing $J(u)$, with $J(u^{*})$
+    finite.
+\end{theorem}
+\todo{Put here comments necessary to establish thm 3.1 [Lenhart's book] }

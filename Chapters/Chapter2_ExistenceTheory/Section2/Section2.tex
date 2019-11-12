@@ -1,0 +1,120 @@
+\section{Control Systems}\label{Section:ContSys}
+%----------%----------%----------%----------%----------%----------%----------%----------
+%----------%----------%----------%----------%----------%----------%----------%----------
+    In Section 2, we define what a control system is, and present some assumptions needed 
+    to enunciate and prove the existence of an optimal pair.
+
+    We assume that $U$ is a non-empty closed subset in $\mathbb{R}^n$. For any initial pair 
+    $(t,x)\in \mathbb{R}_{+}\times\mathbb{R}^n$, we rewrite the control system here:
+    \begin{equation}\label{ControlSystem}
+        \begin{aligned}
+            \dot{X}(s) &=f(s,u(s),X(s)),\, s\in [t,\infty) \\
+            X(t)    &=x.
+        \end{aligned}
+    \end{equation}
+    Let us begin with the following assumption:
+    \begin{asparaenum}[(\textbf{C}-1)]\label{Cond:C1}
+        \item 
+            The map $f:\mathbb{R}_{+}\times U\times \mathbb{R}^n\to \mathbb{R}^n$ 
+            is measurable and there exists a constant $L>0$ such that
+        \begin{equation}
+            \begin{aligned}
+                &\abs{f(t,u,x_1)-f(t,u,x_2)} \leq L\abs{x_1-x_2},\, (t,u) \in %
+                    \mathbb{R}_{+}\times U,\, x_1,x_2\in \mathbb{R}^n, \\
+                &\abs{f(t,u,0)} \leq L \,\mbox{for every}\,(t,u) \in %
+                    \mathbb{R}_{+}\times U.
+            \end{aligned}
+        \end{equation}
+    \end{asparaenum}
+    Note that this condition implies:
+    $$
+        \abs{f(t,u,x)} \leq L(1+\abs{x}), \, \, (t,u,x) \in %
+        \mathbb{R}_{+}\times U \times \mathbb{R}^n.
+    $$
+    This condition is also usually called the Lipschitz condition of the function
+    $f$. A key feature of the above is that the bond of $\abs{f(t,u,x)}$, depending 
+    on $\abs{x}$, is uniform in $u$.
+%----------%----------%----------%----------%----------%----------%----------%----------
+%----------%----------%----------%----------%----------%----------%----------%----------
+    \begin{proposition}[{\cite[Prop.2.1.1, p.37]{YongDG_ACIntro}}]\label{prop2.1.1}
+        Let (C1) (\ref{Cond:C1}) hold. Then, for any $(t,x)\in\mathbb{R}_{+}%
+        \times\mathbb{R}^n$, and $u(\cdot)\in \mathcal{U}[t,\infty)$, there 
+        exits a unique solution $X(\cdot)\equiv X(\cdot;t,x,u(\cdot))$ to the 
+        state equation \cref{ControlSystem}. Moreover, the following estimate 
+        hold:
+        \begin{equation}\label{eq2.2}
+            \left\{ 
+            \begin{array}{l}
+                \abs{X(s;t,x,u(\cdot))} \leq e^{L(s-t)}(1+|x|)-1, \\
+                    \abs{X(s;t,x,u(\cdot))-x}\leq [e^{L(s-t)}-1](1+|x|),\, %
+                s\in (t,\infty],\, u(\cdot)\in \mathcal{U}[t,\infty).\\
+            \end{array}
+            \right.
+        \end{equation} 
+        Further, for any $t\in \mathbb{R}_{+}$, $x_1,x_2\in \mathbb{R}^n$, and 
+        $u(\cdot)\in \mathcal{U}[t,\infty)$,
+        \begin{equation}\label{eq2.3}
+            \abs{X(s;t,x_1,u(\cdot))-X(s;t,x_2,u(\cdot))} \leq e^{L(s-t)}|x_1-x_2|,
+        \end{equation}
+        for every $s\in [t,\infty)$.
+    \end{proposition}
+%----------%----------%----------%----------%----------%----------%----------%----------
+%----------%----------%----------%----------%----------%----------%----------%----------
+    \begin{proof}
+        Since $[t,\infty)=\bigcup_{T\geq t}[t,T]$, it suffices to prove our conclusion 
+        on any interval $[t,T]$ with $0\leq t<T<\infty$.
+        
+        For any $X(\cdot)\in C([t,T];\mathbb{R}^n)$, we define
+        $$
+            [\mathcal{S}X(\cdot)](s):=x+\int_{t}^{s}f(r,u(r),X(r))dr,\,s\in [t,T].
+        $$
+        Then, for any $X_1(\cdot),X_2(\cdot)\in C([t,T];\mathbb{R}^n)$ and by condition 
+        (C1) (\ref{Cond:C1}), we have
+        \begin{eqnarray*}
+            \norm{[\mathcal{S}X_1(\cdot)]-[\mathcal{S}X_2(\cdot)]}_{C([t,T];\mathbb{R}^n)}%
+            &=& \norm{ \int_{t}^{s}f(r,u(r),X_1(r))dr-\int_{t}^{s}f(r,u(r),X_2(r))dr}   \\ 
+            &\leq& L \norm{\int_{t}^{s} (X_1(r)-X_2(r)) dr} \\
+            &\leq& L \norm{X_1(\cdot)-X_2(\cdot)}_{C([t,T];\mathbb{R}^n)}|t-s|.
+        \end{eqnarray*}
+        Define $\delta=|t-s|$, then
+        $$
+            \norm{[\mathcal{S}X_1(\cdot)]-[\mathcal{S}X_2(\cdot)]}_{C([t,T] ; \mathbb{R}^n)} %
+            \leq \delta L\norm{X_1(\cdot)-X_2(\cdot)}_{C([t,T];\mathbb{R}^n)}.
+        $$
+        Therefore, by chosing $\delta<\frac{1}{L}$, we see that $\mathcal{S}: C([t,T];%
+        \mathbb{R}^n) \to C([t,T];\mathbb{R}^n)$ is contractive. Hence, by Banach fixed
+        point theorem \cref{thm: BFP}, the control system \cref{ControlSystem} admits 
+        a unique solution on $[t,t+\delta]$. Repeating the argument, we can obtain that 
+        \cref{ControlSystem} admits a unique solution on $[t,T]$.
+        Next, for the unique solution $X(\cdot)$ of \cref{ControlSystem}, we have
+        $$
+            |X(s)|\leq |x| + L \int_{t}^{s}(1 + |X(r)|)dr, \, \, s\in [t,T].
+        $$
+        If we denote the right-hand side of the above by $\theta(s)$, then
+        $$
+            \dot{\theta}(s)=L+L|X(s)|\leq L+L\theta(s),
+        $$
+        which leads to
+        $$
+            \dot{\theta}(s)\leq e^{L(s-t)}|x| + L\int_{t}^{s}e^{L(s-r)} dr = %
+            e^{L(s-t)}|x|+e^{L(s-t)}-1,
+        $$
+        thus, $|X(s)|\leq e^{L(s-t)}(1+|x|)-1$. This gives the first estimate in \cref{eq2.2}. 
+        Next, we will apply the first estimate
+        \begin{align*}
+            |X(s)-x| &=     \abs{\int_{t}^{s}f(r,u(r),X(r))dr} \\
+                    &\leq   \int_{t}^{S}|f(r,u(r),X(r))|dr  \\
+                    &\leq   L\int_{t}^{s}(1+|X(r)|)dr \\
+                    &\leq   L\int_{t}^{s}e^{L(r-t)}(1+|x|)dr\\
+            &= (1+|x|)[e^{L(s-t)}-1].
+        \end{align*}
+        
+        This prove the second estimate in (\ref{eq2.2}). Finally, for $x_1,x_2\in \mathbb{R}^n$, 
+        let us denote $X_i(\cdot)=X(\cdot;t,x_i,u(\cdot))$. Then
+        $$
+            |X_1(s)-X_2(s)|\leq L\int_{t}^{s} |X_1(r)-X_2(r)|dr.
+        $$
+        By Gronwall'ss Inequality (\Cref{prop:GI}), we obtain \cref{eq2.3}.
+    \end{proof}
+    We can see that the estimates in \cref{eq2.2} are uniform in $u(\cdot)\in \mathcal{U}[t,T]$. 
+%----------%----------%----------%----------%----------%----------%----------%----------
